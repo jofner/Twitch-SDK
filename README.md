@@ -1,16 +1,16 @@
-# TwitchTV API SDK for PHP
+# TwitchTV SDK for PHP
 
-> This is unofficial [TwitchTV API SDK for PHP](https://github.com/jofner/Twitch-SDK).
+> This is unofficial [TwitchTV SDK for PHP](https://github.com/jofner/Twitch-SDK).
 SDK is currently under development, so functions, readme and/or examples will
 change.
 
 ## Requirements
 
-TwitchTV API SDK for PHP requires PHP 5.3.0 or later with cURL.
+TwitchTV SDK for PHP requires PHP 5.3.0 or later with cURL.
 
 ## Installation
 
-The best way to install TwitchTV API SDK is use [Composer](http://getcomposer.org/).
+The best way to install TwitchTV SDK is use [Composer](http://getcomposer.org/).
 
 ### Add bundle to your composer.json file
 
@@ -30,7 +30,7 @@ $ composer require ritero/twitch-sdk:dev-master
 ```
 
 The downloaded package includes the `src` directory. This directory contains 
-the source code of TwitchTV API SDK for PHP. This is the only directory 
+the source code of TwitchTV SDK for PHP. This is the only directory 
 that you will need in order to deploy your application.
 
 ## Getting started
@@ -44,7 +44,7 @@ like `authUserGet()`.
 #### With autoloader (Frameworks etc.)
 
 ```php
-use \ritero\SDK\TwitchTV;
+use \ritero\SDK\TwitchTV\TwitchSDK;
 
 $twitch = new TwitchSDK;
 ...
