@@ -8,6 +8,8 @@ namespace ritero\SDK\TwitchTV;
  * PHP SDK for interacting with the TwitchTV API
  * 
  * @author Josef Ohnheiser <ritero@ritero.eu>
+ * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
+ * @homepage https://github.com/jofner/Twitch-SDK
  * @version 0.1
  */
 class TwitchSDK
@@ -53,6 +55,26 @@ class TwitchSDK
                 throw new TwitchException('Wrong Twitch API config parameters');
             }
         }
+    }
+
+    /**
+     * Basic information about the API and authentication status
+     * @param   string
+     * @return  stdClass
+     */
+    public function status($token = null)
+    {
+        $auth = null;
+
+        if (!is_null($token)) {
+            if ($this->authConfig === false) {
+                $this->authConfigException();
+            } else {
+                $auth = $this->buildQueryString(array('oauth_token' => $token));
+            }
+        }
+
+        return $this->request($auth);
     }
 
     /**
