@@ -10,7 +10,7 @@ namespace ritero\SDK\TwitchTV;
  * @author Josef Ohnheiser <ritero@ritero.eu>
  * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
  * @homepage https://github.com/jofner/Twitch-SDK
- * @version 0.1
+ * @version 0.1.1
  */
 class TwitchSDK
 {
@@ -129,9 +129,10 @@ class TwitchSDK
      * Summarize streams
      * @param   string
      * @param   array
+     * @param   boolean
      * @return  stdClass
      */
-    public function streamsSummarize($game = null, array $channels = null)
+    public function streamsSummarize($game = null, array $channels = null, $hls = null)
     {
         if (!empty($channels)) {
             $channels = implode(',', $channels);
@@ -140,6 +141,7 @@ class TwitchSDK
         $query_string = $this->buildQueryString(array(
             'game' => $game,
             'channel' => $channels,
+            'hls' => $hls,
             ));
 
         return $this->request(self::URI_STREAM_SUMMARY . $query_string);
@@ -149,13 +151,15 @@ class TwitchSDK
      * Get featured streams
      * @param   integer
      * @param   integer
+     * @param   boolean
      * @return  stdClass
      */
-    public function streamsFeatured($limit = null, $offset = null)
+    public function streamsFeatured($limit = null, $offset = null, $hls = null)
     {
         $query_string = $this->buildQueryString(array(
             'limit' => $limit,
             'offset' => $offset,
+            'hls' => $hls,
             ));
 
         return $this->request(self::URI_STREAMS_FEATURED . $query_string);
@@ -166,13 +170,15 @@ class TwitchSDK
      * @param   array
      * @param   integer
      * @param   integer
+     * @param   boolean
+     * @param   boolean
      * @return  stdClass
      */
-    public function streamsByChannels($channels, $limit = null, $offset = null)
+    public function streamsByChannels($channels, $limit = null, $offset = null, $embeddable = null, $hls = null)
     {
         $channels_string = implode(',', $channels);
 
-        return $this->getStreams(null, $limit, $offset, $channels_string);
+        return $this->getStreams(null, $limit, $offset, $channels_string, $embeddable, $hls);
     }
 
     /**
@@ -180,11 +186,13 @@ class TwitchSDK
      * @param   string
      * @param   integer
      * @param   integer
+     * @param   boolean
+     * @param   boolean
      * @return  stdClass
      */
-    public function streamsByGame($game, $limit = null, $offset = null)
+    public function streamsByGame($game, $limit = null, $offset = null, $embeddable = null, $hls = null)
     {
-        return $this->getStreams($game, $limit, $offset);
+        return $this->getStreams($game, $limit, $offset, null, $embeddable, $hls);
     }
 
     /**
@@ -359,15 +367,19 @@ class TwitchSDK
      * @param   integer
      * @param   integer
      * @param   string
+     * @param   boolean
+     * @param   boolean
      * @return  stdClass
      */
-    private function getStreams($game = null, $limit = null, $offset = null, $channels = null)
+    private function getStreams($game = null, $limit = null, $offset = null, $channels = null, $embeddable = null, $hls = null)
     {
         $params = array(
             'game' => $game,
             'limit' => $limit,
             'offset' => $offset,
             'channel' => !empty($channels) ? $channels : null,
+            'embeddable' => $embeddable,
+            'hls' => $hls,
         );
 
         $query_string = $this->buildQueryString($params);
