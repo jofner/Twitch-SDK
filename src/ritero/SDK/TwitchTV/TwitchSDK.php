@@ -10,12 +10,33 @@ namespace ritero\SDK\TwitchTV;
  * @author Josef Ohnheiser <ritero@ritero.eu>
  * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
  * @homepage https://github.com/jofner/Twitch-SDK
- * @version 0.1.2
+ * @version 0.1.3
  */
 class TwitchSDK
 {
     /** @var array */
-    protected $authConfig = false;
+    protected $auth_config = false;
+
+    /* Set timeout default. */
+    public $timeout = 30;
+
+    /* @var integer Set connect timeout */
+    public $connect_timeout = 30;
+
+    /* @var boolean Verify SSL Cert */
+    public $ssl_verifypeer = false;
+
+    /* @var integer Contains the last HTTP status code returned */
+    public $http_code = 0;
+
+    /* @var array Contains the last HTTP headers returned */
+    public $http_info = array();
+
+    /** @var boolean Throw cURL errors */
+    public $throw_curl_errors = true;
+
+    /* @var string Set the useragnet */
+    private $useragent = 'ritero TwitchSDK 0.1.3';
 
     /**
      * TwitchAPI URI's
@@ -50,7 +71,7 @@ class TwitchSDK
 
         if (!empty($config)) {
             if ($this->configValidate($config) === true) {
-                $this->authConfig = $config;
+                $this->auth_config = $config;
             } else {
                 throw new TwitchException('Wrong Twitch API config parameters');
             }
@@ -67,7 +88,7 @@ class TwitchSDK
         $auth = null;
 
         if (!is_null($token)) {
-            if ($this->authConfig === false) {
+            if ($this->auth_config === false) {
                 $this->authConfigException();
             } else {
                 $auth = $this->buildQueryString(array('oauth_token' => $token));
@@ -342,14 +363,14 @@ class TwitchSDK
      */
     public function authLoginURL($scope)
     {
-        if ($this->authConfig === false) {
+        if ($this->auth_config === false) {
             $this->authConfigException();
         }
 
         $query_string = $this->buildQueryString(array(
             'response_type' => 'code',
-            'client_id' => $this->authConfig['client_id'],
-            'redirect_uri' => $this->authConfig['redirect_uri'],
+            'client_id' => $this->auth_config['client_id'],
+            'redirect_uri' => $this->auth_config['redirect_uri'],
             'scope' => $scope,
             ));
 
@@ -363,15 +384,15 @@ class TwitchSDK
      */
     public function authAccessTokenGet($code)
     {
-        if ($this->authConfig === false) {
+        if ($this->auth_config === false) {
             $this->authConfigException();
         }
 
         $query_string = $this->buildQueryString(array(
-            'client_id' => $this->authConfig['client_id'],
-            'client_secret' => $this->authConfig['client_secret'],
+            'client_id' => $this->auth_config['client_id'],
+            'client_secret' => $this->auth_config['client_secret'],
             'grant_type' => 'authorization_code',
-            'redirect_uri' => $this->authConfig['redirect_uri'],
+            'redirect_uri' => $this->auth_config['redirect_uri'],
             'code' => $code,
             ));
 
@@ -386,13 +407,13 @@ class TwitchSDK
      */
     public function authUserGet($token)
     {
-        if ($this->authConfig === false) {
+        if ($this->auth_config === false) {
             $this->authConfigException();
         }
 
         $query_string = $this->buildQueryString(array(
             'oauth_token' => $token,
-            'client_id' => $this->authConfig['client_id'],
+            'client_id' => $this->auth_config['client_id'],
             ));
 
         return $this->request(self::URI_USER_AUTH . $query_string);
@@ -406,13 +427,13 @@ class TwitchSDK
      */
     public function authChannelGet($token)
     {
-        if ($this->authConfig === false) {
+        if ($this->auth_config === false) {
             $this->authConfigException();
         }
 
         $query_string = $this->buildQueryString(array(
             'oauth_token' => $token,
-            'client_id' => $this->authConfig['client_id'],
+            'client_id' => $this->auth_config['client_id'],
             ));
 
         return $this->request(self::URI_CHANNEL_AUTH . $query_string);
@@ -426,13 +447,13 @@ class TwitchSDK
      */
     public function authStreamsFollowed($token)
     {
-        if ($this->authConfig === false) {
+        if ($this->auth_config === false) {
             $this->authConfigException();
         }
 
         $query_string = $this->buildQueryString(array(
             'oauth_token' => $token,
-            'client_id' => $this->authConfig['client_id'],
+            'client_id' => $this->auth_config['client_id'],
             ));
 
         return $this->request(self::URI_STREAMS_FOLLOWED_AUTH . $query_string);
@@ -516,36 +537,63 @@ class TwitchSDK
      * @return  stdClass
      * @throws  \ritero\SDK\TwitchTV\TwitchException
      */
-    private function request($uri, $type = 'GET', $fields = array())
+    private function request($uri, $method = 'GET', $postfields = array())
     {
+        $this->http_info = array();
+
         $crl = curl_init();
-        curl_setopt($crl, CURLOPT_URL, self::URL_TWITCH . $uri);
-        curl_setopt($crl, CURLOPT_HEADER, 0);
-        curl_setopt($crl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($crl, CURLOPT_CONNECTTIMEOUT, 5);
-        curl_setopt($crl, CURLOPT_SSL_VERIFYPEER, true);
-        curl_setopt($crl, CURLOPT_CAINFO, __DIR__ . '/cacert.pem');
-        curl_setopt($crl, CURLOPT_CUSTOMREQUEST, $type);
+        curl_setopt($crl, CURLOPT_USERAGENT, $this->useragent);
+        curl_setopt($crl, CURLOPT_CONNECTTIMEOUT, $this->connect_timeout);
+        curl_setopt($crl, CURLOPT_TIMEOUT, $this->timeout);
+        curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($crl, CURLOPT_HTTPHEADER, array('Expect:'));
+        curl_setopt($crl, CURLOPT_SSL_VERIFYPEER, $this->ssl_verifypeer);
+        curl_setopt($crl, CURLOPT_HEADERFUNCTION, array($this, 'getHeader'));
+        curl_setopt($crl, CURLOPT_HEADER, false);
 
-        if (!empty($fields)) {
-            foreach ($fields as $key => $value) {
-                $fields_string .= $key . '=' . urlencode($value) . '&';
-            }
-            rtrim($fields_string, '&');
-
-            curl_setopt($crl, CURLOPT_POST, count($fields));
-            curl_setopt($crl, CURLOPT_POSTFIELDS, $fields_string);
+        switch ($method) {
+            case 'POST':
+                curl_setopt($crl, CURLOPT_POST, true);
+                if (!empty($postfields)) {
+                    curl_setopt($crl, CURLOPT_POSTFIELDS, implode('&', $postfields));
+                }
+                break;
+            case 'DELETE':
+                curl_setopt($crl, CURLOPT_CUSTOMREQUEST, 'DELETE');
+                if (!empty($postfields)) {
+                    $uri = self::URL_TWITCH . $uri . '?' . implode('&', $postfields);
+                }
         }
 
-        $ret = curl_exec($crl);
+        curl_setopt($crl, CURLOPT_URL, self::URL_TWITCH . $uri);
+        
+        $response = curl_exec($crl);
+        
+        $this->http_code = curl_getinfo($crl, CURLINFO_HTTP_CODE);
+        $this->http_info = array_merge($this->http_info, curl_getinfo($crl));
 
-        if (curl_errno($crl)) {
+        if (curl_errno($crl) && $this->throw_curl_errors === true) {
             throw new TwitchException(curl_error($crl), curl_errno($crl));
         }
 
         curl_close($crl);
 
-        return json_decode($ret);
+        return json_decode($response);
+    }
+
+    /**
+     * Get the header info to store
+     */
+    private function getHeader($ch, $header)
+    {
+        $i = strpos($header, ':');
+        if (!empty($i)) {
+            $key = str_replace('-', '_', strtolower(substr($header, 0, $i)));
+            $value = trim(substr($header, $i + 2));
+            $this->http_header[$key] = $value;
+        }
+
+        return strlen($header);
     }
 
     /**
