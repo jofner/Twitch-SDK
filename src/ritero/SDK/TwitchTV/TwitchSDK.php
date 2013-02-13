@@ -10,7 +10,7 @@ namespace ritero\SDK\TwitchTV;
  * @author Josef Ohnheiser <ritero@ritero.eu>
  * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
  * @homepage https://github.com/jofner/Twitch-SDK
- * @version 0.1.1
+ * @version 0.1.2
  */
 class TwitchSDK
 {
@@ -256,6 +256,83 @@ class TwitchSDK
             ));
 
         return $this->request(self::URI_GAMES_TOP . $query_string);
+    }
+
+    /**
+     * Get HTML code for stream embedding
+     * @param   string
+     * @param   integer
+     * @param   integer
+     * @param   integer
+     * @return  string
+     */
+    public function embedStream($channel, $width = 620, $height = 378, $volume = 25)
+    {
+        return '<object type="application/x-shockwave-flash" 
+                height="' . $height . '" 
+                width="' . $width . '" 
+                id="live_embed_player_flash" 
+                data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=' . $channel . '" 
+                bgcolor="#000000">
+                <param  name="allowFullScreen" 
+                    value="true" />
+                <param  name="allowScriptAccess" 
+                    value="always" />
+                <param  name="allowNetworking" 
+                    value="all" />
+                <param  name="movie" 
+                    value="http://www.twitch.tv/widgets/live_embed_player.swf" />
+                <param  name="flashvars" 
+                    value="hostname=www.twitch.tv&channel=' . $channel . '&auto_play=true&start_volume=' . $volume . '" />
+                </object>';
+    }
+
+    /**
+     * Get HTML code for video embedding
+     * @param   string
+     * @param   integer
+     * @param   integer
+     * @param   integer
+     * @param   integer
+     * @return  string
+     */
+    public function embedVideo($channel, $chapterid, $width = 400, $height = 300, $volume = 25)
+    {
+        return '<object bgcolor="#000000" 
+                    data="http://www.twitch.tv/widgets/archive_embed_player.swf" 
+                    width="' . $width . '" 
+                    height="' . $height . '" 
+                    id="clip_embed_player_flash" 
+                    type="application/x-shockwave-flash"> 
+                <param  name="movie" 
+                    value="http://www.twitch.tv/widgets/archive_embed_player.swf" /> 
+                <param  name="allowScriptAccess" 
+                    value="always" /> 
+                <param  name="allowNetworking" 
+                    value="all" /> 
+                <param name="allowFullScreen" 
+                    value="true" /> 
+                <param  name="flashvars" 
+                    value="channel=' . $channel . '&start_volume=' . $volume . '&auto_play=false&chapter_id=' . $chapterid . '" />
+                </object>';
+    }
+
+    /**
+     * Get HTML code for chat embedding
+     * @param   string
+     * @param   integer
+     * @param   integer
+     * @return  string
+     */
+    public function embedChat($channel, $width = 400, $height = 300)
+    {
+        return '<iframe frameborder="0" 
+                    scrolling="no" 
+                    id="chat_embed" 
+                    src="http://twitch.tv/chat/embed?channel=' . $channel . '&amp;popout_chat=true" 
+                    height="' . $height . '" 
+                    width="' . $width . '">
+                </iframe>';
     }
 
     /**
