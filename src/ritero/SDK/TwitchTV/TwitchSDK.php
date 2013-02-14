@@ -10,7 +10,7 @@ namespace ritero\SDK\TwitchTV;
  * @author Josef Ohnheiser <ritero@ritero.eu>
  * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
  * @homepage https://github.com/jofner/Twitch-SDK
- * @version 0.1.4
+ * @version 0.1.5
  */
 class TwitchSDK
 {
@@ -395,7 +395,7 @@ class TwitchSDK
             'code' => $code,
             ));
 
-        return $this->request(self::URI_AUTH_TOKEN . $query_string, 'POST');
+        return $this->request(self::URI_AUTH_TOKEN, 'POST', $query_string);
     }
 
     /**
@@ -532,11 +532,11 @@ class TwitchSDK
      * TwitchAPI request
      * @param   string
      * @param   string
-     * @param   array
+     * @param   string
      * @return  stdClass
      * @throws  \ritero\SDK\TwitchTV\TwitchException
      */
-    private function request($uri, $method = 'GET', $postfields = array())
+    private function request($uri, $method = 'GET', $postfields = null)
     {
         $this->http_info = array();
 
@@ -553,14 +553,14 @@ class TwitchSDK
         switch ($method) {
             case 'POST':
                 curl_setopt($crl, CURLOPT_POST, true);
-                if (!empty($postfields)) {
-                    curl_setopt($crl, CURLOPT_POSTFIELDS, implode('&', $postfields));
+                if (!is_null($postfields)) {
+                    curl_setopt($crl, CURLOPT_POSTFIELDS, ltrim($postfields, '?'));
                 }
                 break;
             case 'DELETE':
                 curl_setopt($crl, CURLOPT_CUSTOMREQUEST, 'DELETE');
-                if (!empty($postfields)) {
-                    $uri = self::URL_TWITCH . $uri . '?' . implode('&', $postfields);
+                if (!is_null($postfields)) {
+                    $uri = self::URL_TWITCH . $uri . $postfields;
                 }
         }
 
