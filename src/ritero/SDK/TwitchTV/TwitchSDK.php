@@ -10,33 +10,36 @@ namespace ritero\SDK\TwitchTV;
  * @author Josef Ohnheiser <ritero@ritero.eu>
  * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
  * @homepage https://github.com/jofner/Twitch-SDK
- * @version 0.1.5
+ * @version 0.2.6
  */
 class TwitchSDK
 {
     /** @var array */
     protected $auth_config = false;
 
-    /* Set timeout default. */
+    /** @var integer Set timeout default. */
     public $timeout = 30;
 
-    /* @var integer Set connect timeout */
+    /** @var integer Set connect timeout */
     public $connect_timeout = 30;
 
-    /* @var boolean Verify SSL Cert */
+    /** @var boolean Verify SSL Cert */
     public $ssl_verifypeer = false;
 
-    /* @var integer Contains the last HTTP status code returned */
+    /** @var integer Contains the last HTTP status code returned */
     public $http_code = 0;
+    
+    /** @var array Contains the last Server headers returned */
+    public $http_header = array();
 
-    /* @var array Contains the last HTTP headers returned */
+    /** @var array Contains the last HTTP headers returned */
     public $http_info = array();
 
     /** @var boolean Throw cURL errors */
     public $throw_curl_errors = true;
 
-    /* @var string Set the useragnet */
-    private $useragent = 'ritero TwitchSDK 0.1.3';
+    /** @var string Set the useragnet */
+    private $useragent = 'ritero TwitchSDK dev-0.2.*';
 
     /**
      * TwitchAPI URI's
@@ -56,6 +59,8 @@ class TwitchSDK
     const URI_AUTH_TOKEN = 'oauth2/token';
     const URI_USER_AUTH = 'user';
     const URI_CHANNEL_AUTH = 'channel';
+    const URI_CHANNEL_FOLLOWS_AUTH = 'channels/%s/follows';
+    const URI_CHANNEL_EDITORS_AUTH = 'channels/%s/editors';
     const URI_STREAMS_FOLLOWED_AUTH = 'streams/followed';
 
     /**
@@ -357,7 +362,7 @@ class TwitchSDK
 
     /**
      * Get login URL for authentication
-     * @param   string
+     * @param   string $scope Specify which permissions your app requires (space separated list)
      * @return  string
      */
     public function authLoginURL($scope)
@@ -436,6 +441,52 @@ class TwitchSDK
             ));
 
         return $this->request(self::URI_CHANNEL_AUTH . $query_string);
+    }
+
+    /**
+     * Returns an array of users who follow the specified channel
+     *  - requires scope 'channel_read'
+     * @param   string
+     * @param   string
+     * @param   integer
+     * @param   integer
+     * @return  stdClass
+     */
+    public function authChannelFollows($token, $channel, $limit = null, $offset = null)
+    {
+        if ($this->auth_config === false) {
+            $this->authConfigException();
+        }
+
+        $query_string = $this->buildQueryString(array(
+            'oauth_token' => $token,
+            'client_id' => $this->auth_config['client_id'],
+            'limit' => $limit,
+            'offset' => $offset,
+            ));
+
+        return $this->request(sprintf(self::URI_CHANNEL_FOLLOWS_AUTH, $channel) . $query_string);
+    }
+
+    /**
+     * Returns an array of users who are editors of specified channel
+     *  - requires scope 'channel_read'
+     * @param   string
+     * @param   string
+     * @return  stdClass
+     */
+    public function authChannelEditors($token, $channel)
+    {
+        if ($this->auth_config === false) {
+            $this->authConfigException();
+        }
+
+        $query_string = $this->buildQueryString(array(
+            'oauth_token' => $token,
+            'client_id' => $this->auth_config['client_id'],
+            ));
+
+        return $this->request(sprintf(self::URI_CHANNEL_EDITORS_AUTH, $channel) . $query_string);
     }
 
     /**
