@@ -10,7 +10,7 @@ namespace ritero\SDK\TwitchTV;
  * @author Josef Ohnheiser <ritero@ritero.eu>
  * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
  * @homepage https://github.com/jofner/Twitch-SDK
- * @version 0.1.3
+ * @version 0.1.4
  */
 class TwitchSDK
 {
@@ -50,7 +50,7 @@ class TwitchSDK
     const URI_STREAMS_SEARCH = 'search/streams/';
     const URI_VIDEO = 'videos/';
     const URI_CHAT = 'chat/';
-    const URI_CHAT_EMOTICONS = 'chat/%s/emoticons';
+    const URI_CHAT_EMOTICONS = 'chat/emoticons';
     const URI_GAMES_TOP = 'games/top/';
     const URI_AUTH = 'oauth2/authorize';
     const URI_AUTH_TOKEN = 'oauth2/token';
@@ -255,12 +255,11 @@ class TwitchSDK
 
     /**
      * Get a chat's emoticons
-     * @param   string
      * @return  stdClass
      */
-    public function chatEmoticons($channel)
+    public function chatEmoticons()
     {
-        return $this->request(sprintf(self::URI_CHAT_EMOTICONS, $channel));
+        return $this->request(self::URI_CHAT_EMOTICONS);
     }
 
     /**
@@ -566,9 +565,9 @@ class TwitchSDK
         }
 
         curl_setopt($crl, CURLOPT_URL, self::URL_TWITCH . $uri);
-        
+
         $response = curl_exec($crl);
-        
+
         $this->http_code = curl_getinfo($crl, CURLINFO_HTTP_CODE);
         $this->http_info = array_merge($this->http_info, curl_getinfo($crl));
 
