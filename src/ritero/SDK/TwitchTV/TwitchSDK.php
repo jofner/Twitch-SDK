@@ -10,7 +10,7 @@ namespace ritero\SDK\TwitchTV;
  * @author Josef Ohnheiser <ritero@ritero.eu>
  * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
  * @homepage https://github.com/jofner/Twitch-SDK
- * @version 0.2.7
+ * @version 0.3.7
  */
 class TwitchSDK
 {
@@ -39,13 +39,15 @@ class TwitchSDK
     public $throw_curl_errors = true;
 
     /** @var string Set the useragnet */
-    private $useragent = 'ritero TwitchSDK dev-0.2.*';
+    private $useragent = 'ritero TwitchSDK dev-0.3.*';
 
     /**
      * TwitchAPI URI's
      */
     const URL_TWITCH = 'https://api.twitch.tv/kraken/';
     const URI_USER = 'users/';
+    const URI_USER_FOLLOWS_CHANNEL = '/users/%s/follows/channels';
+    const URI_USER_FOLLOW_RELATION = '/users/%s/follows/channels/%s';
     const URI_CHANNEL = 'channels/';
     const URI_CHANNEL_FOLLOWS = 'channels/%s/follows';
     const URI_STREAM = 'streams/';
@@ -111,6 +113,34 @@ class TwitchSDK
     public function userGet($username)
     {
         return $this->request(self::URI_USER . $username);
+    }
+
+    /**
+     * Get a user's list of followed channels
+     * @param   integer
+     * @param   integer
+     * @param   integer
+     * @return  stdClass
+     */
+    public function userFollowChannels($user, $limit = null, $offset = null)
+    {
+        $query_string = $this->buildQueryString(array(
+            'limit' => $limit,
+            'offset' => $offset,
+            ));
+
+        return $this->request(sprintf(self::URI_USER_FOLLOWS_CHANNEL, $user) . $query_string);
+    }
+
+    /**
+     * Get the status of a follow relationship
+     * @param   string
+     * @param   string
+     * @return  stdClass
+     */
+    public function userFollowRelationship($user, $channel)
+    {
+        return $this->request(sprintf(self::URI_USER_FOLLOW_RELATION, $user, $channel));
     }
 
     /**
