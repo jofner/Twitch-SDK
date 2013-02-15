@@ -10,7 +10,7 @@ namespace ritero\SDK\TwitchTV;
  * @author Josef Ohnheiser <ritero@ritero.eu>
  * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
  * @homepage https://github.com/jofner/Twitch-SDK
- * @version 0.2.6
+ * @version 0.2.7
  */
 class TwitchSDK
 {
@@ -28,7 +28,7 @@ class TwitchSDK
 
     /** @var integer Contains the last HTTP status code returned */
     public $http_code = 0;
-    
+
     /** @var array Contains the last Server headers returned */
     public $http_header = array();
 
@@ -47,6 +47,7 @@ class TwitchSDK
     const URL_TWITCH = 'https://api.twitch.tv/kraken/';
     const URI_USER = 'users/';
     const URI_CHANNEL = 'channels/';
+    const URI_CHANNEL_FOLLOWS = 'channels/%s/follows';
     const URI_STREAM = 'streams/';
     const URI_STREAM_SUMMARY = 'streams/summary/';
     const URI_STREAMS_FEATURED = 'streams/featured/';
@@ -59,7 +60,6 @@ class TwitchSDK
     const URI_AUTH_TOKEN = 'oauth2/token';
     const URI_USER_AUTH = 'user';
     const URI_CHANNEL_AUTH = 'channel';
-    const URI_CHANNEL_FOLLOWS_AUTH = 'channels/%s/follows';
     const URI_CHANNEL_EDITORS_AUTH = 'channels/%s/editors';
     const URI_STREAMS_FOLLOWED_AUTH = 'streams/followed';
 
@@ -121,6 +121,23 @@ class TwitchSDK
     public function channelGet($channel)
     {
         return $this->request(self::URI_CHANNEL . $channel);
+    }
+
+    /**
+     * Returns an array of users who follow the specified channel
+     * @param   string
+     * @param   integer
+     * @param   integer
+     * @return  stdClass
+     */
+    public function channelFollows($channel, $limit = null, $offset = null)
+    {
+        $query_string = $this->buildQueryString(array(
+            'limit' => $limit,
+            'offset' => $offset,
+            ));
+
+        return $this->request(sprintf(self::URI_CHANNEL_FOLLOWS, $channel) . $query_string);
     }
 
     /**
@@ -441,31 +458,6 @@ class TwitchSDK
             ));
 
         return $this->request(self::URI_CHANNEL_AUTH . $query_string);
-    }
-
-    /**
-     * Returns an array of users who follow the specified channel
-     *  - requires scope 'channel_read'
-     * @param   string
-     * @param   string
-     * @param   integer
-     * @param   integer
-     * @return  stdClass
-     */
-    public function authChannelFollows($token, $channel, $limit = null, $offset = null)
-    {
-        if ($this->auth_config === false) {
-            $this->authConfigException();
-        }
-
-        $query_string = $this->buildQueryString(array(
-            'oauth_token' => $token,
-            'client_id' => $this->auth_config['client_id'],
-            'limit' => $limit,
-            'offset' => $offset,
-            ));
-
-        return $this->request(sprintf(self::URI_CHANNEL_FOLLOWS_AUTH, $channel) . $query_string);
     }
 
     /**
