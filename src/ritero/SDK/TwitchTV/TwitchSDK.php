@@ -10,7 +10,7 @@ namespace ritero\SDK\TwitchTV;
  * @author Josef Ohnheiser <ritero@ritero.eu>
  * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
  * @homepage https://github.com/jofner/Twitch-SDK
- * @version 0.3.7
+ * @version 0.4.7
  */
 class TwitchSDK
 {
@@ -39,7 +39,7 @@ class TwitchSDK
     public $throw_curl_errors = true;
 
     /** @var string Set the useragnet */
-    private $useragent = 'ritero TwitchSDK dev-0.3.*';
+    private $useragent = 'ritero TwitchSDK dev-0.4.*';
 
     /**
      * TwitchAPI URI's
