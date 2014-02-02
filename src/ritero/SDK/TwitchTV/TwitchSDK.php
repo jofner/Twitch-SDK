@@ -144,6 +144,38 @@ class TwitchSDK
     }
 
     /**
+     * Set user to follow given channel
+     * @param   string
+     * @param   string
+     * @param   string
+     * @return  stdClass
+     */
+    public function userFollowChannel($user, $channel, $userToken)
+    {
+        $query_string = $this->buildQueryString(array(
+            'oauth_token' => $userToken,
+        ));
+
+        return $this->request(sprintf(self::URI_USER_FOLLOW_RELATION, $user, $channel) . $query_string, 'PUT');
+    }
+
+    /**
+     * Set user to unfollow given channel
+     * @param   string
+     * @param   string
+     * @param   string
+     * @return  stdClass
+     */
+    public function userUnfollowChannel($user, $channel, $userToken)
+    {
+        $query_string = $this->buildQueryString(array(
+            'oauth_token' => $userToken,
+        ));
+
+        return $this->request(sprintf(self::URI_USER_FOLLOW_RELATION, $user, $channel) . $query_string, 'DELETE');
+    }
+
+    /**
      * Get the specified channel
      * @param   string
      * @return  stdClass
@@ -630,10 +662,18 @@ class TwitchSDK
                     curl_setopt($crl, CURLOPT_POSTFIELDS, ltrim($postfields, '?'));
                 }
                 break;
+            case 'PUT':
+                curl_setopt($crl, CURLOPT_CUSTOMREQUEST, 'PUT');
+                curl_setopt($crl, CURLOPT_HTTPHEADER, array('Content-Length: ' . strlen($postfields)));
+                if (!is_null($postfields)) {
+                    curl_setopt($crl, CURLOPT_POSTFIELDS, ltrim($postfields, '?'));
+                }
+                break;
             case 'DELETE':
                 curl_setopt($crl, CURLOPT_CUSTOMREQUEST, 'DELETE');
+                curl_setopt($crl, CURLOPT_HTTPHEADER, array('Content-Length: ' . strlen($postfields)));
                 if (!is_null($postfields)) {
-                    $uri = self::URL_TWITCH . $uri . $postfields;
+                    curl_setopt($crl, CURLOPT_POSTFIELDS, ltrim($postfields, '?'));
                 }
         }
 
