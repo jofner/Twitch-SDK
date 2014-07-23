@@ -728,7 +728,6 @@ class TwitchSDK
                 curl_setopt($crl, CURLOPT_CUSTOMREQUEST, 'DELETE');
                 curl_setopt($crl, CURLOPT_HTTPHEADER, array('Content-Length: ' . strlen($postfields)));
                 if (!is_null($postfields)) {
-                    $uri = $uri . $postfields;
                     curl_setopt($crl, CURLOPT_POSTFIELDS, ltrim($postfields, '?'));
                 }
         }
