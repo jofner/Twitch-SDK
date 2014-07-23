@@ -10,7 +10,7 @@ namespace ritero\SDK\TwitchTV;
  * @author Josef Ohnheiser <ritero@ritero.eu>
  * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
  * @homepage https://github.com/jofner/Twitch-SDK
- * @version 0.3.7
+ * @version 0.4.7
  */
 class TwitchSDK
 {
@@ -39,7 +39,7 @@ class TwitchSDK
     public $throw_curl_errors = true;
 
     /** @var string Set the useragnet */
-    private $useragent = 'ritero TwitchSDK dev-0.3.*';
+    private $useragent = 'ritero TwitchSDK dev-0.4.*';
 
     /**
      * TwitchAPI URI's
@@ -148,6 +148,38 @@ class TwitchSDK
     public function userFollowRelationship($user, $channel)
     {
         return $this->request(sprintf(self::URI_USER_FOLLOW_RELATION, $user, $channel));
+    }
+
+    /**
+     * Set user to follow given channel
+     * @param   string
+     * @param   string
+     * @param   string
+     * @return  stdClass
+     */
+    public function userFollowChannel($user, $channel, $userToken)
+    {
+        $query_string = $this->buildQueryString(array(
+            'oauth_token' => $userToken,
+        ));
+
+        return $this->request(sprintf(self::URI_USER_FOLLOW_RELATION, $user, $channel) . $query_string, 'PUT');
+    }
+
+    /**
+     * Set user to unfollow given channel
+     * @param   string
+     * @param   string
+     * @param   string
+     * @return  stdClass
+     */
+    public function userUnfollowChannel($user, $channel, $userToken)
+    {
+        $query_string = $this->buildQueryString(array(
+            'oauth_token' => $userToken,
+        ));
+
+        return $this->request(sprintf(self::URI_USER_FOLLOW_RELATION, $user, $channel) . $query_string, 'DELETE');
     }
 
     /**
@@ -685,10 +717,19 @@ class TwitchSDK
                     curl_setopt($crl, CURLOPT_POSTFIELDS, ltrim($postfields, '?'));
                 }
                 break;
+            case 'PUT':
+                curl_setopt($crl, CURLOPT_CUSTOMREQUEST, 'PUT');
+                curl_setopt($crl, CURLOPT_HTTPHEADER, array('Content-Length: ' . strlen($postfields)));
+                if (!is_null($postfields)) {
+                    curl_setopt($crl, CURLOPT_POSTFIELDS, ltrim($postfields, '?'));
+                }
+                break;
             case 'DELETE':
                 curl_setopt($crl, CURLOPT_CUSTOMREQUEST, 'DELETE');
+                curl_setopt($crl, CURLOPT_HTTPHEADER, array('Content-Length: ' . strlen($postfields)));
                 if (!is_null($postfields)) {
                     $uri = $uri . $postfields;
+                    curl_setopt($crl, CURLOPT_POSTFIELDS, ltrim($postfields, '?'));
                 }
         }
 
