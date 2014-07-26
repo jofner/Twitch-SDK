@@ -50,6 +50,7 @@ class TwitchSDK
     const URI_USER_FOLLOW_RELATION = '/users/%s/follows/channels/%s';
     const URI_CHANNEL = 'channels/';
     const URI_CHANNEL_FOLLOWS = 'channels/%s/follows';
+    const URI_CHANNEL_SUBSCRIPTIONS = 'channels/%s/subscriptions';
     const URI_STREAM = 'streams/';
     const URI_STREAM_SUMMARY = 'streams/summary/';
     const URI_STREAMS_FEATURED = 'streams/featured/';
@@ -565,6 +566,27 @@ class TwitchSDK
             ));
 
         return $this->request(sprintf(self::URI_CHANNEL_EDITORS_AUTH, $channel) . $query_string);
+    }
+
+    /**
+     * Returns an array of subscriptions who are subscribed to specified channel
+     *  - requires scope 'channel_subscriptions'
+     * @param   string
+     * @param   string
+     * @return  stdClass
+     */
+    public function authChannelSubscriptions($token, $channel)
+    {
+        if ($this->auth_config === false) {
+            $this->authConfigException();
+        }
+
+        $query_string = $this->buildQueryString(array(
+            'oauth_token' => $token,
+            'client_id' => $this->auth_config['client_id'],
+            ));
+
+        return $this->request(sprintf(self::URI_CHANNEL_SUBSCRIPTIONS, $channel) . $query_string);
     }
 
     /**
