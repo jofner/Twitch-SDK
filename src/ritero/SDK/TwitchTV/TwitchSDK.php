@@ -569,13 +569,16 @@ class TwitchSDK
     }
 
     /**
-     * Returns an array of subscriptions who are subscribed to specified channel
+     * @description Returns an array of subscriptions who are subscribed to specified channel
      *  - requires scope 'channel_subscriptions'
-     * @param   string
-     * @param   string
+     * @param   string $token - user's access token
+     * @param   string $channel
+     * @param   integer $limit - can be up to 100
+     * @param   integer $offset
+     * @param   string $direction can be DESC|ASC, if DESC - lasts will be showed first
      * @return  stdClass
      */
-    public function authChannelSubscriptions($token, $channel)
+    public function authChannelSubscriptions($token, $channel, $limit = 25, $offset = 0, $direction = 'DESC')
     {
         if ($this->auth_config === false) {
             $this->authConfigException();
@@ -584,6 +587,9 @@ class TwitchSDK
         $query_string = $this->buildQueryString(array(
             'oauth_token' => $token,
             'client_id' => $this->auth_config['client_id'],
+            'direction' => $direction,
+            'limit' => $limit,
+            'offset' => $offset
             ));
 
         return $this->request(sprintf(self::URI_CHANNEL_SUBSCRIPTIONS, $channel) . $query_string);
