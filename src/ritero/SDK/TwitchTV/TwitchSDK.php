@@ -4,13 +4,13 @@ namespace ritero\SDK\TwitchTV;
 
 /**
  * TwitchTV API SDK for PHP
- * 
+ *
  * PHP SDK for interacting with the TwitchTV API
- * 
+ *
  * @author Josef Ohnheiser <ritero@ritero.eu>
  * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
  * @homepage https://github.com/jofner/Twitch-SDK
- * @version 0.4.7
+ * @version 0.5.7
  */
 class TwitchSDK
 {
@@ -65,14 +65,14 @@ class TwitchSDK
     const URI_CHANNEL_AUTH = 'channel';
     const URI_CHANNEL_EDITORS_AUTH = 'channels/%s/editors';
     const URI_STREAMS_FOLLOWED_AUTH = 'streams/followed';
-    const URI_TEAMS = 'teams/';    
-    
+    const URI_TEAMS = 'teams/';
+
     /**
-     * For teams API we have different URI's and 
+     * For teams API we have different URI's and
      * use HTTP instead of HTTPS
      */
     const URL_TWITCH_TEAM = "http://api.twitch.tv/api/team/";
-    
+
     /**
      * SDK constructor
      * @param   array
@@ -135,7 +135,7 @@ class TwitchSDK
         $query_string = $this->buildQueryString(array(
             'limit' => $limit,
             'offset' => $offset,
-            ));
+        ));
 
         return $this->request(sprintf(self::URI_USER_FOLLOWS_CHANNEL, $user) . $query_string);
     }
@@ -202,14 +202,15 @@ class TwitchSDK
     {
         return $this->request(self::URI_TEAMS . $teamName);
     }
-    
+
     /**
-     * 
+     *
      */
     public function teamMembersAll($teamName)
     {
-        return $this->teamRequest($teamName.'/all_channels')->channels;
+        return $this->teamRequest($teamName . '/all_channels')->channels;
     }
+
     /**
      * Returns an array of users who follow the specified channel
      * @param   string
@@ -222,7 +223,7 @@ class TwitchSDK
         $query_string = $this->buildQueryString(array(
             'limit' => $limit,
             'offset' => $offset,
-            ));
+        ));
 
         return $this->request(sprintf(self::URI_CHANNEL_FOLLOWS, $channel) . $query_string);
     }
@@ -250,7 +251,7 @@ class TwitchSDK
             'query' => $query,
             'limit' => $limit,
             'offset' => $offset,
-            ));
+        ));
 
         return $this->request(self::URI_STREAMS_SEARCH . $query_string);
     }
@@ -272,7 +273,7 @@ class TwitchSDK
             'game' => $game,
             'channel' => $channels,
             'hls' => $hls,
-            ));
+        ));
 
         return $this->request(self::URI_STREAM_SUMMARY . $query_string);
     }
@@ -290,7 +291,7 @@ class TwitchSDK
             'limit' => $limit,
             'offset' => $offset,
             'hls' => $hls,
-            ));
+        ));
 
         return $this->request(self::URI_STREAMS_FEATURED . $query_string);
     }
@@ -347,7 +348,7 @@ class TwitchSDK
         $query_string = $this->buildQueryString(array(
             'limit' => $limit,
             'offset' => $offset,
-            ));
+        ));
 
         return $this->request(self::URI_CHANNEL . $channel . '/' . self::URI_VIDEO . $query_string);
     }
@@ -382,7 +383,7 @@ class TwitchSDK
         $query_string = $this->buildQueryString(array(
             'limit' => $limit,
             'offset' => $offset,
-            ));
+        ));
 
         return $this->request(self::URI_GAMES_TOP . $query_string);
     }
@@ -480,7 +481,7 @@ class TwitchSDK
             'client_id' => $this->auth_config['client_id'],
             'redirect_uri' => $this->auth_config['redirect_uri'],
             'scope' => $scope,
-            ));
+        ));
 
         return self::URL_TWITCH . self::URI_AUTH . $query_string;
     }
@@ -502,7 +503,7 @@ class TwitchSDK
             'grant_type' => 'authorization_code',
             'redirect_uri' => $this->auth_config['redirect_uri'],
             'code' => $code,
-            ));
+        ));
 
         return $this->request(self::URI_AUTH_TOKEN, 'POST', $query_string);
     }
@@ -522,7 +523,7 @@ class TwitchSDK
         $query_string = $this->buildQueryString(array(
             'oauth_token' => $token,
             'client_id' => $this->auth_config['client_id'],
-            ));
+        ));
 
         return $this->request(self::URI_USER_AUTH . $query_string);
     }
@@ -542,7 +543,7 @@ class TwitchSDK
         $query_string = $this->buildQueryString(array(
             'oauth_token' => $token,
             'client_id' => $this->auth_config['client_id'],
-            ));
+        ));
 
         return $this->request(self::URI_CHANNEL_AUTH . $query_string);
     }
@@ -563,7 +564,7 @@ class TwitchSDK
         $query_string = $this->buildQueryString(array(
             'oauth_token' => $token,
             'client_id' => $this->auth_config['client_id'],
-            ));
+        ));
 
         return $this->request(sprintf(self::URI_CHANNEL_EDITORS_AUTH, $channel) . $query_string);
     }
@@ -590,7 +591,7 @@ class TwitchSDK
             'direction' => $direction,
             'limit' => $limit,
             'offset' => $offset
-            ));
+        ));
 
         return $this->request(sprintf(self::URI_CHANNEL_SUBSCRIPTIONS, $channel) . $query_string);
     }
@@ -610,7 +611,7 @@ class TwitchSDK
         $query_string = $this->buildQueryString(array(
             'oauth_token' => $token,
             'client_id' => $this->auth_config['client_id'],
-            ));
+        ));
 
         return $this->request(self::URI_STREAMS_FOLLOWED_AUTH . $query_string);
     }
@@ -653,7 +654,7 @@ class TwitchSDK
         foreach ($check AS $val) {
             if (!array_key_exists($val, $config) ||
                 (empty($config[$val]) ||
-                !is_string($config[$val]))
+                    !is_string($config[$val]))
             ) {
                 return false;
             }
@@ -684,7 +685,7 @@ class TwitchSDK
 
         return $query_string;
     }
-    
+
     /**
      * TwitchAPI request
      * @param   string
@@ -693,11 +694,12 @@ class TwitchSDK
      * @return  stdClass
      * @throws  \ritero\SDK\TwitchTV\TwitchException
      */
-    private function request($uri, $method = 'GET', $postfields = null){
+    private function request($uri, $method = 'GET', $postfields = null)
+    {
         $params = ['CURLOPT_SSL_VERIFYPEER'];
-        return $this->generalRequest($params, self::URL_TWITCH .$uri, $method, $postfields);
+        return $this->generalRequest($params, self::URL_TWITCH . $uri, $method, $postfields);
     }
-    
+
     /**
      * Twitch Team API request
      * @param   string
@@ -706,10 +708,11 @@ class TwitchSDK
      * @return  stdClass
      * @throws  \ritero\SDK\TwitchTV\TwitchException
      */
-    private function teamRequest($uri, $method = 'GET', $postfields = null){
-        return $this->generalRequest([], self::URL_TWITCH_TEAM .$uri .'.json', $method, $postfields);
+    private function teamRequest($uri, $method = 'GET', $postfields = null)
+    {
+        return $this->generalRequest([], self::URL_TWITCH_TEAM . $uri . '.json', $method, $postfields);
     }
-    
+
     /**
      * TwitchAPI request
      * method used by teamRequest && request methods
