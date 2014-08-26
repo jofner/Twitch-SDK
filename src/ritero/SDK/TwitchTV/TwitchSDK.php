@@ -626,7 +626,7 @@ class TwitchSDK
      * @param   boolean
      * @return  stdClass
      */
-    private function getStreams($game = null, $limit = null, $offset = null, $channels = null, $embeddable = null, $hls = null)
+    public function getStreams($game = null, $limit = null, $offset = null, $channels = null, $embeddable = null, $hls = null)
     {
         $params = array(
             'game' => $game,
