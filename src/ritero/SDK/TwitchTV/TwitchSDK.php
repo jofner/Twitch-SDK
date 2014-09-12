@@ -485,7 +485,7 @@ class TwitchSDK
 
     /**
      * Get authentication access token
-     * @param   string code returned after app authorization by user
+     * @param   string $code returned after app authorization by user
      * @return  \stdClass
      */
     public function authAccessTokenGet($code)
@@ -731,7 +731,7 @@ class TwitchSDK
         curl_setopt($crl, CURLOPT_CONNECTTIMEOUT, $this->connect_timeout);
         curl_setopt($crl, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($crl, CURLOPT_HTTPHEADER, array('Expect:'));
+        curl_setopt($crl, CURLOPT_HTTPHEADER, array('Expect:', 'Accept: ' . sprintf(self::MIME_TYPE, self::API_VERSION)));
         if (isset($params['CURLOPT_SSL_VERIFYPEER'])) {
             curl_setopt($crl, CURLOPT_SSL_VERIFYPEER, $this->ssl_verifypeer);
         }
