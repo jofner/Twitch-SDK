@@ -15,31 +15,31 @@ namespace ritero\SDK\TwitchTV;
 class TwitchSDK
 {
     /** @var array */
-    protected $auth_config = false;
+    protected $authConfig = false;
 
     /** @var integer Set timeout default. */
     public $timeout = 30;
 
     /** @var integer Set connect timeout */
-    public $connect_timeout = 30;
+    public $connectTimeout = 30;
 
     /** @var boolean Verify SSL Cert */
-    public $ssl_verifypeer = false;
+    public $sslVerifypeer = false;
 
     /** @var integer Contains the last HTTP status code returned */
-    public $http_code = 0;
+    public $httpCode = 0;
 
     /** @var array Contains the last Server headers returned */
-    public $http_header = array();
+    public $httpHeader = array();
 
     /** @var array Contains the last HTTP headers returned */
-    public $http_info = array();
+    public $httpInfo = array();
 
     /** @var boolean Throw cURL errors */
-    public $throw_curl_errors = true;
+    public $throwCurlErrors = true;
 
     /** @var string Set the useragnet */
-    private $useragent = 'ritero TwitchSDK dev-0.4.*';
+    private $userAgent = 'ritero TwitchSDK dev-0.4.*';
 
     /**
      * TwitchAPI URI's
@@ -83,7 +83,7 @@ class TwitchSDK
 
         if (!empty($config)) {
             if ($this->configValidate($config) === true) {
-                $this->auth_config = $config;
+                $this->authConfig = $config;
             } else {
                 throw new TwitchException('Wrong Twitch API config parameters');
             }
@@ -100,7 +100,7 @@ class TwitchSDK
         $auth = null;
 
         if (!is_null($token)) {
-            if ($this->auth_config === false) {
+            if ($this->authConfig === false) {
                 $this->authConfigException();
             } else {
                 $auth = $this->buildQueryString(array('oauth_token' => $token));
@@ -129,12 +129,12 @@ class TwitchSDK
      */
     public function userFollowChannels($user, $limit = null, $offset = null)
     {
-        $query_string = $this->buildQueryString(array(
+        $queryString = $this->buildQueryString(array(
             'limit' => $limit,
             'offset' => $offset,
         ));
 
-        return $this->request(sprintf(self::URI_USER_FOLLOWS_CHANNEL, $user) . $query_string);
+        return $this->request(sprintf(self::URI_USER_FOLLOWS_CHANNEL, $user) . $queryString);
     }
 
     /**
@@ -157,11 +157,11 @@ class TwitchSDK
      */
     public function userFollowChannel($user, $channel, $userToken)
     {
-        $query_string = $this->buildQueryString(array(
+        $queryString = $this->buildQueryString(array(
             'oauth_token' => $userToken,
         ));
 
-        return $this->request(sprintf(self::URI_USER_FOLLOW_RELATION, $user, $channel) . $query_string, 'PUT');
+        return $this->request(sprintf(self::URI_USER_FOLLOW_RELATION, $user, $channel) . $queryString, 'PUT');
     }
 
     /**
@@ -173,11 +173,11 @@ class TwitchSDK
      */
     public function userUnfollowChannel($user, $channel, $userToken)
     {
-        $query_string = $this->buildQueryString(array(
+        $queryString = $this->buildQueryString(array(
             'oauth_token' => $userToken,
         ));
 
-        return $this->request(sprintf(self::URI_USER_FOLLOW_RELATION, $user, $channel) . $query_string, 'DELETE');
+        return $this->request(sprintf(self::URI_USER_FOLLOW_RELATION, $user, $channel) . $queryString, 'DELETE');
     }
 
     /**
@@ -217,12 +217,12 @@ class TwitchSDK
      */
     public function channelFollows($channel, $limit = null, $offset = null)
     {
-        $query_string = $this->buildQueryString(array(
+        $queryString = $this->buildQueryString(array(
             'limit' => $limit,
             'offset' => $offset,
         ));
 
-        return $this->request(sprintf(self::URI_CHANNEL_FOLLOWS, $channel) . $query_string);
+        return $this->request(sprintf(self::URI_CHANNEL_FOLLOWS, $channel) . $queryString);
     }
 
     /**
@@ -244,13 +244,13 @@ class TwitchSDK
      */
     public function streamSearch($query, $limit = null, $offset = null)
     {
-        $query_string = $this->buildQueryString(array(
+        $queryString = $this->buildQueryString(array(
             'query' => $query,
             'limit' => $limit,
             'offset' => $offset,
         ));
 
-        return $this->request(self::URI_STREAMS_SEARCH . $query_string);
+        return $this->request(self::URI_STREAMS_SEARCH . $queryString);
     }
 
     /**
@@ -266,13 +266,13 @@ class TwitchSDK
             $channels = implode(',', $channels);
         }
 
-        $query_string = $this->buildQueryString(array(
+        $queryString = $this->buildQueryString(array(
             'game' => $game,
             'channel' => $channels,
             'hls' => $hls,
         ));
 
-        return $this->request(self::URI_STREAM_SUMMARY . $query_string);
+        return $this->request(self::URI_STREAM_SUMMARY . $queryString);
     }
 
     /**
@@ -284,13 +284,13 @@ class TwitchSDK
      */
     public function streamsFeatured($limit = null, $offset = null, $hls = null)
     {
-        $query_string = $this->buildQueryString(array(
+        $queryString = $this->buildQueryString(array(
             'limit' => $limit,
             'offset' => $offset,
             'hls' => $hls,
         ));
 
-        return $this->request(self::URI_STREAMS_FEATURED . $query_string);
+        return $this->request(self::URI_STREAMS_FEATURED . $queryString);
     }
 
     /**
@@ -342,12 +342,12 @@ class TwitchSDK
      */
     public function videosByChannel($channel, $limit = null, $offset = null)
     {
-        $query_string = $this->buildQueryString(array(
+        $queryString = $this->buildQueryString(array(
             'limit' => $limit,
             'offset' => $offset,
         ));
 
-        return $this->request(self::URI_CHANNEL . $channel . '/' . self::URI_VIDEO . $query_string);
+        return $this->request(self::URI_CHANNEL . $channel . '/' . self::URI_VIDEO . $queryString);
     }
 
     /**
@@ -377,12 +377,12 @@ class TwitchSDK
      */
     public function gamesTop($limit = null, $offset = null)
     {
-        $query_string = $this->buildQueryString(array(
+        $queryString = $this->buildQueryString(array(
             'limit' => $limit,
             'offset' => $offset,
         ));
 
-        return $this->request(self::URI_GAMES_TOP . $query_string);
+        return $this->request(self::URI_GAMES_TOP . $queryString);
     }
 
     /**
@@ -469,18 +469,18 @@ class TwitchSDK
      */
     public function authLoginURL($scope)
     {
-        if ($this->auth_config === false) {
+        if ($this->authConfig === false) {
             $this->authConfigException();
         }
 
-        $query_string = $this->buildQueryString(array(
+        $queryString = $this->buildQueryString(array(
             'response_type' => 'code',
-            'client_id' => $this->auth_config['client_id'],
-            'redirect_uri' => $this->auth_config['redirect_uri'],
+            'client_id' => $this->authConfig['client_id'],
+            'redirect_uri' => $this->authConfig['redirect_uri'],
             'scope' => $scope,
         ));
 
-        return self::URL_TWITCH . self::URI_AUTH . $query_string;
+        return self::URL_TWITCH . self::URI_AUTH . $queryString;
     }
 
     /**
@@ -490,19 +490,19 @@ class TwitchSDK
      */
     public function authAccessTokenGet($code)
     {
-        if ($this->auth_config === false) {
+        if ($this->authConfig === false) {
             $this->authConfigException();
         }
 
-        $query_string = $this->buildQueryString(array(
-            'client_id' => $this->auth_config['client_id'],
-            'client_secret' => $this->auth_config['client_secret'],
+        $queryString = $this->buildQueryString(array(
+            'client_id' => $this->authConfig['client_id'],
+            'client_secret' => $this->authConfig['client_secret'],
             'grant_type' => 'authorization_code',
-            'redirect_uri' => $this->auth_config['redirect_uri'],
+            'redirect_uri' => $this->authConfig['redirect_uri'],
             'code' => $code,
         ));
 
-        return $this->request(self::URI_AUTH_TOKEN, 'POST', $query_string);
+        return $this->request(self::URI_AUTH_TOKEN, 'POST', $queryString);
     }
 
     /**
@@ -513,16 +513,16 @@ class TwitchSDK
      */
     public function authUserGet($token)
     {
-        if ($this->auth_config === false) {
+        if ($this->authConfig === false) {
             $this->authConfigException();
         }
 
-        $query_string = $this->buildQueryString(array(
+        $queryString = $this->buildQueryString(array(
             'oauth_token' => $token,
-            'client_id' => $this->auth_config['client_id'],
+            'client_id' => $this->authConfig['client_id'],
         ));
 
-        return $this->request(self::URI_USER_AUTH . $query_string);
+        return $this->request(self::URI_USER_AUTH . $queryString);
     }
 
     /**
@@ -533,16 +533,16 @@ class TwitchSDK
      */
     public function authChannelGet($token)
     {
-        if ($this->auth_config === false) {
+        if ($this->authConfig === false) {
             $this->authConfigException();
         }
 
-        $query_string = $this->buildQueryString(array(
+        $queryString = $this->buildQueryString(array(
             'oauth_token' => $token,
-            'client_id' => $this->auth_config['client_id'],
+            'client_id' => $this->authConfig['client_id'],
         ));
 
-        return $this->request(self::URI_CHANNEL_AUTH . $query_string);
+        return $this->request(self::URI_CHANNEL_AUTH . $queryString);
     }
 
     /**
@@ -554,16 +554,16 @@ class TwitchSDK
      */
     public function authChannelEditors($token, $channel)
     {
-        if ($this->auth_config === false) {
+        if ($this->authConfig === false) {
             $this->authConfigException();
         }
 
-        $query_string = $this->buildQueryString(array(
+        $queryString = $this->buildQueryString(array(
             'oauth_token' => $token,
-            'client_id' => $this->auth_config['client_id'],
+            'client_id' => $this->authConfig['client_id'],
         ));
 
-        return $this->request(sprintf(self::URI_CHANNEL_EDITORS_AUTH, $channel) . $query_string);
+        return $this->request(sprintf(self::URI_CHANNEL_EDITORS_AUTH, $channel) . $queryString);
     }
 
     /**
@@ -578,19 +578,19 @@ class TwitchSDK
      */
     public function authChannelSubscriptions($token, $channel, $limit = 25, $offset = 0, $direction = 'DESC')
     {
-        if ($this->auth_config === false) {
+        if ($this->authConfig === false) {
             $this->authConfigException();
         }
 
-        $query_string = $this->buildQueryString(array(
+        $queryString = $this->buildQueryString(array(
             'oauth_token' => $token,
-            'client_id' => $this->auth_config['client_id'],
+            'client_id' => $this->authConfig['client_id'],
             'direction' => $direction,
             'limit' => $limit,
             'offset' => $offset
         ));
 
-        return $this->request(sprintf(self::URI_CHANNEL_SUBSCRIPTIONS, $channel) . $query_string);
+        return $this->request(sprintf(self::URI_CHANNEL_SUBSCRIPTIONS, $channel) . $queryString);
     }
 
     /**
@@ -601,16 +601,16 @@ class TwitchSDK
      */
     public function authStreamsFollowed($token)
     {
-        if ($this->auth_config === false) {
+        if ($this->authConfig === false) {
             $this->authConfigException();
         }
 
-        $query_string = $this->buildQueryString(array(
+        $queryString = $this->buildQueryString(array(
             'oauth_token' => $token,
-            'client_id' => $this->auth_config['client_id'],
+            'client_id' => $this->authConfig['client_id'],
         ));
 
-        return $this->request(self::URI_STREAMS_FOLLOWED_AUTH . $query_string);
+        return $this->request(self::URI_STREAMS_FOLLOWED_AUTH . $queryString);
     }
 
     /**
@@ -634,9 +634,9 @@ class TwitchSDK
             'hls' => $hls,
         );
 
-        $query_string = $this->buildQueryString($params);
+        $queryString = $this->buildQueryString($params);
 
-        return $this->request(self::URI_STREAM . $query_string);
+        return $this->request(self::URI_STREAM . $queryString);
     }
 
     /**
@@ -668,7 +668,7 @@ class TwitchSDK
     private function buildQueryString($params)
     {
         $param = array();
-        $query_string = null;
+        $queryString = null;
 
         foreach ($params as $key => $value) {
             if (!empty($value)) {
@@ -677,10 +677,10 @@ class TwitchSDK
         }
 
         if (!empty($param)) {
-            $query_string = '?' . http_build_query($param);
+            $queryString = '?' . http_build_query($param);
         }
 
-        return $query_string;
+        return $queryString;
     }
 
     /**
@@ -724,16 +724,16 @@ class TwitchSDK
      */
     private function generalRequest($params, $uri, $method = 'GET', $postfields = null)
     {
-        $this->http_info = array();
+        $this->httpInfo = array();
 
         $crl = curl_init();
-        curl_setopt($crl, CURLOPT_USERAGENT, $this->useragent);
-        curl_setopt($crl, CURLOPT_CONNECTTIMEOUT, $this->connect_timeout);
+        curl_setopt($crl, CURLOPT_USERAGENT, $this->userAgent);
+        curl_setopt($crl, CURLOPT_CONNECTTIMEOUT, $this->connectTimeout);
         curl_setopt($crl, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($crl, CURLOPT_HTTPHEADER, array('Expect:', 'Accept: ' . sprintf(self::MIME_TYPE, self::API_VERSION)));
         if (isset($params['CURLOPT_SSL_VERIFYPEER'])) {
-            curl_setopt($crl, CURLOPT_SSL_VERIFYPEER, $this->ssl_verifypeer);
+            curl_setopt($crl, CURLOPT_SSL_VERIFYPEER, $this->sslVerifypeer);
         }
         curl_setopt($crl, CURLOPT_HEADERFUNCTION, array($this, 'getHeader'));
         curl_setopt($crl, CURLOPT_HEADER, false);
@@ -764,10 +764,10 @@ class TwitchSDK
 
         $response = curl_exec($crl);
 
-        $this->http_code = curl_getinfo($crl, CURLINFO_HTTP_CODE);
-        $this->http_info = array_merge($this->http_info, curl_getinfo($crl));
+        $this->httpCode = curl_getinfo($crl, CURLINFO_HTTP_CODE);
+        $this->httpInfo = array_merge($this->httpInfo, curl_getinfo($crl));
 
-        if (curl_errno($crl) && $this->throw_curl_errors === true) {
+        if (curl_errno($crl) && $this->throwCurlErrors === true) {
             throw new TwitchException(curl_error($crl), curl_errno($crl));
         }
 
@@ -785,7 +785,7 @@ class TwitchSDK
         if (!empty($i)) {
             $key = str_replace('-', '_', strtolower(substr($header, 0, $i)));
             $value = trim(substr($header, $i + 2));
-            $this->http_header[$key] = $value;
+            $this->httpHeader[$key] = $value;
         }
 
         return strlen($header);
