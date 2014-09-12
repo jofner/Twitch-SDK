@@ -93,7 +93,7 @@ class TwitchSDK
     /**
      * Basic information about the API and authentication status
      * @param   string
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function status($token = null)
     {
@@ -113,7 +113,7 @@ class TwitchSDK
     /**
      * Get the specified user
      * @param   string
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function userGet($username)
     {
@@ -125,7 +125,7 @@ class TwitchSDK
      * @param   integer
      * @param   integer
      * @param   integer
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function userFollowChannels($user, $limit = null, $offset = null)
     {
@@ -141,7 +141,7 @@ class TwitchSDK
      * Get the status of a follow relationship
      * @param   string
      * @param   string
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function userFollowRelationship($user, $channel)
     {
@@ -153,7 +153,7 @@ class TwitchSDK
      * @param   string
      * @param   string
      * @param   string
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function userFollowChannel($user, $channel, $userToken)
     {
@@ -169,7 +169,7 @@ class TwitchSDK
      * @param   string
      * @param   string
      * @param   string
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function userUnfollowChannel($user, $channel, $userToken)
     {
@@ -183,7 +183,7 @@ class TwitchSDK
     /**
      * Get the specified channel
      * @param   string
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function channelGet($channel)
     {
@@ -193,7 +193,7 @@ class TwitchSDK
     /**
      * Get the specified team
      * @param   string
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function teamGet($teamName)
     {
@@ -213,7 +213,7 @@ class TwitchSDK
      * @param   string
      * @param   integer
      * @param   integer
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function channelFollows($channel, $limit = null, $offset = null)
     {
@@ -228,7 +228,7 @@ class TwitchSDK
     /**
      * Get the specified channel's stream
      * @param   string
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function streamGet($channel)
     {
@@ -240,7 +240,7 @@ class TwitchSDK
      * @param   string
      * @param   integer
      * @param   integer
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function streamSearch($query, $limit = null, $offset = null)
     {
@@ -258,7 +258,7 @@ class TwitchSDK
      * @param   string
      * @param   array
      * @param   boolean
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function streamsSummarize($game = null, array $channels = null, $hls = null)
     {
@@ -280,7 +280,7 @@ class TwitchSDK
      * @param   integer
      * @param   integer
      * @param   boolean
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function streamsFeatured($limit = null, $offset = null, $hls = null)
     {
@@ -300,7 +300,7 @@ class TwitchSDK
      * @param   integer
      * @param   boolean
      * @param   boolean
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function streamsByChannels($channels, $limit = null, $offset = null, $embeddable = null, $hls = null)
     {
@@ -316,7 +316,7 @@ class TwitchSDK
      * @param   integer
      * @param   boolean
      * @param   boolean
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function streamsByGame($game, $limit = null, $offset = null, $embeddable = null, $hls = null)
     {
@@ -326,7 +326,7 @@ class TwitchSDK
     /**
      * Get video
      * @param   integer
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function videoGet($video)
     {
@@ -338,7 +338,7 @@ class TwitchSDK
      * @param   string
      * @param   integer
      * @param   integer
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function videosByChannel($channel, $limit = null, $offset = null)
     {
@@ -353,7 +353,7 @@ class TwitchSDK
     /**
      * Get the specified channel's chat
      * @param   string
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function chatGet($channel)
     {
@@ -362,7 +362,7 @@ class TwitchSDK
 
     /**
      * Get a chat's emoticons
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function chatEmoticons()
     {
@@ -373,7 +373,7 @@ class TwitchSDK
      * Get top games
      * @param   integer
      * @param   integer
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function gamesTop($limit = null, $offset = null)
     {
@@ -486,7 +486,7 @@ class TwitchSDK
     /**
      * Get authentication access token
      * @param   string code returned after app authorization by user
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function authAccessTokenGet($code)
     {
@@ -509,7 +509,7 @@ class TwitchSDK
      * Get the authenticated user
      *  - requires scope 'user_read'
      * @param   string
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function authUserGet($token)
     {
@@ -529,7 +529,7 @@ class TwitchSDK
      * Get the authenticated channel
      *  - requires scope 'channel_read'
      * @param   string
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function authChannelGet($token)
     {
@@ -550,7 +550,7 @@ class TwitchSDK
      *  - requires scope 'channel_read'
      * @param   string
      * @param   string
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function authChannelEditors($token, $channel)
     {
@@ -574,7 +574,7 @@ class TwitchSDK
      * @param   integer $limit - can be up to 100
      * @param   integer $offset
      * @param   string $direction can be DESC|ASC, if DESC - lasts will be showed first
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function authChannelSubscriptions($token, $channel, $limit = 25, $offset = 0, $direction = 'DESC')
     {
@@ -597,7 +597,7 @@ class TwitchSDK
      * List the live streams that the authenticated user is following
      *  - requires scope 'user_read'
      * @param   string
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function authStreamsFollowed($token)
     {
@@ -621,7 +621,7 @@ class TwitchSDK
      * @param   string
      * @param   boolean
      * @param   boolean
-     * @return  stdClass
+     * @return  \stdClass
      */
     public function getStreams($game = null, $limit = null, $offset = null, $channels = null, $embeddable = null, $hls = null)
     {
@@ -688,7 +688,7 @@ class TwitchSDK
      * @param   string
      * @param   string
      * @param   string
-     * @return  stdClass
+     * @return  \stdClass
      * @throws  \ritero\SDK\TwitchTV\TwitchException
      */
     private function request($uri, $method = 'GET', $postfields = null)
@@ -702,7 +702,7 @@ class TwitchSDK
      * @param   string
      * @param   string
      * @param   string
-     * @return  stdClass
+     * @return  \stdClass
      * @throws  \ritero\SDK\TwitchTV\TwitchException
      */
     private function teamRequest($uri, $method = 'GET', $postfields = null)
@@ -719,7 +719,7 @@ class TwitchSDK
      * @param   string
      * @param   string
      * @param   string
-     * @return  stdClass
+     * @return  \stdClass
      * @throws  \ritero\SDK\TwitchTV\TwitchException
      */
     private function generalRequest($params, $uri, $method = 'GET', $postfields = null)
