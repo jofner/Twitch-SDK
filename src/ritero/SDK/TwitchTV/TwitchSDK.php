@@ -45,6 +45,7 @@ class TwitchSDK
      * TwitchAPI URI's
      */
     const URL_TWITCH = 'https://api.twitch.tv/kraken/';
+    const URL_TWITCH_TEAM = 'http://api.twitch.tv/api/team/';
     const URI_USER = 'users/';
     const URI_USER_FOLLOWS_CHANNEL = '/users/%s/follows/channels';
     const URI_USER_FOLLOW_RELATION = '/users/%s/follows/channels/%s';
@@ -66,12 +67,8 @@ class TwitchSDK
     const URI_CHANNEL_EDITORS_AUTH = 'channels/%s/editors';
     const URI_STREAMS_FOLLOWED_AUTH = 'streams/followed';
     const URI_TEAMS = 'teams/';
-
-    /**
-     * For teams API we have different URI's and
-     * use HTTP instead of HTTPS
-     */
-    const URL_TWITCH_TEAM = "http://api.twitch.tv/api/team/";
+    const API_VERSION = 2;
+    const MIME_TYPE = 'application/vnd.twitchtv.v%d+json';
 
     /**
      * SDK constructor
