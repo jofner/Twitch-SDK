@@ -10,36 +10,15 @@ namespace ritero\SDK\TwitchTV;
  * @author Josef Ohnheiser <ritero@ritero.eu>
  * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
  * @homepage https://github.com/jofner/Twitch-SDK
- * @version 0.5.7
+ * @version 0.6
  */
 class TwitchSDK
 {
     /** @var array */
     protected $authConfig = false;
 
-    /** @var integer Set timeout default. */
-    public $timeout = 30;
-
-    /** @var integer Set connect timeout */
-    public $connectTimeout = 30;
-
-    /** @var boolean Verify SSL Cert */
-    public $sslVerifypeer = false;
-
-    /** @var integer Contains the last HTTP status code returned */
-    public $httpCode = 0;
-
-    /** @var array Contains the last Server headers returned */
-    public $httpHeader = array();
-
-    /** @var array Contains the last HTTP headers returned */
-    public $httpInfo = array();
-
-    /** @var boolean Throw cURL errors */
-    public $throwCurlErrors = true;
-
-    /** @var string Set the useragnet */
-    private $userAgent = 'ritero TwitchSDK dev-0.4.*';
+    /** @var TwitchRequest */
+    protected $request;
 
     /**
      * TwitchAPI URI's
@@ -88,6 +67,12 @@ class TwitchSDK
                 throw new TwitchException('Wrong Twitch API config parameters');
             }
         }
+
+        /**
+         * Develop workaround for requests
+         * @todo class calls refactoring needed for future use
+         */
+        $this->request = new TwitchRequest;
     }
 
     /**
@@ -107,7 +92,7 @@ class TwitchSDK
             }
         }
 
-        return $this->request($auth);
+        return $this->request->request($auth);
     }
 
     /**
@@ -117,7 +102,7 @@ class TwitchSDK
      */
     public function userGet($username)
     {
-        return $this->request(self::URI_USER . $username);
+        return $this->request->request(self::URI_USER . $username);
     }
 
     /**
@@ -134,7 +119,7 @@ class TwitchSDK
             'offset' => $offset,
         ));
 
-        return $this->request(sprintf(self::URI_USER_FOLLOWS_CHANNEL, $user) . $queryString);
+        return $this->request->request(sprintf(self::URI_USER_FOLLOWS_CHANNEL, $user) . $queryString);
     }
 
     /**
@@ -145,7 +130,7 @@ class TwitchSDK
      */
     public function userFollowRelationship($user, $channel)
     {
-        return $this->request(sprintf(self::URI_USER_FOLLOW_RELATION, $user, $channel));
+        return $this->request->request(sprintf(self::URI_USER_FOLLOW_RELATION, $user, $channel));
     }
 
     /**
@@ -161,7 +146,7 @@ class TwitchSDK
             'oauth_token' => $userToken,
         ));
 
-        return $this->request(sprintf(self::URI_USER_FOLLOW_RELATION, $user, $channel) . $queryString, 'PUT');
+        return $this->request->request(sprintf(self::URI_USER_FOLLOW_RELATION, $user, $channel) . $queryString, 'PUT');
     }
 
     /**
@@ -177,7 +162,7 @@ class TwitchSDK
             'oauth_token' => $userToken,
         ));
 
-        return $this->request(sprintf(self::URI_USER_FOLLOW_RELATION, $user, $channel) . $queryString, 'DELETE');
+        return $this->request->request(sprintf(self::URI_USER_FOLLOW_RELATION, $user, $channel) . $queryString, 'DELETE');
     }
 
     /**
@@ -187,7 +172,7 @@ class TwitchSDK
      */
     public function channelGet($channel)
     {
-        return $this->request(self::URI_CHANNEL . $channel);
+        return $this->request->request(self::URI_CHANNEL . $channel);
     }
 
     /**
@@ -197,7 +182,7 @@ class TwitchSDK
      */
     public function teamGet($teamName)
     {
-        return $this->request(self::URI_TEAMS . $teamName);
+        return $this->request->request(self::URI_TEAMS . $teamName);
     }
 
     /**
@@ -205,7 +190,7 @@ class TwitchSDK
      */
     public function teamMembersAll($teamName)
     {
-        return $this->teamRequest($teamName . '/all_channels')->channels;
+        return $this->request->teamRequest($teamName . '/all_channels')->channels;
     }
 
     /**
@@ -222,7 +207,7 @@ class TwitchSDK
             'offset' => $offset,
         ));
 
-        return $this->request(sprintf(self::URI_CHANNEL_FOLLOWS, $channel) . $queryString);
+        return $this->request->request(sprintf(self::URI_CHANNEL_FOLLOWS, $channel) . $queryString);
     }
 
     /**
@@ -232,7 +217,7 @@ class TwitchSDK
      */
     public function streamGet($channel)
     {
-        return $this->request(self::URI_STREAM . $channel);
+        return $this->request->request(self::URI_STREAM . $channel);
     }
 
     /**
@@ -250,7 +235,7 @@ class TwitchSDK
             'offset' => $offset,
         ));
 
-        return $this->request(self::URI_STREAMS_SEARCH . $queryString);
+        return $this->request->request(self::URI_STREAMS_SEARCH . $queryString);
     }
 
     /**
@@ -272,7 +257,7 @@ class TwitchSDK
             'hls' => $hls,
         ));
 
-        return $this->request(self::URI_STREAM_SUMMARY . $queryString);
+        return $this->request->request(self::URI_STREAM_SUMMARY . $queryString);
     }
 
     /**
@@ -290,7 +275,7 @@ class TwitchSDK
             'hls' => $hls,
         ));
 
-        return $this->request(self::URI_STREAMS_FEATURED . $queryString);
+        return $this->request->request(self::URI_STREAMS_FEATURED . $queryString);
     }
 
     /**
@@ -330,7 +315,7 @@ class TwitchSDK
      */
     public function videoGet($video)
     {
-        return $this->request(self::URI_VIDEO . $video);
+        return $this->request->request(self::URI_VIDEO . $video);
     }
 
     /**
@@ -347,7 +332,7 @@ class TwitchSDK
             'offset' => $offset,
         ));
 
-        return $this->request(self::URI_CHANNEL . $channel . '/' . self::URI_VIDEO . $queryString);
+        return $this->request->request(self::URI_CHANNEL . $channel . '/' . self::URI_VIDEO . $queryString);
     }
 
     /**
@@ -357,7 +342,7 @@ class TwitchSDK
      */
     public function chatGet($channel)
     {
-        return $this->request(self::URI_CHAT . $channel);
+        return $this->request->request(self::URI_CHAT . $channel);
     }
 
     /**
@@ -366,7 +351,7 @@ class TwitchSDK
      */
     public function chatEmoticons()
     {
-        return $this->request(self::URI_CHAT_EMOTICONS);
+        return $this->request->request(self::URI_CHAT_EMOTICONS);
     }
 
     /**
@@ -382,7 +367,7 @@ class TwitchSDK
             'offset' => $offset,
         ));
 
-        return $this->request(self::URI_GAMES_TOP . $queryString);
+        return $this->request->request(self::URI_GAMES_TOP . $queryString);
     }
 
     /**
@@ -395,21 +380,21 @@ class TwitchSDK
      */
     public function embedStream($channel, $width = 620, $height = 378, $volume = 25)
     {
-        return '<object type="application/x-shockwave-flash" 
-                height="' . $height . '" 
-                width="' . $width . '" 
-                id="live_embed_player_flash" 
-                data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=' . $channel . '" 
+        return '<object type="application/x-shockwave-flash"
+                height="' . $height . '"
+                width="' . $width . '"
+                id="live_embed_player_flash"
+                data="http://www.twitch.tv/widgets/live_embed_player.swf?channel=' . $channel . '"
                 bgcolor="#000000">
-                <param  name="allowFullScreen" 
+                <param  name="allowFullScreen"
                     value="true" />
-                <param  name="allowScriptAccess" 
+                <param  name="allowScriptAccess"
                     value="always" />
-                <param  name="allowNetworking" 
+                <param  name="allowNetworking"
                     value="all" />
-                <param  name="movie" 
+                <param  name="movie"
                     value="http://www.twitch.tv/widgets/live_embed_player.swf" />
-                <param  name="flashvars" 
+                <param  name="flashvars"
                     value="hostname=www.twitch.tv&channel=' . $channel . '&auto_play=true&start_volume=' . $volume . '" />
                 </object>';
     }
@@ -425,21 +410,21 @@ class TwitchSDK
      */
     public function embedVideo($channel, $chapterid, $width = 400, $height = 300, $volume = 25)
     {
-        return '<object bgcolor="#000000" 
-                    data="http://www.twitch.tv/widgets/archive_embed_player.swf" 
-                    width="' . $width . '" 
-                    height="' . $height . '" 
-                    id="clip_embed_player_flash" 
-                    type="application/x-shockwave-flash"> 
-                <param  name="movie" 
-                    value="http://www.twitch.tv/widgets/archive_embed_player.swf" /> 
-                <param  name="allowScriptAccess" 
-                    value="always" /> 
-                <param  name="allowNetworking" 
-                    value="all" /> 
-                <param name="allowFullScreen" 
-                    value="true" /> 
-                <param  name="flashvars" 
+        return '<object bgcolor="#000000"
+                    data="http://www.twitch.tv/widgets/archive_embed_player.swf"
+                    width="' . $width . '"
+                    height="' . $height . '"
+                    id="clip_embed_player_flash"
+                    type="application/x-shockwave-flash">
+                <param  name="movie"
+                    value="http://www.twitch.tv/widgets/archive_embed_player.swf" />
+                <param  name="allowScriptAccess"
+                    value="always" />
+                <param  name="allowNetworking"
+                    value="all" />
+                <param name="allowFullScreen"
+                    value="true" />
+                <param  name="flashvars"
                     value="channel=' . $channel . '&start_volume=' . $volume . '&auto_play=false&chapter_id=' . $chapterid . '" />
                 </object>';
     }
@@ -453,11 +438,11 @@ class TwitchSDK
      */
     public function embedChat($channel, $width = 400, $height = 300)
     {
-        return '<iframe frameborder="0" 
-                    scrolling="no" 
-                    id="chat_embed" 
-                    src="http://twitch.tv/chat/embed?channel=' . $channel . '&amp;popout_chat=true" 
-                    height="' . $height . '" 
+        return '<iframe frameborder="0"
+                    scrolling="no"
+                    id="chat_embed"
+                    src="http://twitch.tv/chat/embed?channel=' . $channel . '&amp;popout_chat=true"
+                    height="' . $height . '"
                     width="' . $width . '">
                 </iframe>';
     }
@@ -480,7 +465,7 @@ class TwitchSDK
             'scope' => $scope,
         ));
 
-        return self::URL_TWITCH . self::URI_AUTH . $queryString;
+        return $this->request->request(self::URL_TWITCH . self::URI_AUTH . $queryString);
     }
 
     /**
@@ -502,7 +487,7 @@ class TwitchSDK
             'code' => $code,
         ));
 
-        return $this->request(self::URI_AUTH_TOKEN, 'POST', $queryString);
+        return $this->request->request(self::URI_AUTH_TOKEN, 'POST', $queryString);
     }
 
     /**
@@ -522,7 +507,7 @@ class TwitchSDK
             'client_id' => $this->authConfig['client_id'],
         ));
 
-        return $this->request(self::URI_USER_AUTH . $queryString);
+        return $this->request->request(self::URI_USER_AUTH . $queryString);
     }
 
     /**
@@ -542,7 +527,7 @@ class TwitchSDK
             'client_id' => $this->authConfig['client_id'],
         ));
 
-        return $this->request(self::URI_CHANNEL_AUTH . $queryString);
+        return $this->request->request(self::URI_CHANNEL_AUTH . $queryString);
     }
 
     /**
@@ -563,7 +548,7 @@ class TwitchSDK
             'client_id' => $this->authConfig['client_id'],
         ));
 
-        return $this->request(sprintf(self::URI_CHANNEL_EDITORS_AUTH, $channel) . $queryString);
+        return $this->request->request(sprintf(self::URI_CHANNEL_EDITORS_AUTH, $channel) . $queryString);
     }
 
     /**
@@ -590,7 +575,7 @@ class TwitchSDK
             'offset' => $offset
         ));
 
-        return $this->request(sprintf(self::URI_CHANNEL_SUBSCRIPTIONS, $channel) . $queryString);
+        return $this->request->request(sprintf(self::URI_CHANNEL_SUBSCRIPTIONS, $channel) . $queryString);
     }
 
     /**
@@ -610,7 +595,7 @@ class TwitchSDK
             'client_id' => $this->authConfig['client_id'],
         ));
 
-        return $this->request(self::URI_STREAMS_FOLLOWED_AUTH . $queryString);
+        return $this->request->request(self::URI_STREAMS_FOLLOWED_AUTH . $queryString);
     }
 
     /**
@@ -636,7 +621,7 @@ class TwitchSDK
 
         $queryString = $this->buildQueryString($params);
 
-        return $this->request(self::URI_STREAM . $queryString);
+        return $this->request->request(self::URI_STREAM . $queryString);
     }
 
     /**
@@ -683,113 +668,6 @@ class TwitchSDK
         return $queryString;
     }
 
-    /**
-     * TwitchAPI request
-     * @param   string
-     * @param   string
-     * @param   string
-     * @return  \stdClass
-     * @throws  \ritero\SDK\TwitchTV\TwitchException
-     */
-    private function request($uri, $method = 'GET', $postfields = null)
-    {
-        $params = ['CURLOPT_SSL_VERIFYPEER'];
-        return $this->generalRequest($params, self::URL_TWITCH . $uri, $method, $postfields);
-    }
-
-    /**
-     * Twitch Team API request
-     * @param   string
-     * @param   string
-     * @param   string
-     * @return  \stdClass
-     * @throws  \ritero\SDK\TwitchTV\TwitchException
-     */
-    private function teamRequest($uri, $method = 'GET', $postfields = null)
-    {
-        return $this->generalRequest([], self::URL_TWITCH_TEAM . $uri . '.json', $method, $postfields);
-    }
-
-    /**
-     * TwitchAPI request
-     * method used by teamRequest && request methods
-     * because there are two different Twitch APIs
-     * don't call it directly
-     * @param   array
-     * @param   string
-     * @param   string
-     * @param   string
-     * @return  \stdClass
-     * @throws  \ritero\SDK\TwitchTV\TwitchException
-     */
-    private function generalRequest($params, $uri, $method = 'GET', $postfields = null)
-    {
-        $this->httpInfo = array();
-
-        $crl = curl_init();
-        curl_setopt($crl, CURLOPT_USERAGENT, $this->userAgent);
-        curl_setopt($crl, CURLOPT_CONNECTTIMEOUT, $this->connectTimeout);
-        curl_setopt($crl, CURLOPT_TIMEOUT, $this->timeout);
-        curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($crl, CURLOPT_HTTPHEADER, array('Expect:', 'Accept: ' . sprintf(self::MIME_TYPE, self::API_VERSION)));
-        if (isset($params['CURLOPT_SSL_VERIFYPEER'])) {
-            curl_setopt($crl, CURLOPT_SSL_VERIFYPEER, $this->sslVerifypeer);
-        }
-        curl_setopt($crl, CURLOPT_HEADERFUNCTION, array($this, 'getHeader'));
-        curl_setopt($crl, CURLOPT_HEADER, false);
-
-        switch ($method) {
-            case 'POST':
-                curl_setopt($crl, CURLOPT_POST, true);
-                if (!is_null($postfields)) {
-                    curl_setopt($crl, CURLOPT_POSTFIELDS, ltrim($postfields, '?'));
-                }
-                break;
-            case 'PUT':
-                curl_setopt($crl, CURLOPT_CUSTOMREQUEST, 'PUT');
-                curl_setopt($crl, CURLOPT_HTTPHEADER, array('Content-Length: ' . strlen($postfields)));
-                if (!is_null($postfields)) {
-                    curl_setopt($crl, CURLOPT_POSTFIELDS, ltrim($postfields, '?'));
-                }
-                break;
-            case 'DELETE':
-                curl_setopt($crl, CURLOPT_CUSTOMREQUEST, 'DELETE');
-                curl_setopt($crl, CURLOPT_HTTPHEADER, array('Content-Length: ' . strlen($postfields)));
-                if (!is_null($postfields)) {
-                    curl_setopt($crl, CURLOPT_POSTFIELDS, ltrim($postfields, '?'));
-                }
-        }
-
-        curl_setopt($crl, CURLOPT_URL, $uri);
-
-        $response = curl_exec($crl);
-
-        $this->httpCode = curl_getinfo($crl, CURLINFO_HTTP_CODE);
-        $this->httpInfo = array_merge($this->httpInfo, curl_getinfo($crl));
-
-        if (curl_errno($crl) && $this->throwCurlErrors === true) {
-            throw new TwitchException(curl_error($crl), curl_errno($crl));
-        }
-
-        curl_close($crl);
-
-        return json_decode($response);
-    }
-
-    /**
-     * Get the header info to store
-     */
-    private function getHeader($ch, $header)
-    {
-        $i = strpos($header, ':');
-        if (!empty($i)) {
-            $key = str_replace('-', '_', strtolower(substr($header, 0, $i)));
-            $value = trim(substr($header, $i + 2));
-            $this->httpHeader[$key] = $value;
-        }
-
-        return strlen($header);
-    }
 
     /**
      * Configuration exception
