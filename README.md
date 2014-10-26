@@ -4,6 +4,12 @@
 SDK is currently under development, so functions, readme and/or examples will
 change.
 
+## Development
+
+There is [develop](https://github.com/jofner/Twitch-SDK/tree/develop) branch, which takes place in refactoring existing features.
+Because I need to develop SDK and also have it functional, rewriting functions carried out in phases.
+If you have questions or suggestions regarding the development of the new version, you can use [Issues](https://github.com/jofner/Twitch-SDK/issues)
+
 ## Requirements
 
 TwitchTV SDK for PHP requires PHP 5.3.0 or later with cURL.
