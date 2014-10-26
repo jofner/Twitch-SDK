@@ -1,3 +1,4 @@
-.idea/*
-/docs
-/tests
+/.idea/*
+/vendor/*
+/docs/*
+composer.lock
