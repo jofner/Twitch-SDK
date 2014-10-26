@@ -2,6 +2,10 @@
 
 namespace ritero\SDK\TwitchTV;
 
+use ritero\SDK\TwitchTV\Methods\Auth;
+use ritero\SDK\TwitchTV\Methods\Channels;
+use ritero\SDK\TwitchTV\Methods\Users;
+
 /**
  * TwitchTV API SDK for PHP
  *
@@ -465,7 +469,9 @@ class TwitchSDK
             'scope' => $scope,
         ));
 
-        return $this->request->request(self::URL_TWITCH . self::URI_AUTH . $queryString);
+        $auth = new Auth;
+
+        return $auth->getLoginURL($queryString);
     }
 
     /**
@@ -487,7 +493,9 @@ class TwitchSDK
             'code' => $code,
         ));
 
-        return $this->request->request(self::URI_AUTH_TOKEN, 'POST', $queryString);
+        $auth = new Auth;
+
+        return $auth->getAccessToken($queryString);
     }
 
     /**
@@ -507,7 +515,9 @@ class TwitchSDK
             'client_id' => $this->authConfig['client_id'],
         ));
 
-        return $this->request->request(self::URI_USER_AUTH . $queryString);
+        $users = new Users;
+
+        $users->getUser($queryString);
     }
 
     /**
@@ -527,7 +537,9 @@ class TwitchSDK
             'client_id' => $this->authConfig['client_id'],
         ));
 
-        return $this->request->request(self::URI_CHANNEL_AUTH . $queryString);
+        $channels = new Channels;
+
+        return $channels->getChannel($queryString);
     }
 
     /**
@@ -548,7 +560,9 @@ class TwitchSDK
             'client_id' => $this->authConfig['client_id'],
         ));
 
-        return $this->request->request(sprintf(self::URI_CHANNEL_EDITORS_AUTH, $channel) . $queryString);
+        $channels = new Channels;
+
+        $channels->getEditors($channel, $queryString);
     }
 
     /**
@@ -575,16 +589,21 @@ class TwitchSDK
             'offset' => $offset
         ));
 
-        return $this->request->request(sprintf(self::URI_CHANNEL_SUBSCRIPTIONS, $channel) . $queryString);
+        $channels = new Channels;
+
+        $channels->getSubscriptions($channel, $queryString);
     }
 
     /**
      * List the live streams that the authenticated user is following
      *  - requires scope 'user_read'
-     * @param   string
-     * @return  \stdClass
+     * @param string
+     * @param integer $limit
+     * @param integer $offset
+     * @param bool $hls
+     * @return \stdClass
      */
-    public function authStreamsFollowed($token)
+    public function authStreamsFollowed($token, $limit = 25, $offset = 0, $hls = null)
     {
         if ($this->authConfig === false) {
             $this->authConfigException();
@@ -593,9 +612,14 @@ class TwitchSDK
         $queryString = $this->buildQueryString(array(
             'oauth_token' => $token,
             'client_id' => $this->authConfig['client_id'],
+            'limit' => $limit,
+            'offset' => $offset,
+            'hls' => $hls,
         ));
 
-        return $this->request->request(self::URI_STREAMS_FOLLOWED_AUTH . $queryString);
+        $users = new Users;
+
+        $users->getFollowedStreams($queryString);
     }
 
     /**

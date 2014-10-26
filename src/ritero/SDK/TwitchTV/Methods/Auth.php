@@ -2,6 +2,8 @@
 
 namespace ritero\SDK\TwitchTV\Methods;
 
+use ritero\SDK\TwitchTV\TwitchRequest;
+
 /**
  * TwitchTV API SDK for PHP
  *
@@ -14,5 +16,34 @@ namespace ritero\SDK\TwitchTV\Methods;
 
 class Auth
 {
+    /** @var ritero\SDK\TwitchTV\TwitchRequest */
+    protected $request;
 
+    const URI_AUTH = 'oauth2/authorize';
+    const URI_AUTH_TOKEN = 'oauth2/token';
+
+    public function __construct()
+    {
+        $this->request = new TwitchRequest;
+    }
+
+    /**
+     * Get login URL for authentication
+     * @param string $queryString
+     * @return string
+     */
+    public function getLoginURL($queryString)
+    {
+        return $this->request->request(self::URI_AUTH . $queryString);
+    }
+
+    /**
+     * Get authentication access token
+     * @param string $queryString
+     * @return \stdClass
+     */
+    public function getAccessToken($queryString)
+    {
+        return $this->request->request(self::URI_AUTH_TOKEN, 'POST', $queryString);
+    }
 }
