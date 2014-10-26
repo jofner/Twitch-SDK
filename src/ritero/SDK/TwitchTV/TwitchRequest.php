@@ -37,12 +37,34 @@ class TwitchRequest
     /** @var boolean Throw cURL errors */
     public $throwCurlErrors = true;
 
+    /** @var int API version to use */
+    private $apiVersion = 2;
+
     const URL_TWITCH = 'https://api.twitch.tv/kraken/';
     const URL_TWITCH_TEAM = 'http://api.twitch.tv/api/team/';
     const URI_AUTH = 'oauth2/authorize';
     const URI_AUTH_TOKEN = 'oauth2/token';
-    const API_VERSION = 2;
     const MIME_TYPE = 'application/vnd.twitchtv.v%d+json';
+
+    /**
+     * Set the API version to use
+     * @param integer $version
+     */
+    public function setApiVersion($version)
+    {
+        if (ctype_digit(strval($version))) {
+            $this->apiVersion = (int)$version;
+        }
+    }
+
+    /**
+     * Get the API version
+     * @return int
+     */
+    public function getApiVersion()
+    {
+        return $this->apiVersion;
+    }
 
     /**
      * TwitchAPI request
@@ -93,7 +115,7 @@ class TwitchRequest
         curl_setopt($crl, CURLOPT_CONNECTTIMEOUT, $this->connectTimeout);
         curl_setopt($crl, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($crl, CURLOPT_HTTPHEADER, array('Expect:', 'Accept: ' . sprintf(self::MIME_TYPE, self::API_VERSION)));
+        curl_setopt($crl, CURLOPT_HTTPHEADER, array('Expect:', 'Accept: ' . sprintf(self::MIME_TYPE, $this->getApiVersion())));
         if (isset($params['CURLOPT_SSL_VERIFYPEER'])) {
             curl_setopt($crl, CURLOPT_SSL_VERIFYPEER, $this->sslVerifypeer);
         }
