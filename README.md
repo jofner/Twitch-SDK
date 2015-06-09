@@ -20,21 +20,22 @@ TwitchTV SDK for PHP requires PHP 5.3.0 or later with cURL.
 
 The best way to install TwitchTV SDK is use [Composer](http://getcomposer.org/).
 
-### Add bundle to your composer.json file
+
+### Download the bundle using Composer
+
+```bash
+$ composer require 'ritero/twitch-sdk:~1.0'
+```
+
+### Or add bundle to your composer.json file
 
 ```js
 {
     "require": {
         // ..
-        "ritero/twitch-sdk": "dev-master"
+        "ritero/twitch-sdk": "~1.0"
     }
 }
-```
-
-### Download the bundle using Composer
-
-```bash
-$ composer require ritero/twitch-sdk:dev-master
 ```
 
 The downloaded package includes the `src` directory. This directory contains
