@@ -7,13 +7,13 @@ use ritero\SDK\TwitchTV\TwitchRequest;
 /**
  * TwitchTV API SDK for PHP
  *
- * Block method class
+ * Follow method class
  *
  * @author Josef Ohnheiser <ritero@ritero.eu>
  * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
  * @homepage https://github.com/jofner/Twitch-SDK
  */
-class Block
+class Follow
 {
     /** @var \ritero\SDK\TwitchTV\TwitchRequest */
     protected $request;
