@@ -2,9 +2,7 @@
 
 namespace ritero\SDK\TwitchTV;
 
-use ritero\SDK\TwitchTV\Methods\Auth;
-use ritero\SDK\TwitchTV\Methods\Channels;
-use ritero\SDK\TwitchTV\Methods\Users;
+use ritero\SDK\TwitchTV\Methods;
 
 /**
  * TwitchTV API SDK for PHP
@@ -14,7 +12,7 @@ use ritero\SDK\TwitchTV\Methods\Users;
  * @author Josef Ohnheiser <ritero@ritero.eu>
  * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
  * @homepage https://github.com/jofner/Twitch-SDK
- * @version 0.6
+ * @version 2.0.0-dev
  */
 class TwitchSDK
 {
@@ -493,7 +491,7 @@ class TwitchSDK
             'code' => $code,
         ));
 
-        $auth = new Auth;
+        $auth = new Methods\Auth;
 
         return $auth->getAccessToken($queryString);
     }
@@ -515,9 +513,8 @@ class TwitchSDK
             'client_id' => $this->authConfig['client_id'],
         ));
 
-        $users = new Users;
-
-        $users->getUser($queryString);
+        $user = new Methods\User;
+        $user->getUser($queryString);
     }
 
     /**
@@ -537,7 +534,7 @@ class TwitchSDK
             'client_id' => $this->authConfig['client_id'],
         ));
 
-        $channels = new Channels;
+        $channels = new Methods\Channel;
 
         return $channels->getChannel($queryString);
     }
@@ -560,7 +557,7 @@ class TwitchSDK
             'client_id' => $this->authConfig['client_id'],
         ));
 
-        $channels = new Channels;
+        $channels = new Methods\Channel;
 
         $channels->getEditors($channel, $queryString);
     }
@@ -589,7 +586,7 @@ class TwitchSDK
             'offset' => $offset
         ));
 
-        $channels = new Channels;
+        $channels = new Methods\Channel;
 
         $channels->getSubscriptions($channel, $queryString);
     }
@@ -617,9 +614,8 @@ class TwitchSDK
             'hls' => $hls,
         ));
 
-        $users = new Users;
-
-        $users->getFollowedStreams($queryString);
+        $user = new Methods\User;
+        $user->getFollowedStreams($queryString);
     }
 
     /**

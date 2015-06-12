@@ -13,7 +13,7 @@ use ritero\SDK\TwitchTV\TwitchRequest;
  * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
  * @homepage https://github.com/jofner/Twitch-SDK
  */
-class Users
+class User
 {
     /** @var ritero\SDK\TwitchTV\TwitchRequest */
     protected $request;

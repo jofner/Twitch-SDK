@@ -1,16 +1,16 @@
 <?php
 
-namespace ritero\SDK\TwitchTV\Methods;
+namespace ritero\SDK\TwitchTV;
 
 /**
- * TwitchTV API SDK for PHP
+ * TwitchException for TwitchTV API SDK for PHP
  *
- * Games method class
+ * PHP SDK for interacting with the TwitchTV API
  *
  * @author Josef Ohnheiser <ritero@ritero.eu>
  * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
  * @homepage https://github.com/jofner/Twitch-SDK
  */
-class Games {
+class Helper {
 
 }
