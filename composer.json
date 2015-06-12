@@ -2,10 +2,9 @@
     "name": "ritero/twitch-sdk",
     "type": "library",
     "description": "TwitchTV API SDK for PHP",
-    "version": "1.0.0",
     "keywords": ["twitch", "api", "sdk"],
     "homepage": "https://github.com/jofner/Twitch-SDK",
-    "license": "MIT License",
+    "license": "MIT",
     "authors": [
         {
             "name": "Josef Ohnheiser",
@@ -25,7 +24,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.0"
+            "dev-master": "1.0.0-dev"
         }
     }
 }
