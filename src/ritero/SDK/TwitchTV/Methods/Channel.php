@@ -55,19 +55,4 @@ class Channel
 
         return $this->request->request(sprintf(self::URI_CHANNEL_EDITORS_AUTH, $channel) . $queryString);
     }
-
-    /**
-     * @description Returns an array of subscriptions who are subscribed to specified channel
-     *  - requires scope 'channel_subscriptions'
-     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/subscriptions.md#get-channelschannelsubscriptions
-     * @param string $channel
-     * @param string $queryString
-     * @return \stdClass
-     */
-    public function getSubscriptions($channel, $queryString)
-    {
-        $this->request->setApiVersion(3);
-
-        return $this->request->request(sprintf(self::URI_CHANNEL_SUBSCRIPTIONS, $channel) . $queryString);
-    }
 }
