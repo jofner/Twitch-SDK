@@ -628,7 +628,6 @@ class TwitchSDK
         }
 
         $query_string = $this->buildQueryString($query);
-        var_dump($query_string);
 
         return $this->request(self::URI_STREAMS_FOLLOWED_AUTH . $query_string);
     }
