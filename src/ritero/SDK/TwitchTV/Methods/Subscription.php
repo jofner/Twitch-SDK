@@ -2,6 +2,7 @@
 
 namespace ritero\SDK\TwitchTV\Methods;
 
+use ritero\SDK\TwitchTV\TwitchException;
 use ritero\SDK\TwitchTV\TwitchRequest;
 
 /**
@@ -15,8 +16,10 @@ use ritero\SDK\TwitchTV\TwitchRequest;
  */
 class Subscription
 {
-    /** @var \ritero\SDK\TwitchTV\TwitchRequest */
+    /** @var TwitchRequest */
     protected $request;
+
+    const URI_CHANNEL_SUBSCRIPTIONS = 'channels/%s/subscriptions';
 
     public function __construct()
     {
@@ -30,6 +33,7 @@ class Subscription
      * @param string $channel
      * @param string $queryString
      * @return \stdClass
+     * @throws TwitchException
      */
     public function getSubscriptions($channel, $queryString)
     {

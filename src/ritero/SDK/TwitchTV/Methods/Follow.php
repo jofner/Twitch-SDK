@@ -15,7 +15,7 @@ use ritero\SDK\TwitchTV\TwitchRequest;
  */
 class Follow
 {
-    /** @var \ritero\SDK\TwitchTV\TwitchRequest */
+    /** @var TwitchRequest */
     protected $request;
 
     public function __construct()

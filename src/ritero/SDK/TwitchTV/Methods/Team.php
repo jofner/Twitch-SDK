@@ -11,6 +11,7 @@ namespace ritero\SDK\TwitchTV\Methods;
  * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
  * @homepage https://github.com/jofner/Twitch-SDK
  */
-class Team {
+class Team
+{
 
 }

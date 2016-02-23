@@ -16,7 +16,10 @@ use ritero\SDK\TwitchTV\Methods;
  */
 class TwitchSDK
 {
-    /** @var array */
+    /**
+     * @var array|bool
+     * @todo Create setter and getter with data validation
+     */
     protected $authConfig = false;
 
     /** @var TwitchRequest */
@@ -32,7 +35,6 @@ class TwitchSDK
     const URI_USER_FOLLOW_RELATION = '/users/%s/follows/channels/%s';
     const URI_CHANNEL = 'channels/';
     const URI_CHANNEL_FOLLOWS = 'channels/%s/follows';
-    const URI_CHANNEL_SUBSCRIPTIONS = 'channels/%s/subscriptions';
     const URI_STREAM = 'streams/';
     const URI_STREAM_SUMMARY = 'streams/summary/';
     const URI_STREAMS_FEATURED = 'streams/featured/';
@@ -41,22 +43,16 @@ class TwitchSDK
     const URI_CHAT = 'chat/';
     const URI_CHAT_EMOTICONS = 'chat/emoticons';
     const URI_GAMES_TOP = 'games/top/';
-    const URI_AUTH = 'oauth2/authorize';
-    const URI_AUTH_TOKEN = 'oauth2/token';
-    const URI_USER_AUTH = 'user';
-    const URI_CHANNEL_AUTH = 'channel';
-    const URI_CHANNEL_EDITORS_AUTH = 'channels/%s/editors';
-    const URI_STREAMS_FOLLOWED_AUTH = 'streams/followed';
     const URI_TEAMS = 'teams/';
     const API_VERSION = 2;
     const MIME_TYPE = 'application/vnd.twitchtv.v%d+json';
 
     /**
-     * SDK constructor
-     * @param   array
-     * @throws  \ritero\SDK\TwitchTV\TwitchException
+     * TwitchSDK constructor
+     * @param array $config
+     * @throws TwitchException
      */
-    public function __construct($config = array())
+    public function __construct(array $config = array())
     {
         if (!in_array('curl', get_loaded_extensions())) {
             throw new TwitchException('cURL extension is not installed and is required');
@@ -79,14 +75,15 @@ class TwitchSDK
 
     /**
      * Basic information about the API and authentication status
-     * @param   string
-     * @return  \stdClass
+     * @param null $token
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function status($token = null)
     {
         $auth = null;
 
-        if (!is_null($token)) {
+        if ($token !== null) {
             if ($this->authConfig === false) {
                 $this->authConfigException();
             } else {
@@ -99,8 +96,9 @@ class TwitchSDK
 
     /**
      * Get the specified user
-     * @param   string
-     * @return  \stdClass
+     * @param $username
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function userGet($username)
     {
@@ -109,10 +107,11 @@ class TwitchSDK
 
     /**
      * Get a user's list of followed channels
-     * @param   integer
-     * @param   integer
-     * @param   integer
-     * @return  \stdClass
+     * @param $user
+     * @param null $limit
+     * @param null $offset
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function userFollowChannels($user, $limit = null, $offset = null)
     {
@@ -126,9 +125,10 @@ class TwitchSDK
 
     /**
      * Get the status of a follow relationship
-     * @param   string
-     * @param   string
-     * @return  \stdClass
+     * @param $user
+     * @param $channel
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function userFollowRelationship($user, $channel)
     {
@@ -137,10 +137,11 @@ class TwitchSDK
 
     /**
      * Set user to follow given channel
-     * @param   string
-     * @param   string
-     * @param   string
-     * @return  \stdClass
+     * @param $user
+     * @param $channel
+     * @param $userToken
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function userFollowChannel($user, $channel, $userToken)
     {
@@ -153,10 +154,11 @@ class TwitchSDK
 
     /**
      * Set user to unfollow given channel
-     * @param   string
-     * @param   string
-     * @param   string
-     * @return  \stdClass
+     * @param $user
+     * @param $channel
+     * @param $userToken
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function userUnfollowChannel($user, $channel, $userToken)
     {
@@ -169,8 +171,9 @@ class TwitchSDK
 
     /**
      * Get the specified channel
-     * @param   string
-     * @return  \stdClass
+     * @param $channel
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function channelGet($channel)
     {
@@ -179,8 +182,9 @@ class TwitchSDK
 
     /**
      * Get the specified team
-     * @param   string
-     * @return  \stdClass
+     * @param $teamName
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function teamGet($teamName)
     {
@@ -188,7 +192,10 @@ class TwitchSDK
     }
 
     /**
-     *
+     * Get all team members
+     * @param $teamName
+     * @return mixed
+     * @throws TwitchException
      */
     public function teamMembersAll($teamName)
     {
@@ -197,10 +204,11 @@ class TwitchSDK
 
     /**
      * Returns an array of users who follow the specified channel
-     * @param   string
-     * @param   integer
-     * @param   integer
-     * @return  \stdClass
+     * @param $channel
+     * @param null $limit
+     * @param null $offset
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function channelFollows($channel, $limit = null, $offset = null)
     {
@@ -214,8 +222,9 @@ class TwitchSDK
 
     /**
      * Get the specified channel's stream
-     * @param   string
-     * @return  \stdClass
+     * @param $channel
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function streamGet($channel)
     {
@@ -224,10 +233,11 @@ class TwitchSDK
 
     /**
      * Search live streams
-     * @param   string
-     * @param   integer
-     * @param   integer
-     * @return  \stdClass
+     * @param $query
+     * @param null $limit
+     * @param null $offset
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function streamSearch($query, $limit = null, $offset = null)
     {
@@ -242,10 +252,11 @@ class TwitchSDK
 
     /**
      * Summarize streams
-     * @param   string
-     * @param   array
-     * @param   boolean
-     * @return  \stdClass
+     * @param null $game
+     * @param array|null $channels
+     * @param null $hls
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function streamsSummarize($game = null, array $channels = null, $hls = null)
     {
@@ -264,10 +275,11 @@ class TwitchSDK
 
     /**
      * Get featured streams
-     * @param   integer
-     * @param   integer
-     * @param   boolean
-     * @return  \stdClass
+     * @param null $limit
+     * @param null $offset
+     * @param null $hls
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function streamsFeatured($limit = null, $offset = null, $hls = null)
     {
@@ -282,28 +294,28 @@ class TwitchSDK
 
     /**
      * Get streams by channel
-     * @param   array
-     * @param   integer
-     * @param   integer
-     * @param   boolean
-     * @param   boolean
-     * @return  \stdClass
+     * @param $channels
+     * @param null $limit
+     * @param null $offset
+     * @param null $embeddable
+     * @param null $hls
+     * @return \stdClass
      */
     public function streamsByChannels($channels, $limit = null, $offset = null, $embeddable = null, $hls = null)
     {
-        $channels_string = implode(',', $channels);
+        $channelsString = implode(',', $channels);
 
-        return $this->getStreams(null, $limit, $offset, $channels_string, $embeddable, $hls);
+        return $this->getStreams(null, $limit, $offset, $channelsString, $embeddable, $hls);
     }
 
     /**
      * Get streams by game
-     * @param   string
-     * @param   integer
-     * @param   integer
-     * @param   boolean
-     * @param   boolean
-     * @return  \stdClass
+     * @param $game
+     * @param null $limit
+     * @param null $offset
+     * @param null $embeddable
+     * @param null $hls
+     * @return \stdClass
      */
     public function streamsByGame($game, $limit = null, $offset = null, $embeddable = null, $hls = null)
     {
@@ -312,8 +324,9 @@ class TwitchSDK
 
     /**
      * Get video
-     * @param   integer
-     * @return  \stdClass
+     * @param $video
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function videoGet($video)
     {
@@ -322,10 +335,11 @@ class TwitchSDK
 
     /**
      * Get videos for a channel
-     * @param   string
-     * @param   integer
-     * @param   integer
-     * @return  \stdClass
+     * @param $channel
+     * @param null $limit
+     * @param null $offset
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function videosByChannel($channel, $limit = null, $offset = null)
     {
@@ -339,8 +353,9 @@ class TwitchSDK
 
     /**
      * Get the specified channel's chat
-     * @param   string
-     * @return  \stdClass
+     * @param $channel
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function chatGet($channel)
     {
@@ -349,7 +364,8 @@ class TwitchSDK
 
     /**
      * Get a chat's emoticons
-     * @return  \stdClass
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function chatEmoticons()
     {
@@ -358,9 +374,10 @@ class TwitchSDK
 
     /**
      * Get top games
-     * @param   integer
-     * @param   integer
-     * @return  \stdClass
+     * @param null $limit
+     * @param null $offset
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function gamesTop($limit = null, $offset = null)
     {
@@ -374,11 +391,11 @@ class TwitchSDK
 
     /**
      * Get HTML code for stream embedding
-     * @param   string
-     * @param   integer
-     * @param   integer
-     * @param   integer
-     * @return  string
+     * @param $channel
+     * @param int $width
+     * @param int $height
+     * @param int $volume
+     * @return string
      */
     public function embedStream($channel, $width = 620, $height = 378, $volume = 25)
     {
@@ -403,12 +420,12 @@ class TwitchSDK
 
     /**
      * Get HTML code for video embedding
-     * @param   string
-     * @param   integer
-     * @param   integer
-     * @param   integer
-     * @param   integer
-     * @return  string
+     * @param $channel
+     * @param $chapterid
+     * @param int $width
+     * @param int $height
+     * @param int $volume
+     * @return string
      */
     public function embedVideo($channel, $chapterid, $width = 400, $height = 300, $volume = 25)
     {
@@ -433,10 +450,10 @@ class TwitchSDK
 
     /**
      * Get HTML code for chat embedding
-     * @param   string
-     * @param   integer
-     * @param   integer
-     * @return  string
+     * @param $channel
+     * @param int $width
+     * @param int $height
+     * @return string
      */
     public function embedChat($channel, $width = 400, $height = 300)
     {
@@ -451,8 +468,9 @@ class TwitchSDK
 
     /**
      * Get login URL for authentication
-     * @param   string $scope Specify which permissions your app requires (space separated list)
-     * @return  string
+     * @param string $scope Specify which permissions your app requires (space separated list)
+     * @return string
+     * @throws TwitchException
      */
     public function authLoginURL($scope)
     {
@@ -467,15 +485,16 @@ class TwitchSDK
             'scope' => $scope,
         ));
 
-        $auth = new Auth;
+        $auth = new Methods\Auth;
 
         return $auth->getLoginURL($queryString);
     }
 
     /**
      * Get authentication access token
-     * @param   string $code returned after app authorization by user
-     * @return  \stdClass
+     * @param string $code returned after app authorization by user
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function authAccessTokenGet($code)
     {
@@ -499,8 +518,9 @@ class TwitchSDK
     /**
      * Get the authenticated user
      *  - requires scope 'user_read'
-     * @param   string
-     * @return  \stdClass
+     * @param string
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function authUserGet($token)
     {
@@ -520,8 +540,9 @@ class TwitchSDK
     /**
      * Get the authenticated channel
      *  - requires scope 'channel_read'
-     * @param   string
-     * @return  \stdClass
+     * @param string
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function authChannelGet($token)
     {
@@ -542,9 +563,10 @@ class TwitchSDK
     /**
      * Returns an array of users who are editors of specified channel
      *  - requires scope 'channel_read'
-     * @param   string
-     * @param   string
-     * @return  \stdClass
+     * @param string
+     * @param string
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function authChannelEditors($token, $channel)
     {
@@ -563,14 +585,15 @@ class TwitchSDK
     }
 
     /**
-     * @description Returns an array of subscriptions who are subscribed to specified channel
+     * Returns an array of subscriptions who are subscribed to specified channel
      *  - requires scope 'channel_subscriptions'
-     * @param   string $token - user's access token
-     * @param   string $channel
-     * @param   integer $limit - can be up to 100
-     * @param   integer $offset
-     * @param   string $direction can be DESC|ASC, if DESC - lasts will be showed first
-     * @return  \stdClass
+     * @param string $token - user's access token
+     * @param string $channel
+     * @param integer $limit - can be up to 100
+     * @param integer $offset
+     * @param string $direction can be DESC|ASC, if DESC - lasts will be showed first
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function authChannelSubscriptions($token, $channel, $limit = 25, $offset = 0, $direction = 'DESC')
     {
@@ -586,7 +609,7 @@ class TwitchSDK
             'offset' => $offset
         ));
 
-        $channels = new Methods\Channel;
+        $channels = new Methods\Subscription;
 
         $channels->getSubscriptions($channel, $queryString);
     }
@@ -599,6 +622,7 @@ class TwitchSDK
      * @param integer $offset
      * @param bool $hls
      * @return \stdClass
+     * @throws TwitchException
      */
     public function authStreamsFollowed($token, $limit = 25, $offset = 0, $hls = null)
     {
@@ -620,13 +644,14 @@ class TwitchSDK
 
     /**
      * Get streams helper
-     * @param   string
-     * @param   integer
-     * @param   integer
-     * @param   string
-     * @param   boolean
-     * @param   boolean
-     * @return  \stdClass
+     * @param null $game
+     * @param null $limit
+     * @param null $offset
+     * @param null $channels
+     * @param null $embeddable
+     * @param null $hls
+     * @return \stdClass
+     * @throws TwitchException
      */
     public function getStreams($game = null, $limit = null, $offset = null, $channels = null, $embeddable = null, $hls = null)
     {
@@ -646,8 +671,8 @@ class TwitchSDK
 
     /**
      * Validate parameters for authentication
-     * @param   array
-     * @return  boolean
+     * @param array
+     * @return boolean
      */
     private function configValidate($config)
     {
@@ -667,8 +692,8 @@ class TwitchSDK
 
     /**
      * Build query string
-     * @param   array
-     * @return  string
+     * @param array
+     * @return string
      */
     private function buildQueryString($params)
     {
@@ -681,7 +706,7 @@ class TwitchSDK
             }
         }
 
-        if (!empty($param)) {
+        if (count($param) > 0) {
             $queryString = '?' . http_build_query($param);
         }
 
@@ -691,7 +716,7 @@ class TwitchSDK
 
     /**
      * Configuration exception
-     * @throws  \ritero\SDK\TwitchTV\TwitchException
+     * @throws TwitchException
      */
     private function authConfigException()
     {

@@ -2,6 +2,7 @@
 
 namespace ritero\SDK\TwitchTV\Methods;
 
+use ritero\SDK\TwitchTV\TwitchException;
 use ritero\SDK\TwitchTV\TwitchRequest;
 
 /**
@@ -16,7 +17,7 @@ use ritero\SDK\TwitchTV\TwitchRequest;
 
 class Auth
 {
-    /** @var ritero\SDK\TwitchTV\TwitchRequest */
+    /** @var TwitchRequest */
     protected $request;
 
     const URI_AUTH = 'oauth2/authorize';
@@ -31,6 +32,7 @@ class Auth
      * Get login URL for authentication
      * @param string $queryString
      * @return string
+     * @throws TwitchException
      */
     public function getLoginURL($queryString)
     {
@@ -41,6 +43,7 @@ class Auth
      * Get authentication access token
      * @param string $queryString
      * @return \stdClass
+     * @throws TwitchException
      */
     public function getAccessToken($queryString)
     {

@@ -1,0 +1,5 @@
+{
+    "require": {
+        "ritero/twitch-sdk": "dev-master"
+    }
+}

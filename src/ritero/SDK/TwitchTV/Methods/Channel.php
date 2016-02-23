@@ -2,6 +2,7 @@
 
 namespace ritero\SDK\TwitchTV\Methods;
 
+use ritero\SDK\TwitchTV\TwitchException;
 use ritero\SDK\TwitchTV\TwitchRequest;
 
 /**
@@ -15,12 +16,11 @@ use ritero\SDK\TwitchTV\TwitchRequest;
  */
 class Channel
 {
-    /** @var ritero\SDK\TwitchTV\TwitchRequest */
+    /** @var TwitchRequest */
     protected $request;
 
     const URI_CHANNEL_AUTH = 'channel';
     const URI_CHANNEL_EDITORS_AUTH = 'channels/%s/editors';
-    const URI_CHANNEL_SUBSCRIPTIONS = 'channels/%s/subscriptions';
 
     public function __construct()
     {
@@ -33,6 +33,7 @@ class Channel
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/channels.md#get-channel
      * @param string $queryString
      * @return \stdClass
+     * @throws TwitchException
      */
     public function getChannel($queryString)
     {
@@ -48,6 +49,7 @@ class Channel
      * @param string $channel
      * @param string $queryString
      * @return \stdClass
+     * @throws TwitchException
      */
     public function getEditors($channel, $queryString)
     {

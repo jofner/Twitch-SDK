@@ -14,7 +14,7 @@ namespace ritero\SDK\TwitchTV;
 class TwitchRequest
 {
     /** @var string Set the useragnet */
-    private $userAgent = 'ritero TwitchSDK dev-0.*';
+    private $userAgent = 'ritero TwitchSDK 2.*';
 
     /** @var integer Set connect timeout */
     public $connectTimeout = 30;
@@ -116,7 +116,7 @@ class TwitchRequest
         curl_setopt($crl, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($crl, CURLOPT_HTTPHEADER, array('Expect:', 'Accept: ' . sprintf(self::MIME_TYPE, $this->getApiVersion())));
-        if (isset($params['CURLOPT_SSL_VERIFYPEER'])) {
+        if (array_key_exists('CURLOPT_SSL_VERIFYPEER', $params)) {
             curl_setopt($crl, CURLOPT_SSL_VERIFYPEER, $this->sslVerifypeer);
         }
         curl_setopt($crl, CURLOPT_HEADERFUNCTION, array($this, 'getHeader'));
@@ -125,21 +125,21 @@ class TwitchRequest
         switch ($method) {
             case 'POST':
                 curl_setopt($crl, CURLOPT_POST, true);
-                if (!is_null($postfields)) {
+                if ($postfields !== null) {
                     curl_setopt($crl, CURLOPT_POSTFIELDS, ltrim($postfields, '?'));
                 }
                 break;
             case 'PUT':
                 curl_setopt($crl, CURLOPT_CUSTOMREQUEST, 'PUT');
                 curl_setopt($crl, CURLOPT_HTTPHEADER, array('Content-Length: ' . strlen($postfields)));
-                if (!is_null($postfields)) {
+                if ($postfields !== null) {
                     curl_setopt($crl, CURLOPT_POSTFIELDS, ltrim($postfields, '?'));
                 }
                 break;
             case 'DELETE':
                 curl_setopt($crl, CURLOPT_CUSTOMREQUEST, 'DELETE');
                 curl_setopt($crl, CURLOPT_HTTPHEADER, array('Content-Length: ' . strlen($postfields)));
-                if (!is_null($postfields)) {
+                if ($postfields !== null) {
                     curl_setopt($crl, CURLOPT_POSTFIELDS, ltrim($postfields, '?'));
                 }
         }

@@ -13,19 +13,13 @@ namespace ritero\SDK\TwitchTV;
  */
 class TwitchException extends \Exception
 {
-    /** @var string */
-    protected $message = 'Unknown exception';
-
-    /** @var integer */
-    protected $code;
-
     /** @var \ritero\SDK\TwitchTV\TwitchException */
     protected $previous;
 
     public function __construct($message = null, $code = 0, TwitchException $previous = null)
     {
         $this->code = $code;
-        if (!is_null($message)) {
+        if ($message !== null) {
             $this->message = $message;
         }
         $this->previous = $previous;

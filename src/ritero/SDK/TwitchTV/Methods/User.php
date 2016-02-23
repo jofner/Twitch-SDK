@@ -2,6 +2,7 @@
 
 namespace ritero\SDK\TwitchTV\Methods;
 
+use ritero\SDK\TwitchTV\TwitchException;
 use ritero\SDK\TwitchTV\TwitchRequest;
 
 /**
@@ -15,7 +16,7 @@ use ritero\SDK\TwitchTV\TwitchRequest;
  */
 class User
 {
-    /** @var ritero\SDK\TwitchTV\TwitchRequest */
+    /** @var TwitchRequest */
     protected $request;
 
     const URI_USER_AUTH = 'user';
@@ -32,6 +33,7 @@ class User
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-user
      * @param string
      * @return \stdClass
+     * @throws TwitchException
      */
     public function getUser($queryString)
     {
@@ -46,6 +48,7 @@ class User
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-streamsfollowed
      * @param string $queryString
      * @return \stdClass
+     * @throws TwitchException
      */
     public function getFollowedStreams($queryString)
     {
