@@ -20,6 +20,7 @@ class Team
     protected $request;
 
     const URI_TEAM = 'teams/';
+    const URI_TEAMS = 'teams';
 
     /**
      * Team constructor
@@ -42,5 +43,19 @@ class Team
         $this->request->setApiVersion(3);
 
         return $this->request->request(self::URI_TEAM . $team);
+    }
+
+    /**
+     * Returns a list of active teams
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/teams.md#get-teams
+     * @param $queryString
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function getTeams($queryString)
+    {
+        $this->request->setApiVersion(3);
+
+        return $this->request->request(self::URI_TEAMS . $queryString);
     }
 }

@@ -33,7 +33,6 @@ class TwitchSDK
      * TwitchAPI URI's
      */
     const URL_TWITCH = 'https://api.twitch.tv/kraken/';
-    const URL_TWITCH_TEAM = 'http://api.twitch.tv/api/team/';
     const URI_USER_FOLLOWS_CHANNEL = '/users/%s/follows/channels';
     const URI_USER_FOLLOW_RELATION = '/users/%s/follows/channels/%s';
     const URI_CHANNEL = 'channels/';
@@ -205,6 +204,25 @@ class TwitchSDK
         $team = new Methods\Team($this->request);
 
         return $team->getTeam($teamName);
+    }
+
+    /**
+     * Returns a list of active teams
+     * @param integer $limit
+     * @param integer $offset
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function teamList($limit = null, $offset = null)
+    {
+        $queryString = $this->helper->buildQueryString(array(
+            'limit' => $limit,
+            'offset' => $offset,
+        ));
+
+        $team = new Methods\Team($this->request);
+
+        return $team->getTeams($queryString);
     }
 
     /**
