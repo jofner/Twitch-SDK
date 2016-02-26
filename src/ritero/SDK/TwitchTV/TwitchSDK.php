@@ -595,7 +595,7 @@ class TwitchSDK
             'client_id' => $this->authConfig['client_id'],
         ));
 
-        $channels = new Methods\Channel;
+        $channels = new Methods\Channel($this->request);
 
         return $channels->getChannel($queryString);
     }
@@ -619,9 +619,9 @@ class TwitchSDK
             'client_id' => $this->authConfig['client_id'],
         ));
 
-        $channels = new Methods\Channel;
+        $channels = new Methods\Channel($this->request);
 
-        $channels->getEditors($channel, $queryString);
+        return $channels->getEditors($channel, $queryString);
     }
 
     /**

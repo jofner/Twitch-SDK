@@ -22,9 +22,9 @@ class Channel
     const URI_CHANNEL_AUTH = 'channel';
     const URI_CHANNEL_EDITORS_AUTH = 'channels/%s/editors';
 
-    public function __construct()
+    public function __construct(TwitchRequest $request)
     {
-        $this->request = new TwitchRequest;
+        $this->request = $request;
     }
 
     /**
