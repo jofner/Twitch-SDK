@@ -33,7 +33,6 @@ class TwitchSDK
     /**
      * TwitchAPI URI's
      */
-    const URI_USER_FOLLOW_RELATION = '/users/%s/follows/channels/%s';
     const URI_CHANNEL = 'channels/';
     const URI_STREAMS_SEARCH = 'search/streams/';
     const URI_VIDEO = 'videos/';
@@ -151,6 +150,7 @@ class TwitchSDK
 
     /**
      * Set user to follow given channel
+     *  - requires scope 'user_follows_edit'
      * @param string $user
      * @param string $channel
      * @param string $userToken
@@ -172,9 +172,10 @@ class TwitchSDK
 
     /**
      * Set user to unfollow given channel
-     * @param $user
-     * @param $channel
-     * @param $userToken
+     *  - requires scope 'user_follows_edit'
+     * @param string $user
+     * @param string $channel
+     * @param string $userToken
      * @return \stdClass
      * @throws TwitchException
      */
@@ -184,7 +185,9 @@ class TwitchSDK
             'oauth_token' => $userToken,
         ));
 
-        return $this->request->request(sprintf(self::URI_USER_FOLLOW_RELATION, $user, $channel) . $queryString, 'DELETE');
+        $follow = new Methods\Follow($this->request);
+
+        return $follow->unfollowChannel($user, $channel, $queryString);
     }
 
     /**
