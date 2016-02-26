@@ -76,6 +76,7 @@ class User
     /**
      * List of videos that the authenticated user is following
      *  - requires scope 'user_read'
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-videosfollowed
      * @param $queryString
      * @return \stdClass
      * @throws TwitchException
