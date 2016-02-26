@@ -40,8 +40,6 @@ class Team
      */
     public function getTeam($team)
     {
-        $this->request->setApiVersion(3);
-
         return $this->request->request(self::URI_TEAM . $team);
     }
 
@@ -54,8 +52,6 @@ class Team
      */
     public function getTeams($queryString)
     {
-        $this->request->setApiVersion(3);
-
         return $this->request->request(self::URI_TEAMS . $queryString);
     }
 }

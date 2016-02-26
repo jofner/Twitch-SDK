@@ -37,8 +37,6 @@ class Subscription
      */
     public function getSubscriptions($channel, $queryString)
     {
-        $this->request->setApiVersion(3);
-
         return $this->request->request(sprintf(self::URI_CHANNEL_SUBSCRIPTIONS, $channel) . $queryString);
     }
 }

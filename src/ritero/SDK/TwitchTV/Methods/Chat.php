@@ -42,8 +42,6 @@ class Chat
      */
     public function getChat($channel)
     {
-        $this->request->setApiVersion(3);
-
         return $this->request->request(self::URI_CHAT . $channel);
     }
 
@@ -55,8 +53,6 @@ class Chat
      */
     public function getEmoticons()
     {
-        $this->request->setApiVersion(3);
-
         return $this->request->request(self::URI_CHAT_EMOTICONS);
     }
 
@@ -69,8 +65,6 @@ class Chat
      */
     public function getEmoticonImages($queryString)
     {
-        $this->request->setApiVersion(3);
-
         return $this->request->request(self::URI_CHAT_EMOTICONS_IMAGES . $queryString);
     }
 
@@ -83,8 +77,6 @@ class Chat
      */
     public function getBadges($channel)
     {
-        $this->request->setApiVersion(3);
-
         return $this->request->request(sprintf(self::URI_CHAT_BADGES, $channel));
     }
 }

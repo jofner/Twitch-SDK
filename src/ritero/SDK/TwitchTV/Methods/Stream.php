@@ -42,8 +42,6 @@ class Stream
      */
     public function getStream($channel)
     {
-        $this->request->setApiVersion(3);
-
         return $this->request->request(self::URI_STREAM . $channel);
     }
 
@@ -56,8 +54,6 @@ class Stream
      */
     public function getStreams($queryString)
     {
-        $this->request->setApiVersion(3);
-
         return $this->request->request(self::URI_STREAMS . $queryString);
     }
 
@@ -70,8 +66,6 @@ class Stream
      */
     public function getFeatured($queryString)
     {
-        $this->request->setApiVersion(3);
-
         return $this->request->request(self::URI_STREAMS_FEATURED . $queryString);
     }
 
@@ -84,8 +78,6 @@ class Stream
      */
     public function getSummary($queryString)
     {
-        $this->request->setApiVersion(3);
-
         return $this->request->request(self::URI_STREAM_SUMMARY . $queryString);
     }
 }

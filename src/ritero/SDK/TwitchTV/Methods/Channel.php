@@ -42,8 +42,6 @@ class Channel
      */
     public function setChannel($channel, $queryString, $data)
     {
-        $this->request->setApiVersion(3);
-
         return $this->request->request(self::URI_CHANNELS . $channel . $queryString, 'PUT', $data);
     }
 
@@ -57,8 +55,6 @@ class Channel
      */
     public function getChannel($queryString)
     {
-        $this->request->setApiVersion(3);
-
         return $this->request->request(self::URI_CHANNEL_AUTH . $queryString);
     }
 
@@ -73,8 +69,6 @@ class Channel
      */
     public function resetStreamKey($channel, $queryString)
     {
-        $this->request->setApiVersion(3);
-
         return $this->request->request(sprintf(self::URI_CHANNEL_KEY, $channel) . $queryString, 'DELETE');
     }
 
@@ -87,8 +81,6 @@ class Channel
      */
     public function getChannels($channel)
     {
-        $this->request->setApiVersion(3);
-
         return $this->request->request(self::URI_CHANNELS . $channel);
     }
 
@@ -103,8 +95,6 @@ class Channel
      */
     public function getEditors($channel, $queryString)
     {
-        $this->request->setApiVersion(3);
-
         return $this->request->request(sprintf(self::URI_CHANNEL_EDITORS_AUTH, $channel) . $queryString);
     }
 
@@ -117,8 +107,6 @@ class Channel
      */
     public function getTeams($channel)
     {
-        $this->request->setApiVersion(3);
-
         return $this->request->request(sprintf(self::URI_CHANNEL_TEAMS, $channel));
     }
 }

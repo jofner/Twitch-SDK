@@ -38,7 +38,7 @@ class TwitchRequest
     public $throwCurlErrors = true;
 
     /** @var int API version to use */
-    private $apiVersion = 2;
+    private $apiVersion = 3;
 
     const URL_TWITCH = 'https://api.twitch.tv/kraken/';
     const URL_TWITCH_TEAM = 'http://api.twitch.tv/api/team/';
@@ -49,6 +49,7 @@ class TwitchRequest
     /**
      * Set the API version to use
      * @param integer $version
+     * @deprecated will be removed, force to use v3 API, which is current stable Twitch API version
      */
     public function setApiVersion($version)
     {

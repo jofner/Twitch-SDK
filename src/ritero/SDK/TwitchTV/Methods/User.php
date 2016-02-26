@@ -38,8 +38,6 @@ class User
      */
     public function getUser($username)
     {
-        $this->request->setApiVersion(3);
-
         return $this->request->request(self::URI_USER . $username);
     }
 
@@ -53,8 +51,6 @@ class User
      */
     public function getUserAuth($queryString)
     {
-        $this->request->setApiVersion(3);
-
         return $this->request->request(self::URI_USER_AUTH . $queryString);
     }
 
@@ -68,8 +64,6 @@ class User
      */
     public function getFollowedStreams($queryString)
     {
-        $this->request->setApiVersion(3);
-
         return $this->request->request(self::URI_STREAMS_FOLLOWED_AUTH . $queryString);
     }
 
@@ -83,8 +77,6 @@ class User
      */
     public function getFollowedVideos($queryString)
     {
-        $this->request->setApiVersion(3);
-
         return $this->request->request(self::URI_VIDEOS_FOLLOWED_AUTH . $queryString);
     }
 }
