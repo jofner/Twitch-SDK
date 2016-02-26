@@ -688,6 +688,32 @@ class TwitchSDK
     }
 
     /**
+     * Returns a list of blocks
+     *  - required scope 'user_blocks_read'
+     * @param string $token
+     * @param string $user
+     * @param integer $limit
+     * @param integer $offset
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function authUserBlocks($token, $user, $limit = null, $offset = null)
+    {
+        $this->checkConfig();
+
+        $queryString = $this->helper->buildQueryString(array(
+            'oauth_token' => $token,
+            'client_id' => $this->getConfigParam('client_id'),
+            'limit' => $limit,
+            'offset' => $offset,
+        ));
+
+        $block = new Methods\Block($this->request);
+
+        return $block->getBlocks($user, $queryString);
+    }
+
+    /**
      * Get the authenticated channel
      *  - requires scope 'channel_read'
      * @param string
