@@ -39,7 +39,6 @@ class TwitchSDK
     const URI_CHANNEL_FOLLOWS = 'channels/%s/follows';
     const URI_STREAMS_SEARCH = 'search/streams/';
     const URI_VIDEO = 'videos/';
-    const URI_CHAT = 'chat/';
     const URI_CHAT_EMOTICONS = 'chat/emoticons';
     const URI_GAMES_TOP = 'games/top/';
 
@@ -408,14 +407,16 @@ class TwitchSDK
     }
 
     /**
-     * Get the specified channel's chat
-     * @param $channel
+     * Returns a links object to all other chat endpoints
+     * @param string $channelName
      * @return \stdClass
      * @throws TwitchException
      */
-    public function chatGet($channel)
+    public function chatGet($channelName)
     {
-        return $this->request->request(self::URI_CHAT . $channel);
+        $chat = new Methods\Chat($this->request);
+
+        return $chat->getChat($channelName);
     }
 
     /**

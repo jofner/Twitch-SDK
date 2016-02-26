@@ -2,6 +2,9 @@
 
 namespace ritero\SDK\TwitchTV\Methods;
 
+use ritero\SDK\TwitchTV\TwitchRequest;
+use ritero\SDK\TwitchTV\TwitchException;
+
 /**
  * TwitchTV API SDK for PHP
  *
@@ -13,5 +16,31 @@ namespace ritero\SDK\TwitchTV\Methods;
  */
 class Chat
 {
+    /** @var TwitchRequest */
+    protected $request;
 
+    const URI_CHAT = 'chat/';
+
+    /**
+     * Chat constructor
+     * @param TwitchRequest $request
+     */
+    public function __construct(TwitchRequest $request)
+    {
+        $this->request = $request;
+    }
+
+    /**
+     * Returns a links object to all other chat endpoints
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/chat.md#get-chatchannel
+     * @param $channel
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function getChat($channel)
+    {
+        $this->request->setApiVersion(3);
+
+        return $this->request->request(self::URI_CHAT . $channel);
+    }
 }
