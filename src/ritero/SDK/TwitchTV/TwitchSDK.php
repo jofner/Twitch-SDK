@@ -13,6 +13,7 @@ use ritero\SDK\TwitchTV\Methods;
  * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
  * @homepage https://github.com/jofner/Twitch-SDK
  * @version 2.0.0-dev
+ * @todo All methods - revisit the setApiVersion() function
  */
 class TwitchSDK
 {
