@@ -245,7 +245,9 @@ class TwitchSDK
      */
     public function streamGet($channel)
     {
-        return $this->request->request(self::URI_STREAM . $channel);
+        $stream = new Methods\Stream($this->request);
+
+        return $stream->getStream($channel);
     }
 
     /**
