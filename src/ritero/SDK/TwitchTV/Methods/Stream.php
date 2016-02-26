@@ -36,7 +36,7 @@ class Stream
     /**
      * Get the specified channel's stream
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/streams.md#get-streamschannel
-     * @param $channel
+     * @param string $channel
      * @return \stdClass
      * @throws TwitchException
      */
@@ -50,7 +50,7 @@ class Stream
     /**
      * Returns a list of streams
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/streams.md#get-streams
-     * @param $queryString
+     * @param string $queryString
      * @return \stdClass
      * @throws TwitchException
      */
@@ -64,7 +64,7 @@ class Stream
     /**
      * Returns a list of featured (promoted) stream
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/streams.md#get-streamsfeatured
-     * @param $queryString
+     * @param string $queryString
      * @return \stdClass
      * @throws TwitchException
      */
@@ -78,7 +78,7 @@ class Stream
     /**
      * Returns a summary of current streams
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/streams.md#get-streamssummary
-     * @param $queryString
+     * @param string $queryString
      * @return \stdClass
      * @throws TwitchException
      */

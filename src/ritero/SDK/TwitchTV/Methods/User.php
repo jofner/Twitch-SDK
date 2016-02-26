@@ -32,7 +32,7 @@ class User
     /**
      * Get the specified user
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-usersuser
-     * @param $username
+     * @param string $username
      * @return \stdClass
      * @throws TwitchException
      */
@@ -47,7 +47,7 @@ class User
      * Get the authenticated user
      *  - requires scope 'user_read'
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-user
-     * @param string
+     * @param string $queryString
      * @return \stdClass
      * @throws TwitchException
      */
@@ -77,7 +77,7 @@ class User
      * List of videos that the authenticated user is following
      *  - requires scope 'user_read'
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-videosfollowed
-     * @param $queryString
+     * @param string $queryString
      * @return \stdClass
      * @throws TwitchException
      */

@@ -66,8 +66,8 @@ class Channel
      * Resets channel's stream key
      *  - requires scope 'channel_stream'
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/channels.md#delete-channelschannelstream_key
-     * @param $channel
-     * @param $queryString
+     * @param string $channel
+     * @param string $queryString
      * @return \stdClass
      * @throws TwitchException
      */
@@ -111,7 +111,7 @@ class Channel
     /**
      * Return team list for specified channel
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/channels.md#get-channelschannelteams
-     * @param $channel
+     * @param string $channel
      * @return \stdClass
      * @throws TwitchException
      */

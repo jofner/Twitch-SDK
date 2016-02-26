@@ -14,6 +14,7 @@ use ritero\SDK\TwitchTV\Methods;
  * @homepage https://github.com/jofner/Twitch-SDK
  * @version 2.0.0-dev
  * @todo All methods - revisit the setApiVersion() function
+ * @todo refactoring for all methods of SDK, revision by methods
  */
 class TwitchSDK
 {
@@ -194,7 +195,7 @@ class TwitchSDK
 
     /**
      * Return team list for specified channel
-     * @param $channelName
+     * @param string $channelName
      * @return \stdClass
      * @throws TwitchException
      */
