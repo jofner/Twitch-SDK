@@ -23,9 +23,9 @@ class Auth
     const URI_AUTH = 'oauth2/authorize';
     const URI_AUTH_TOKEN = 'oauth2/token';
 
-    public function __construct()
+    public function __construct(TwitchRequest $request)
     {
-        $this->request = new TwitchRequest;
+        $this->request = $request;
     }
 
     /**

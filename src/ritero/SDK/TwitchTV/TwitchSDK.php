@@ -621,7 +621,7 @@ class TwitchSDK
             'scope' => $scope,
         ));
 
-        $auth = new Methods\Auth;
+        $auth = new Methods\Auth($this->request);
 
         return $auth->getLoginURL($queryString);
     }
@@ -646,7 +646,7 @@ class TwitchSDK
             'code' => $code,
         ));
 
-        $auth = new Methods\Auth;
+        $auth = new Methods\Auth($this->request);
 
         return $auth->getAccessToken($queryString);
     }
