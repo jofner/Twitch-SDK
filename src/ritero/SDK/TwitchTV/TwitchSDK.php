@@ -181,13 +181,15 @@ class TwitchSDK
 
     /**
      * Get the specified channel
-     * @param $channel
+     * @param string $channelName
      * @return \stdClass
      * @throws TwitchException
      */
-    public function channelGet($channel)
+    public function channelGet($channelName)
     {
-        return $this->request->request(self::URI_CHANNEL . $channel);
+        $channel = new Methods\Channel($this->request);
+
+        return $channel->getChannels($channelName);
     }
 
     /**

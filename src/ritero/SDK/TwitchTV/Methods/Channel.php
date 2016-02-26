@@ -20,6 +20,7 @@ class Channel
     protected $request;
 
     const URI_CHANNEL_AUTH = 'channel';
+    const URI_CHANNELS = 'channels/';
     const URI_CHANNEL_EDITORS_AUTH = 'channels/%s/editors';
 
     public function __construct(TwitchRequest $request)
@@ -40,6 +41,20 @@ class Channel
         $this->request->setApiVersion(3);
 
         return $this->request->request(self::URI_CHANNEL_AUTH . $queryString);
+    }
+
+    /**
+     * Get the specified channel
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/channels.md#get-channelschannel
+     * @param string $channel
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function getChannels($channel)
+    {
+        $this->request->setApiVersion(3);
+
+        return $this->request->request(self::URI_CHANNELS . $channel);
     }
 
     /**
