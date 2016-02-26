@@ -21,7 +21,7 @@ class TwitchSDK
      * @var array|bool
      * @todo Create setter and getter with data validation
      */
-    protected $authConfig = false;
+    private $config = false;
 
     /** @var TwitchRequest */
     protected $request;
@@ -46,7 +46,7 @@ class TwitchSDK
         }
 
         if (count($config) > 0) {
-            $this->setAuthConfig($config);
+            $this->setConfig($config);
         }
 
         /**
@@ -58,15 +58,15 @@ class TwitchSDK
     }
 
     /**
-     * authConfig setter
+     * config setter
      * @param array $config
      * @return TwitchSDK
      * @throws TwitchException
      */
-    public function setAuthConfig(array $config)
+    public function setConfig(array $config)
     {
         if ($this->configValidate($config) === true) {
-            $this->authConfig = $config;
+            $this->config = $config;
         } else {
             throw new TwitchException('Wrong Twitch API config parameters');
         }
@@ -85,8 +85,8 @@ class TwitchSDK
         $auth = null;
 
         if ($token !== null) {
-            if ($this->authConfig === false) {
-                $this->authConfigException();
+            if ($this->config === false) {
+                $this->configException();
             } else {
                 $auth = $this->helper->buildQueryString(array('oauth_token' => $token));
             }
@@ -610,14 +610,14 @@ class TwitchSDK
      */
     public function authLoginURL($scope)
     {
-        if ($this->authConfig === false) {
-            $this->authConfigException();
+        if ($this->config === false) {
+            $this->configException();
         }
 
         $queryString = $this->helper->buildQueryString(array(
             'response_type' => 'code',
-            'client_id' => $this->authConfig['client_id'],
-            'redirect_uri' => $this->authConfig['redirect_uri'],
+            'client_id' => $this->config['client_id'],
+            'redirect_uri' => $this->config['redirect_uri'],
             'scope' => $scope,
         ));
 
@@ -634,15 +634,15 @@ class TwitchSDK
      */
     public function authAccessTokenGet($code)
     {
-        if ($this->authConfig === false) {
-            $this->authConfigException();
+        if ($this->config === false) {
+            $this->configException();
         }
 
         $queryString = $this->helper->buildQueryString(array(
-            'client_id' => $this->authConfig['client_id'],
-            'client_secret' => $this->authConfig['client_secret'],
+            'client_id' => $this->config['client_id'],
+            'client_secret' => $this->config['client_secret'],
             'grant_type' => 'authorization_code',
-            'redirect_uri' => $this->authConfig['redirect_uri'],
+            'redirect_uri' => $this->config['redirect_uri'],
             'code' => $code,
         ));
 
@@ -660,13 +660,13 @@ class TwitchSDK
      */
     public function authUserGet($token)
     {
-        if ($this->authConfig === false) {
-            $this->authConfigException();
+        if ($this->config === false) {
+            $this->configException();
         }
 
         $queryString = $this->helper->buildQueryString(array(
             'oauth_token' => $token,
-            'client_id' => $this->authConfig['client_id'],
+            'client_id' => $this->config['client_id'],
         ));
 
         $user = new Methods\User($this->request);
@@ -682,13 +682,13 @@ class TwitchSDK
      */
     public function authChannelGet($token)
     {
-        if ($this->authConfig === false) {
-            $this->authConfigException();
+        if ($this->config === false) {
+            $this->configException();
         }
 
         $queryString = $this->helper->buildQueryString(array(
             'oauth_token' => $token,
-            'client_id' => $this->authConfig['client_id'],
+            'client_id' => $this->config['client_id'],
         ));
 
         $channels = new Methods\Channel($this->request);
@@ -709,13 +709,13 @@ class TwitchSDK
      */
     public function authChannelSet($token, $channelName, $status = null, $game = null, $delay = null)
     {
-        if ($this->authConfig === false) {
-            $this->authConfigException();
+        if ($this->config === false) {
+            $this->configException();
         }
 
         $queryString = $this->helper->buildQueryString(array(
             'oauth_token' => $token,
-            'client_id' => $this->authConfig['client_id'],
+            'client_id' => $this->config['client_id'],
         ));
 
         $data = $this->helper->buildQueryString(array(
@@ -739,13 +739,13 @@ class TwitchSDK
      */
     public function authChannelResetKey($token, $channelName)
     {
-        if ($this->authConfig === false) {
-            $this->authConfigException();
+        if ($this->config === false) {
+            $this->configException();
         }
 
         $queryString = $this->helper->buildQueryString(array(
             'oauth_token' => $token,
-            'client_id' => $this->authConfig['client_id'],
+            'client_id' => $this->config['client_id'],
         ));
 
         $channel = new Methods\Channel($this->request);
@@ -763,13 +763,13 @@ class TwitchSDK
      */
     public function authChannelEditors($token, $channel)
     {
-        if ($this->authConfig === false) {
-            $this->authConfigException();
+        if ($this->config === false) {
+            $this->configException();
         }
 
         $queryString = $this->helper->buildQueryString(array(
             'oauth_token' => $token,
-            'client_id' => $this->authConfig['client_id'],
+            'client_id' => $this->config['client_id'],
         ));
 
         $channels = new Methods\Channel($this->request);
@@ -790,13 +790,13 @@ class TwitchSDK
      */
     public function authChannelSubscriptions($token, $channel, $limit = 25, $offset = 0, $direction = 'DESC')
     {
-        if ($this->authConfig === false) {
-            $this->authConfigException();
+        if ($this->config === false) {
+            $this->configException();
         }
 
         $queryString = $this->helper->buildQueryString(array(
             'oauth_token' => $token,
-            'client_id' => $this->authConfig['client_id'],
+            'client_id' => $this->config['client_id'],
             'direction' => $direction,
             'limit' => $limit,
             'offset' => $offset
@@ -818,13 +818,13 @@ class TwitchSDK
      */
     public function authSubscribedUser($token, $channel, $user)
     {
-        if ($this->authConfig === false) {
-            $this->authConfigException();
+        if ($this->config === false) {
+            $this->configException();
         }
 
         $queryString = $this->helper->buildQueryString(array(
             'oauth_token' => $token,
-            'client_id' => $this->authConfig['client_id'],
+            'client_id' => $this->config['client_id'],
         ));
 
         $subscription = new Methods\Subscription($this->request);
@@ -843,13 +843,13 @@ class TwitchSDK
      */
     public function authSubscribedToChannel($token, $user, $channel)
     {
-        if ($this->authConfig === false) {
-            $this->authConfigException();
+        if ($this->config === false) {
+            $this->configException();
         }
 
         $queryString = $this->helper->buildQueryString(array(
             'oauth_token' => $token,
-            'client_id' => $this->authConfig['client_id'],
+            'client_id' => $this->config['client_id'],
         ));
 
         $subscription = new Methods\Subscription($this->request);
@@ -869,13 +869,13 @@ class TwitchSDK
      */
     public function authStreamsFollowed($token, $limit = 25, $offset = 0, $hls = null)
     {
-        if ($this->authConfig === false) {
-            $this->authConfigException();
+        if ($this->config === false) {
+            $this->configException();
         }
 
         $queryString = $this->helper->buildQueryString(array(
             'oauth_token' => $token,
-            'client_id' => $this->authConfig['client_id'],
+            'client_id' => $this->config['client_id'],
             'limit' => $limit,
             'offset' => $offset,
             'hls' => $hls,
@@ -938,7 +938,7 @@ class TwitchSDK
      * Configuration exception
      * @throws TwitchException
      */
-    private function authConfigException()
+    private function configException()
     {
         throw new TwitchException('Cannot call authenticate functions without valid API configuration');
     }
