@@ -681,10 +681,7 @@ class TwitchSDK
     {
         $this->checkConfig();
 
-        $queryString = $this->helper->buildQueryString(array(
-            'oauth_token' => $token,
-            'client_id' => $this->getConfigParam('client_id'),
-        ));
+        $queryString = $this->getAuthString($token);
 
         $user = new Methods\User($this->request);
         return $user->getUserAuth($queryString);
@@ -701,10 +698,7 @@ class TwitchSDK
     {
         $this->checkConfig();
 
-        $queryString = $this->helper->buildQueryString(array(
-            'oauth_token' => $token,
-            'client_id' => $this->getConfigParam('client_id'),
-        ));
+        $queryString = $this->getAuthString($token);
 
         $channels = new Methods\Channel($this->request);
 
@@ -726,10 +720,7 @@ class TwitchSDK
     {
         $this->checkConfig();
 
-        $queryString = $this->helper->buildQueryString(array(
-            'oauth_token' => $token,
-            'client_id' => $this->getConfigParam('client_id'),
-        ));
+        $queryString = $this->getAuthString($token);
 
         $data = $this->helper->buildQueryString(array(
             'channel[status]' => $status,
@@ -754,10 +745,7 @@ class TwitchSDK
     {
         $this->checkConfig();
 
-        $queryString = $this->helper->buildQueryString(array(
-            'oauth_token' => $token,
-            'client_id' => $this->getConfigParam('client_id'),
-        ));
+        $queryString = $this->getAuthString($token);
 
         $channel = new Methods\Channel($this->request);
 
@@ -776,10 +764,7 @@ class TwitchSDK
     {
         $this->checkConfig();
 
-        $queryString = $this->helper->buildQueryString(array(
-            'oauth_token' => $token,
-            'client_id' => $this->getConfigParam('client_id'),
-        ));
+        $queryString = $this->getAuthString($token);
 
         $channels = new Methods\Channel($this->request);
 
@@ -827,10 +812,7 @@ class TwitchSDK
     {
         $this->checkConfig();
 
-        $queryString = $this->helper->buildQueryString(array(
-            'oauth_token' => $token,
-            'client_id' => $this->getConfigParam('client_id'),
-        ));
+        $queryString = $this->getAuthString($token);
 
         $subscription = new Methods\Subscription($this->request);
 
@@ -850,10 +832,7 @@ class TwitchSDK
     {
         $this->checkConfig();
 
-        $queryString = $this->helper->buildQueryString(array(
-            'oauth_token' => $token,
-            'client_id' => $this->getConfigParam('client_id'),
-        ));
+        $queryString = $this->getAuthString($token);
 
         $subscription = new Methods\Subscription($this->request);
 
@@ -933,6 +912,20 @@ class TwitchSDK
         }
 
         return true;
+    }
+
+    /**
+     * Returns string for auth
+     * @param string $token
+     * @return null|string
+     * @throws TwitchException
+     */
+    private function getAuthString($token)
+    {
+        return $this->helper->buildQueryString(array(
+            'oauth_token' => $token,
+            'client_id' => $this->getConfigParam('client_id'),
+        ));
     }
 
     /**
