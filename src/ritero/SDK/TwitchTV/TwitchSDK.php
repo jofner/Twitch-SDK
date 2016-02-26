@@ -32,7 +32,6 @@ class TwitchSDK
     /**
      * TwitchAPI URI's
      */
-    const URI_CHANNEL = 'channels/';
     const URI_STREAMS_SEARCH = 'search/streams/';
 
     /**
