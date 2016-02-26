@@ -636,6 +636,29 @@ class TwitchSDK
     }
 
     /**
+     * Resets channel's stream key
+     *  - requires scope 'channel_stream'
+     * @param string $channelName
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function authChannelResetKey($channelName)
+    {
+        if ($this->authConfig === false) {
+            $this->authConfigException();
+        }
+
+        $queryString = $this->helper->buildQueryString(array(
+            'oauth_token' => $token,
+            'client_id' => $this->authConfig['client_id'],
+        ));
+
+        $channel = new Methods\Channel($this->request);
+
+        return $channel->resetStreamKey($channelName, $queryString);
+    }
+
+    /**
      * Returns an array of users who are editors of specified channel
      *  - requires scope 'channel_read'
      * @param string

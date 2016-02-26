@@ -21,6 +21,7 @@ class Channel
 
     const URI_CHANNEL_AUTH = 'channel';
     const URI_CHANNELS = 'channels/';
+    const URI_CHANNEL_KEY = 'channels/%s/stream_key';
     const URI_CHANNEL_EDITORS_AUTH = 'channels/%s/editors';
 
     public function __construct(TwitchRequest $request)
@@ -58,6 +59,22 @@ class Channel
         $this->request->setApiVersion(3);
 
         return $this->request->request(self::URI_CHANNEL_AUTH . $queryString);
+    }
+
+    /**
+     * Resets channel's stream key
+     *  - requires scope 'channel_stream'
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/channels.md#delete-channelschannelstream_key
+     * @param $channel
+     * @param $queryString
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function resetStreamKey($channel, $queryString)
+    {
+        $this->request->setApiVersion(3);
+
+        return $this->request->request(sprintf(self::URI_CHANNEL_KEY, $channel) . $queryString, 'DELETE');
     }
 
     /**
