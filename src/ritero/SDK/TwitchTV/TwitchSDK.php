@@ -37,7 +37,6 @@ class TwitchSDK
     const URI_USER_FOLLOW_RELATION = '/users/%s/follows/channels/%s';
     const URI_CHANNEL = 'channels/';
     const URI_CHANNEL_FOLLOWS = 'channels/%s/follows';
-    const URI_STREAM = 'streams/';
     const URI_STREAM_SUMMARY = 'streams/summary/';
     const URI_STREAMS_FEATURED = 'streams/featured/';
     const URI_STREAMS_SEARCH = 'search/streams/';
@@ -684,8 +683,9 @@ class TwitchSDK
         );
 
         $queryString = $this->helper->buildQueryString($params);
+        $stream = new Methods\Stream($this->request);
 
-        return $this->request->request(self::URI_STREAM . $queryString);
+        return $stream->getStreams($queryString);
     }
 
     /**

@@ -20,6 +20,7 @@ class Stream
     protected $request;
 
     const URI_STREAM = 'streams/';
+    const URI_STREAMS = 'streams';
 
     /**
      * Stream constructor
@@ -39,6 +40,22 @@ class Stream
      */
     public function getStream($channel)
     {
+        $this->request->setApiVersion(3);
+
         return $this->request->request(self::URI_STREAM . $channel);
+    }
+
+    /**
+     * Returns a list of streams
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/streams.md#get-streams
+     * @param $queryString
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function getStreams($queryString)
+    {
+        $this->request->setApiVersion(3);
+
+        return $this->request->request(self::URI_STREAMS . $queryString);
     }
 }
