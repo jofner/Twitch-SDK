@@ -22,6 +22,7 @@ class Chat
     const URI_CHAT = 'chat/';
     const URI_CHAT_EMOTICONS = 'chat/emoticons';
     const URI_CHAT_EMOTICONS_IMAGES = 'chat/emoticon_images';
+    const URI_CHAT_BADGES = 'chat/%s/badges';
 
     /**
      * Chat constructor
@@ -71,5 +72,19 @@ class Chat
         $this->request->setApiVersion(3);
 
         return $this->request->request(self::URI_CHAT_EMOTICONS_IMAGES . $queryString);
+    }
+
+    /**
+     * Returns a list of chat badges that can be used in the :channel's chat
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/chat.md#get-chatchannelbadges
+     * @param string $channel
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function getBadges($channel)
+    {
+        $this->request->setApiVersion(3);
+
+        return $this->request->request(sprintf(self::URI_CHAT_BADGES, $channel));
     }
 }

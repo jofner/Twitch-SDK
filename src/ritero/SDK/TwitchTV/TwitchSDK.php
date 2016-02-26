@@ -449,6 +449,19 @@ class TwitchSDK
     }
 
     /**
+     * Returns a list of chat badges
+     * @param string $channelName
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function chatBadges($channelName)
+    {
+        $chat = new Methods\Chat($this->request);
+
+        return $chat->getBadges($channelName);
+    }
+
+    /**
      * Get top games
      * @param null $limit
      * @param null $offset
