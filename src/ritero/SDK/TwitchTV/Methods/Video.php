@@ -21,6 +21,7 @@ class Video
 
     const URI_VIDEO = 'videos/';
     const URI_VIDEO_TOP = 'videos/top';
+    const URI_VIDEO_CHANNEL = 'channels/%s/videos';
 
     /**
      * Video constructor
@@ -53,5 +54,18 @@ class Video
     public function getTop($queryString)
     {
         return $this->request->request(self::URI_VIDEO_TOP . $queryString);
+    }
+
+    /**
+     * Returns a list of videos ordered by time of creation, starting with the most recent from :channel
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/videos.md#get-channelschannelvideos
+     * @param string $channel
+     * @param string $queryString
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function getChannelVideos($channel, $queryString)
+    {
+        return $this->request->request(sprintf(self::URI_VIDEO_CHANNEL, $channel) . $queryString);
     }
 }

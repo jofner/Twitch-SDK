@@ -34,7 +34,6 @@ class TwitchSDK
      */
     const URI_CHANNEL = 'channels/';
     const URI_STREAMS_SEARCH = 'search/streams/';
-    const URI_VIDEO = 'videos/';
 
     /**
      * TwitchSDK constructor
@@ -434,17 +433,23 @@ class TwitchSDK
      * @param $channel
      * @param null $limit
      * @param null $offset
+     * @param bool $broadcasts
+     * @param bool $hls
      * @return \stdClass
      * @throws TwitchException
      */
-    public function videosByChannel($channel, $limit = null, $offset = null)
+    public function videosByChannel($channel, $limit = null, $offset = null, $broadcasts = null, $hls = null)
     {
         $queryString = $this->helper->buildQueryString(array(
             'limit' => $limit,
             'offset' => $offset,
+            'broadcasts' => $broadcasts,
+            'hls' => $hls,
         ));
 
-        return $this->request->request(self::URI_CHANNEL . $channel . '/' . self::URI_VIDEO . $queryString);
+        $video = new Methods\Video($this->request);
+
+        return $video->getChannelVideos($channel, $queryString);
     }
 
     /**
