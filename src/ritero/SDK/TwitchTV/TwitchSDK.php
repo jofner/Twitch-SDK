@@ -685,11 +685,12 @@ class TwitchSDK
     /**
      * Resets channel's stream key
      *  - requires scope 'channel_stream'
+     * @param string $token
      * @param string $channelName
      * @return \stdClass
      * @throws TwitchException
      */
-    public function authChannelResetKey($channelName)
+    public function authChannelResetKey($token, $channelName)
     {
         if ($this->authConfig === false) {
             $this->authConfigException();
