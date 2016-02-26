@@ -603,6 +603,39 @@ class TwitchSDK
     }
 
     /**
+     * Update channel's status or game
+     *  - requires scope 'channel_editor'
+     * @param $token
+     * @param string $channelName
+     * @param string $status
+     * @param string $game
+     * @param integer $delay
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function authChannelSet($token, $channelName, $status = null, $game = null, $delay = null)
+    {
+        if ($this->authConfig === false) {
+            $this->authConfigException();
+        }
+
+        $queryString = $this->helper->buildQueryString(array(
+            'oauth_token' => $token,
+            'client_id' => $this->authConfig['client_id'],
+        ));
+
+        $data = $this->helper->buildQueryString(array(
+            'channel[status]' => $status,
+            'channel[game]' => $game,
+            'channel[delay]' => $delay,
+        ));
+
+        $channel = new Methods\Channel($this->request);
+
+        return $channel->setChannel($channelName, $queryString, $data);
+    }
+
+    /**
      * Returns an array of users who are editors of specified channel
      *  - requires scope 'channel_read'
      * @param string

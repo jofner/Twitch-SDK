@@ -29,6 +29,23 @@ class Channel
     }
 
     /**
+     * Update channel's status or game
+     *  - requires scope 'channel_editor'
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/channels.md#put-channelschannel
+     * @param string $channel
+     * @param string $queryString
+     * @param string $data
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function setChannel($channel, $queryString, $data)
+    {
+        $this->request->setApiVersion(3);
+
+        return $this->request->request(self::URI_CHANNELS . $channel . $queryString, 'PUT', $data);
+    }
+
+    /**
      * Get the authenticated channel
      *  - requires scope 'channel_read'
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/channels.md#get-channel
