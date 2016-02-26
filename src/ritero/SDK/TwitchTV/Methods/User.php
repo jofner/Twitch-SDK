@@ -22,6 +22,7 @@ class User
     const URI_USER = 'users/';
     const URI_USER_AUTH = 'user';
     const URI_STREAMS_FOLLOWED_AUTH = 'streams/followed';
+    const URI_VIDEOS_FOLLOWED_AUTH = 'videos/followed';
 
     public function __construct()
     {
@@ -70,5 +71,19 @@ class User
         $this->request->setApiVersion(3);
 
         return $this->request->request(self::URI_STREAMS_FOLLOWED_AUTH . $queryString);
+    }
+
+    /**
+     * List of videos that the authenticated user is following
+     *  - requires scope 'user_read'
+     * @param $queryString
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function getFollowedVideos($queryString)
+    {
+        $this->request->setApiVersion(3);
+
+        return $this->request->request(self::URI_VIDEOS_FOLLOWED_AUTH . $queryString);
     }
 }
