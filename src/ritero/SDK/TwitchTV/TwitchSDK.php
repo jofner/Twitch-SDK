@@ -151,19 +151,23 @@ class TwitchSDK
 
     /**
      * Set user to follow given channel
-     * @param $user
-     * @param $channel
-     * @param $userToken
+     * @param string $user
+     * @param string $channel
+     * @param string $userToken
+     * @param bool $notifications
      * @return \stdClass
      * @throws TwitchException
      */
-    public function userFollowChannel($user, $channel, $userToken)
+    public function userFollowChannel($user, $channel, $userToken, $notifications = false)
     {
         $queryString = $this->helper->buildQueryString(array(
             'oauth_token' => $userToken,
+            'notifications' => $notifications,
         ));
 
-        return $this->request->request(sprintf(self::URI_USER_FOLLOW_RELATION, $user, $channel) . $queryString, 'PUT');
+        $follow = new Methods\Follow($this->request);
+
+        return $follow->followChannel($user, $channel, $queryString);
     }
 
     /**

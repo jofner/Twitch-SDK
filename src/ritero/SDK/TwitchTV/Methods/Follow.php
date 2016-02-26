@@ -70,4 +70,19 @@ class Follow
     {
         return $this->request->request(sprintf(self::URI_USER_FOLLOW_RELATION, $user, $channel));
     }
+
+    /**
+     * Set user to follow given channel
+     *  - requires scope 'user_follows_edit'
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/follows.md#put-usersuserfollowschannelstarget
+     * @param string $user
+     * @param string $channel
+     * @param string $queryString
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function followChannel($user, $channel, $queryString)
+    {
+        return $this->request->request(sprintf(self::URI_USER_FOLLOW_RELATION, $user, $channel) . $queryString, 'PUT');
+    }
 }
