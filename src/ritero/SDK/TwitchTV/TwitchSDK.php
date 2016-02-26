@@ -254,6 +254,7 @@ class TwitchSDK
      * @param null $offset
      * @return \stdClass
      * @throws TwitchException
+     * @deprecated will be replaced by getStreams() function
      */
     public function streamSearch($query, $limit = null, $offset = null)
     {
@@ -320,6 +321,7 @@ class TwitchSDK
      * @param null $embeddable
      * @param null $hls
      * @return \stdClass
+     * @deprecated will be replaced by getStreams() function
      */
     public function streamsByChannels($channels, $limit = null, $offset = null, $embeddable = null, $hls = null)
     {
@@ -336,6 +338,7 @@ class TwitchSDK
      * @param null $embeddable
      * @param null $hls
      * @return \stdClass
+     * @deprecated will be replaced by getStreams() function
      */
     public function streamsByGame($game, $limit = null, $offset = null, $embeddable = null, $hls = null)
     {
