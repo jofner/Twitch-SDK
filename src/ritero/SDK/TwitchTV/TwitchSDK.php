@@ -72,6 +72,17 @@ class TwitchSDK
     }
 
     /**
+     * Check if config is set
+     * @throws TwitchException
+     */
+    private function checkConfig()
+    {
+        if (count($this->config) === 0) {
+            $this->configException();
+        }
+    }
+
+    /**
      * Get value from config
      * @param string $key
      * @return mixed
@@ -622,9 +633,7 @@ class TwitchSDK
      */
     public function authLoginURL($scope)
     {
-        if (count($this->config) === 0) {
-            $this->configException();
-        }
+        $this->checkConfig();
 
         $queryString = $this->helper->buildQueryString(array(
             'response_type' => 'code',
@@ -646,9 +655,7 @@ class TwitchSDK
      */
     public function authAccessTokenGet($code)
     {
-        if (count($this->config) === 0) {
-            $this->configException();
-        }
+        $this->checkConfig();
 
         $queryString = $this->helper->buildQueryString(array(
             'client_id' => $this->getConfigParam('client_id'),
@@ -672,9 +679,7 @@ class TwitchSDK
      */
     public function authUserGet($token)
     {
-        if (count($this->config) === 0) {
-            $this->configException();
-        }
+        $this->checkConfig();
 
         $queryString = $this->helper->buildQueryString(array(
             'oauth_token' => $token,
@@ -694,9 +699,7 @@ class TwitchSDK
      */
     public function authChannelGet($token)
     {
-        if (count($this->config) === 0) {
-            $this->configException();
-        }
+        $this->checkConfig();
 
         $queryString = $this->helper->buildQueryString(array(
             'oauth_token' => $token,
@@ -721,9 +724,7 @@ class TwitchSDK
      */
     public function authChannelSet($token, $channelName, $status = null, $game = null, $delay = null)
     {
-        if (count($this->config) === 0) {
-            $this->configException();
-        }
+        $this->checkConfig();
 
         $queryString = $this->helper->buildQueryString(array(
             'oauth_token' => $token,
@@ -751,9 +752,7 @@ class TwitchSDK
      */
     public function authChannelResetKey($token, $channelName)
     {
-        if (count($this->config) === 0) {
-            $this->configException();
-        }
+        $this->checkConfig();
 
         $queryString = $this->helper->buildQueryString(array(
             'oauth_token' => $token,
@@ -775,9 +774,7 @@ class TwitchSDK
      */
     public function authChannelEditors($token, $channel)
     {
-        if (count($this->config) === 0) {
-            $this->configException();
-        }
+        $this->checkConfig();
 
         $queryString = $this->helper->buildQueryString(array(
             'oauth_token' => $token,
@@ -802,9 +799,7 @@ class TwitchSDK
      */
     public function authChannelSubscriptions($token, $channel, $limit = 25, $offset = 0, $direction = 'DESC')
     {
-        if (count($this->config) === 0) {
-            $this->configException();
-        }
+        $this->checkConfig();
 
         $queryString = $this->helper->buildQueryString(array(
             'oauth_token' => $token,
@@ -830,9 +825,7 @@ class TwitchSDK
      */
     public function authSubscribedUser($token, $channel, $user)
     {
-        if (count($this->config) === 0) {
-            $this->configException();
-        }
+        $this->checkConfig();
 
         $queryString = $this->helper->buildQueryString(array(
             'oauth_token' => $token,
@@ -855,9 +848,7 @@ class TwitchSDK
      */
     public function authSubscribedToChannel($token, $user, $channel)
     {
-        if (count($this->config) === 0) {
-            $this->configException();
-        }
+        $this->checkConfig();
 
         $queryString = $this->helper->buildQueryString(array(
             'oauth_token' => $token,
@@ -881,9 +872,7 @@ class TwitchSDK
      */
     public function authStreamsFollowed($token, $limit = 25, $offset = 0, $hls = null)
     {
-        if (count($this->config) === 0) {
-            $this->configException();
-        }
+        $this->checkConfig();
 
         $queryString = $this->helper->buildQueryString(array(
             'oauth_token' => $token,
