@@ -432,6 +432,23 @@ class TwitchSDK
     }
 
     /**
+     * Returns a list of emoticons
+     * @param string $emoteset
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function chatEmoticonsImages($emoteset = null)
+    {
+        $queryString = $this->helper->buildQueryString(array(
+            'emotesets' => $emoteset,
+        ));
+
+        $chat = new Methods\Chat($this->request);
+
+        return $chat->getEmoticonImages($queryString);
+    }
+
+    /**
      * Get top games
      * @param null $limit
      * @param null $offset

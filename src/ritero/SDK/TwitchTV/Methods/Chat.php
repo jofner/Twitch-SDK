@@ -21,6 +21,7 @@ class Chat
 
     const URI_CHAT = 'chat/';
     const URI_CHAT_EMOTICONS = 'chat/emoticons';
+    const URI_CHAT_EMOTICONS_IMAGES = 'chat/emoticon_images';
 
     /**
      * Chat constructor
@@ -34,7 +35,7 @@ class Chat
     /**
      * Returns a links object to all other chat endpoints
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/chat.md#get-chatchannel
-     * @param $channel
+     * @param string $channel
      * @return \stdClass
      * @throws TwitchException
      */
@@ -56,5 +57,19 @@ class Chat
         $this->request->setApiVersion(3);
 
         return $this->request->request(self::URI_CHAT_EMOTICONS);
+    }
+
+    /**
+     * Returns a list of emoticons
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/chat.md#get-chatemoticon_images
+     * @param string $queryString
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function getEmoticonImages($queryString)
+    {
+        $this->request->setApiVersion(3);
+
+        return $this->request->request(self::URI_CHAT_EMOTICONS_IMAGES . $queryString);
     }
 }
