@@ -395,13 +395,15 @@ class TwitchSDK
 
     /**
      * Get video
-     * @param $video
+     * @param string $videoId
      * @return \stdClass
      * @throws TwitchException
      */
-    public function videoGet($video)
+    public function videoGet($videoId)
     {
-        return $this->request->request(self::URI_VIDEO . $video);
+        $video = new Methods\Video($this->request);
+
+        return $video->getVideo($videoId);
     }
 
     /**
