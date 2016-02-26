@@ -426,7 +426,9 @@ class TwitchSDK
      */
     public function chatEmoticons()
     {
-        return $this->request->request(self::URI_CHAT_EMOTICONS);
+        $chat = new Methods\Chat($this->request);
+
+        return $chat->getEmoticons();
     }
 
     /**

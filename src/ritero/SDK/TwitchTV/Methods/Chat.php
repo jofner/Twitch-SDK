@@ -20,6 +20,7 @@ class Chat
     protected $request;
 
     const URI_CHAT = 'chat/';
+    const URI_CHAT_EMOTICONS = 'chat/emoticons';
 
     /**
      * Chat constructor
@@ -42,5 +43,18 @@ class Chat
         $this->request->setApiVersion(3);
 
         return $this->request->request(self::URI_CHAT . $channel);
+    }
+
+    /**
+     * Get a chat's emoticons
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/chat.md#get-chatemoticons
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function getEmoticons()
+    {
+        $this->request->setApiVersion(3);
+
+        return $this->request->request(self::URI_CHAT_EMOTICONS);
     }
 }
