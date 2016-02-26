@@ -617,7 +617,7 @@ class TwitchSDK
     /**
      * Get login URL for authentication
      * @param string $scope Specify which permissions your app requires (space separated list)
-     * @return string
+     * @return \stdClass
      * @throws TwitchException
      */
     public function authLoginURL($scope)
@@ -902,7 +902,7 @@ class TwitchSDK
      * @param null $game
      * @param null $limit
      * @param null $offset
-     * @param null $channels
+     * @param string|null $channels
      * @param null $embeddable
      * @param null $hls
      * @return \stdClass
