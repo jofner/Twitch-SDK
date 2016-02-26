@@ -538,7 +538,7 @@ class TwitchSDK
         ));
 
         $user = new Methods\User;
-        $user->getUser($queryString);
+        $user->getUserAuth($queryString);
     }
 
     /**

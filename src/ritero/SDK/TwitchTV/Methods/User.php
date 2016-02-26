@@ -35,7 +35,7 @@ class User
      * @return \stdClass
      * @throws TwitchException
      */
-    public function getUser($queryString)
+    public function getUserAuth($queryString)
     {
         $this->request->setApiVersion(3);
 
