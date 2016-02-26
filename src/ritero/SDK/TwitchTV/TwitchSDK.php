@@ -105,7 +105,7 @@ class TwitchSDK
      */
     public function userGet($username)
     {
-        $user = new Methods\User;
+        $user = new Methods\User($this->request);
         return $user->getUser($username);
     }
 
@@ -537,8 +537,8 @@ class TwitchSDK
             'client_id' => $this->authConfig['client_id'],
         ));
 
-        $user = new Methods\User;
-        $user->getUserAuth($queryString);
+        $user = new Methods\User($this->request);
+        return $user->getUserAuth($queryString);
     }
 
     /**
@@ -642,8 +642,8 @@ class TwitchSDK
             'hls' => $hls,
         ));
 
-        $user = new Methods\User;
-        $user->getFollowedStreams($queryString);
+        $user = new Methods\User($this->request);
+        return $user->getFollowedStreams($queryString);
     }
 
     /**

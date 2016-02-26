@@ -24,9 +24,9 @@ class User
     const URI_STREAMS_FOLLOWED_AUTH = 'streams/followed';
     const URI_VIDEOS_FOLLOWED_AUTH = 'videos/followed';
 
-    public function __construct()
+    public function __construct(TwitchRequest $request)
     {
-        $this->request = new TwitchRequest;
+        $this->request = $request;
     }
 
     /**
