@@ -39,8 +39,6 @@ class TwitchSDK
     const URI_CHANNEL_FOLLOWS = 'channels/%s/follows';
     const URI_STREAMS_SEARCH = 'search/streams/';
     const URI_VIDEO = 'videos/';
-    const URI_CHAT_EMOTICONS = 'chat/emoticons';
-    const URI_GAMES_TOP = 'games/top/';
 
     /**
      * TwitchSDK constructor
@@ -463,8 +461,8 @@ class TwitchSDK
 
     /**
      * Get top games
-     * @param null $limit
-     * @param null $offset
+     * @param integer $limit
+     * @param integer $offset
      * @return \stdClass
      * @throws TwitchException
      */
@@ -475,7 +473,9 @@ class TwitchSDK
             'offset' => $offset,
         ));
 
-        return $this->request->request(self::URI_GAMES_TOP . $queryString);
+        $game = new Methods\Game($this->request);
+
+        return $game->getTop($queryString);
     }
 
     /**
