@@ -20,6 +20,7 @@ class Follow
     protected $request;
 
     const URI_CHANNEL_FOLLOWS = 'channels/%s/follows';
+    const URI_USER_FOLLOWS_CHANNEL = '/users/%s/follows/channels';
 
     /**
      * Follow constructor
@@ -41,5 +42,18 @@ class Follow
     public function getChannelFollows($channel, $queryString)
     {
         return $this->request->request(sprintf(self::URI_CHANNEL_FOLLOWS, $channel) . $queryString);
+    }
+
+    /**
+     * Get a user's list of followed channels
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/follows.md#get-usersuserfollowschannels
+     * @param $user
+     * @param $queryString
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function userFollowChannels($user, $queryString)
+    {
+        return $this->request->request(sprintf(self::URI_USER_FOLLOWS_CHANNEL, $user) . $queryString);
     }
 }

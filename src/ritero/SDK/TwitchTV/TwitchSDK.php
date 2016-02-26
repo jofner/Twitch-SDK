@@ -33,7 +33,6 @@ class TwitchSDK
     /**
      * TwitchAPI URI's
      */
-    const URI_USER_FOLLOWS_CHANNEL = '/users/%s/follows/channels';
     const URI_USER_FOLLOW_RELATION = '/users/%s/follows/channels/%s';
     const URI_CHANNEL = 'channels/';
     const URI_STREAMS_SEARCH = 'search/streams/';
@@ -114,20 +113,26 @@ class TwitchSDK
 
     /**
      * Get a user's list of followed channels
-     * @param $user
-     * @param null $limit
-     * @param null $offset
+     * @param string $user
+     * @param integer $limit
+     * @param integer $offset
+     * @param string $direction
+     * @param string $sortby
      * @return \stdClass
      * @throws TwitchException
      */
-    public function userFollowChannels($user, $limit = null, $offset = null)
+    public function userFollowChannels($user, $limit = null, $offset = null, $direction = null, $sortby = null)
     {
         $queryString = $this->helper->buildQueryString(array(
             'limit' => $limit,
             'offset' => $offset,
+            'direction' => $direction,
+            'sortby' => $sortby,
         ));
 
-        return $this->request->request(sprintf(self::URI_USER_FOLLOWS_CHANNEL, $user) . $queryString);
+        $follow = new Methods\Follow($this->request);
+
+        return $follow->userFollowChannels($user, $queryString);
     }
 
     /**
