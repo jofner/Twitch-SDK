@@ -803,9 +803,9 @@ class TwitchSDK
             'offset' => $offset
         ));
 
-        $channels = new Methods\Subscription($this->request);
+        $subscription = new Methods\Subscription($this->request);
 
-        $channels->getSubscriptions($channel, $queryString);
+        $subscription->getSubscriptions($channel, $queryString);
     }
 
     /**
