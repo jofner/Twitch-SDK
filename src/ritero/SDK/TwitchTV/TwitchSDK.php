@@ -60,12 +60,8 @@ class TwitchSDK
             throw new TwitchException('cURL extension is not installed and is required');
         }
 
-        if (!empty($config)) {
-            if ($this->configValidate($config) === true) {
-                $this->authConfig = $config;
-            } else {
-                throw new TwitchException('Wrong Twitch API config parameters');
-            }
+        if (count($config) > 0) {
+            $this->setAuthConfig($config);
         }
 
         /**
@@ -74,6 +70,23 @@ class TwitchSDK
          */
         $this->request = new TwitchRequest;
         $this->helper = new Helper;
+    }
+
+    /**
+     * authConfig setter
+     * @param array $config
+     * @return TwitchSDK
+     * @throws TwitchException
+     */
+    public function setAuthConfig(array $config)
+    {
+        if ($this->configValidate($config) === true) {
+            $this->authConfig = $config;
+        } else {
+            throw new TwitchException('Wrong Twitch API config parameters');
+        }
+
+        return $this;
     }
 
     /**
