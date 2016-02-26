@@ -2,6 +2,9 @@
 
 namespace ritero\SDK\TwitchTV\Methods;
 
+use ritero\SDK\TwitchTV\TwitchRequest;
+use ritero\SDK\TwitchTV\TwitchException;
+
 /**
  * TwitchTV API SDK for PHP
  *
@@ -13,5 +16,31 @@ namespace ritero\SDK\TwitchTV\Methods;
  */
 class Team
 {
+    /** @var TwitchRequest */
+    protected $request;
 
+    const URI_TEAM = 'teams/';
+
+    /**
+     * Team constructor
+     * @param TwitchRequest $request
+     */
+    public function __construct(TwitchRequest $request)
+    {
+        $this->request = $request;
+    }
+
+    /**
+     * Get the specified team
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/teams.md#get-teamsteam
+     * @param string $team
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function getTeam($team)
+    {
+        $this->request->setApiVersion(3);
+
+        return $this->request->request(self::URI_TEAM . $team);
+    }
 }

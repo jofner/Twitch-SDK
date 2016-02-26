@@ -43,7 +43,6 @@ class TwitchSDK
     const URI_CHAT = 'chat/';
     const URI_CHAT_EMOTICONS = 'chat/emoticons';
     const URI_GAMES_TOP = 'games/top/';
-    const URI_TEAMS = 'teams/';
     const API_VERSION = 2;
     const MIME_TYPE = 'application/vnd.twitchtv.v%d+json';
 
@@ -203,7 +202,9 @@ class TwitchSDK
      */
     public function teamGet($teamName)
     {
-        return $this->request->request(self::URI_TEAMS . $teamName);
+        $team = new Methods\Team($this->request);
+
+        return $team->getTeam($teamName);
     }
 
     /**
