@@ -19,12 +19,27 @@ class User
     /** @var TwitchRequest */
     protected $request;
 
+    const URI_USER = 'users/';
     const URI_USER_AUTH = 'user';
     const URI_STREAMS_FOLLOWED_AUTH = 'streams/followed';
 
     public function __construct()
     {
         $this->request = new TwitchRequest;
+    }
+
+    /**
+     * Get the specified user
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-usersuser
+     * @param $username
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function getUser($username)
+    {
+        $this->request->setApiVersion(3);
+
+        return $this->request->request(self::URI_USER . $username);
     }
 
     /**

@@ -33,7 +33,6 @@ class TwitchSDK
      */
     const URL_TWITCH = 'https://api.twitch.tv/kraken/';
     const URL_TWITCH_TEAM = 'http://api.twitch.tv/api/team/';
-    const URI_USER = 'users/';
     const URI_USER_FOLLOWS_CHANNEL = '/users/%s/follows/channels';
     const URI_USER_FOLLOW_RELATION = '/users/%s/follows/channels/%s';
     const URI_CHANNEL = 'channels/';
@@ -106,7 +105,8 @@ class TwitchSDK
      */
     public function userGet($username)
     {
-        return $this->request->request(self::URI_USER . $username);
+        $user = new Methods\User;
+        return $user->getUser($username);
     }
 
     /**
