@@ -193,6 +193,19 @@ class TwitchSDK
     }
 
     /**
+     * Return team list for specified channel
+     * @param $channelName
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function channelTeamsGet($channelName)
+    {
+        $channel = new Methods\Channel($this->request);
+
+        return $channel->getTeams($channelName);
+    }
+
+    /**
      * Get the specified team
      * @param $teamName
      * @return \stdClass

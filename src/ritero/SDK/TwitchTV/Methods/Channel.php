@@ -23,6 +23,7 @@ class Channel
     const URI_CHANNELS = 'channels/';
     const URI_CHANNEL_KEY = 'channels/%s/stream_key';
     const URI_CHANNEL_EDITORS_AUTH = 'channels/%s/editors';
+    const URI_CHANNEL_TEAMS = 'channels/%s/teams';
 
     public function __construct(TwitchRequest $request)
     {
@@ -105,5 +106,19 @@ class Channel
         $this->request->setApiVersion(3);
 
         return $this->request->request(sprintf(self::URI_CHANNEL_EDITORS_AUTH, $channel) . $queryString);
+    }
+
+    /**
+     * Return team list for specified channel
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/channels.md#get-channelschannelteams
+     * @param $channel
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function getTeams($channel)
+    {
+        $this->request->setApiVersion(3);
+
+        return $this->request->request(sprintf(self::URI_CHANNEL_TEAMS, $channel));
     }
 }
