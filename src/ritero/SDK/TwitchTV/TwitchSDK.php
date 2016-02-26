@@ -809,6 +809,31 @@ class TwitchSDK
     }
 
     /**
+     * Returns user object if that user is subscribed
+     *  - requires scope 'channel_check_subscription' for channel
+     * @param string $token
+     * @param string $channel
+     * @param string $user
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function authSubscribedUser($token, $channel, $user)
+    {
+        if ($this->authConfig === false) {
+            $this->authConfigException();
+        }
+
+        $queryString = $this->helper->buildQueryString(array(
+            'oauth_token' => $token,
+            'client_id' => $this->authConfig['client_id'],
+        ));
+
+        $subscription = new Methods\Subscription($this->request);
+
+        return $subscription->getSubscribedUser($channel, $user, $queryString);
+    }
+
+    /**
      * List the live streams that the authenticated user is following
      *  - requires scope 'user_read'
      * @param string

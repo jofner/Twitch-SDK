@@ -20,6 +20,7 @@ class Subscription
     protected $request;
 
     const URI_CHANNEL_SUBSCRIPTIONS = 'channels/%s/subscriptions';
+    const URI_CHANNEL_SUBSCRIPTIONS_USER = 'channels/%s/subscriptions/%s';
 
     public function __construct(TwitchRequest $request)
     {
@@ -38,5 +39,20 @@ class Subscription
     public function getSubscriptions($channel, $queryString)
     {
         return $this->request->request(sprintf(self::URI_CHANNEL_SUBSCRIPTIONS, $channel) . $queryString);
+    }
+
+    /**
+     * Returns user object if that user is subscribed
+     *  - requires scope 'channel_check_subscription' for channel
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/subscriptions.md#get-channelschannelsubscriptionsuser
+     * @param string $channel
+     * @param string $user
+     * @param string $queryString
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function getSubscribedUser($channel, $user, $queryString)
+    {
+        return $this->request->request(sprintf(self::URI_CHANNEL_SUBSCRIPTIONS_USER, $channel, $user) . $queryString);
     }
 }
