@@ -3,38 +3,24 @@
 # TwitchTV SDK for PHP
 
 > This is unofficial [TwitchTV SDK for PHP](https://github.com/jofner/Twitch-SDK).
-SDK is currently under development, so functions, readme and/or examples will
-change.
+SDK is still in development, so functions, readme and/or examples may change.
 
-## Development
+## WARNING BEFORE UPDATING TO 2.* !!!
 
-There is [develop](https://github.com/jofner/Twitch-SDK/tree/develop) branch, which takes place in refactoring existing features.
-Because I need to develop SDK and also have it functional, rewriting functions carried out in phases.
-If you have questions or suggestions regarding the development of the new version, you can use [Issues](https://github.com/jofner/Twitch-SDK/issues)
+Version 2.* has BC breaks and lot of changes. Be careful with updating! Before updating thoroughly examine the changes and adjust your application for modified functions.
 
 ## Requirements
 
-TwitchTV SDK for PHP requires PHP 5.3.0 or later with cURL.
+TwitchTV SDK for PHP requires PHP 5.3.0 or later with cURL extension enabled.
 
 ## Installation
 
 The best way to install TwitchTV SDK is use [Composer](http://getcomposer.org/).
 
-### Add bundle to your composer.json file
-
-```js
-{
-    "require": {
-        // ..
-        "ritero/twitch-sdk": "dev-master"
-    }
-}
-```
-
 ### Download the bundle using Composer
 
 ```bash
-$ composer require ritero/twitch-sdk:dev-master
+$ composer require 'ritero/twitch-sdk:~2.*'
 ```
 
 The downloaded package includes the `src` directory. This directory contains 
