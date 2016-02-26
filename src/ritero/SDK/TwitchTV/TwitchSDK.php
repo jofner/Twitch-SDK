@@ -32,7 +32,6 @@ class TwitchSDK
     /**
      * TwitchAPI URI's
      */
-    const URL_TWITCH = 'https://api.twitch.tv/kraken/';
     const URI_USER_FOLLOWS_CHANNEL = '/users/%s/follows/channels';
     const URI_USER_FOLLOW_RELATION = '/users/%s/follows/channels/%s';
     const URI_CHANNEL = 'channels/';
@@ -42,8 +41,6 @@ class TwitchSDK
     const URI_CHAT = 'chat/';
     const URI_CHAT_EMOTICONS = 'chat/emoticons';
     const URI_GAMES_TOP = 'games/top/';
-    const API_VERSION = 2;
-    const MIME_TYPE = 'application/vnd.twitchtv.v%d+json';
 
     /**
      * TwitchSDK constructor
