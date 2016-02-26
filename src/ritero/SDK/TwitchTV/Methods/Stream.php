@@ -22,6 +22,7 @@ class Stream
     const URI_STREAM = 'streams/';
     const URI_STREAMS = 'streams';
     const URI_STREAMS_FEATURED = 'streams/featured';
+    const URI_STREAM_SUMMARY = 'streams/summary';
 
     /**
      * Stream constructor
@@ -72,5 +73,19 @@ class Stream
         $this->request->setApiVersion(3);
 
         return $this->request->request(self::URI_STREAMS_FEATURED . $queryString);
+    }
+
+    /**
+     * Returns a summary of current streams
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/streams.md#get-streamssummary
+     * @param $queryString
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function getSummary($queryString)
+    {
+        $this->request->setApiVersion(3);
+
+        return $this->request->request(self::URI_STREAM_SUMMARY . $queryString);
     }
 }
