@@ -36,7 +36,6 @@ class TwitchSDK
     const URI_USER_FOLLOWS_CHANNEL = '/users/%s/follows/channels';
     const URI_USER_FOLLOW_RELATION = '/users/%s/follows/channels/%s';
     const URI_CHANNEL = 'channels/';
-    const URI_CHANNEL_FOLLOWS = 'channels/%s/follows';
     const URI_STREAMS_SEARCH = 'search/streams/';
     const URI_VIDEO = 'videos/';
 
@@ -248,20 +247,26 @@ class TwitchSDK
 
     /**
      * Returns an array of users who follow the specified channel
-     * @param $channel
-     * @param null $limit
-     * @param null $offset
+     * @param string $channelName
+     * @param integer $limit
+     * @param integer $offset
+     * @param string $cursor
+     * @param string $direction
      * @return \stdClass
      * @throws TwitchException
      */
-    public function channelFollows($channel, $limit = null, $offset = null)
+    public function channelFollows($channelName, $limit = null, $offset = null, $cursor = null, $direction = null)
     {
         $queryString = $this->helper->buildQueryString(array(
             'limit' => $limit,
             'offset' => $offset,
+            'cursor' => $cursor,
+            'direction' => $direction,
         ));
 
-        return $this->request->request(sprintf(self::URI_CHANNEL_FOLLOWS, $channel) . $queryString);
+        $follow = new Methods\Follow($this->request);
+
+        return $follow->getChannelFollows($channelName, $queryString);
     }
 
     /**

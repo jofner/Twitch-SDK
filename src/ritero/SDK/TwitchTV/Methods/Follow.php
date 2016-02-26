@@ -3,6 +3,7 @@
 namespace ritero\SDK\TwitchTV\Methods;
 
 use ritero\SDK\TwitchTV\TwitchRequest;
+use ritero\SDK\TwitchTV\TwitchException;
 
 /**
  * TwitchTV API SDK for PHP
@@ -18,8 +19,27 @@ class Follow
     /** @var TwitchRequest */
     protected $request;
 
-    public function __construct()
+    const URI_CHANNEL_FOLLOWS = 'channels/%s/follows';
+
+    /**
+     * Follow constructor
+     * @param TwitchRequest $request
+     */
+    public function __construct(TwitchRequest $request)
     {
-        $this->request = new TwitchRequest;
+        $this->request = $request;
+    }
+
+    /**
+     * Returns a list of follow objects
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/follows.md#get-channelschannelfollows
+     * @param string $channel
+     * @param string $queryString
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function getChannelFollows($channel, $queryString)
+    {
+        return $this->request->request(sprintf(self::URI_CHANNEL_FOLLOWS, $channel) . $queryString);
     }
 }
