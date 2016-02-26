@@ -21,9 +21,9 @@ class Subscription
 
     const URI_CHANNEL_SUBSCRIPTIONS = 'channels/%s/subscriptions';
 
-    public function __construct()
+    public function __construct(TwitchRequest $request)
     {
-        $this->request = new TwitchRequest;
+        $this->request = $request;
     }
 
     /**
