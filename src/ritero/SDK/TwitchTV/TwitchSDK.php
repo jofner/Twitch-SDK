@@ -407,6 +407,29 @@ class TwitchSDK
     }
 
     /**
+     * Returns top videos
+     * @param integer $limit
+     * @param integer $offset
+     * @param string $game
+     * @param string $period
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function videosTop($limit = null, $offset = null, $game = null, $period = null)
+    {
+        $queryString = $this->helper->buildQueryString(array(
+            'limit' => $limit,
+            'offset' => $offset,
+            'game' => $game,
+            'period' => $period,
+        ));
+
+        $video = new Methods\Video($this->request);
+
+        return $video->getTop($queryString);
+    }
+
+    /**
      * Get videos for a channel
      * @param $channel
      * @param null $limit

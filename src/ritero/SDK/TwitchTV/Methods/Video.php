@@ -20,6 +20,7 @@ class Video
     protected $request;
 
     const URI_VIDEO = 'videos/';
+    const URI_VIDEO_TOP = 'videos/top';
 
     /**
      * Video constructor
@@ -40,5 +41,17 @@ class Video
     public function getVideo($id)
     {
         return $this->request->request(self::URI_VIDEO . $id);
+    }
+
+    /**
+     * Returns a list of videos created in a given time period sorted by number of views, most popular first
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/videos.md#get-videostop
+     * @param string $queryString
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function getTop($queryString)
+    {
+        return $this->request->request(self::URI_VIDEO_TOP . $queryString);
     }
 }
