@@ -38,7 +38,7 @@ class TwitchSDK
      */
     public function __construct(array $config = array())
     {
-        if (!in_array('curl', get_loaded_extensions())) {
+        if (!in_array('curl', get_loaded_extensions(), true)) {
             throw new TwitchException('cURL extension is not installed and is required');
         }
 
