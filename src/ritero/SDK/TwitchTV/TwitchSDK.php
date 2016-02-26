@@ -137,14 +137,16 @@ class TwitchSDK
 
     /**
      * Get the status of a follow relationship
-     * @param $user
-     * @param $channel
+     * @param string $user
+     * @param string $channel
      * @return \stdClass
      * @throws TwitchException
      */
     public function userFollowRelationship($user, $channel)
     {
-        return $this->request->request(sprintf(self::URI_USER_FOLLOW_RELATION, $user, $channel));
+        $follow = new Methods\Follow($this->request);
+
+        return $follow->userIsFollowingChannel($user, $channel);
     }
 
     /**

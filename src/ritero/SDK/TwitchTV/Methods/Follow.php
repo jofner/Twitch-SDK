@@ -21,6 +21,7 @@ class Follow
 
     const URI_CHANNEL_FOLLOWS = 'channels/%s/follows';
     const URI_USER_FOLLOWS_CHANNEL = '/users/%s/follows/channels';
+    const URI_USER_FOLLOW_RELATION = '/users/%s/follows/channels/%s';
 
     /**
      * Follow constructor
@@ -55,5 +56,18 @@ class Follow
     public function userFollowChannels($user, $queryString)
     {
         return $this->request->request(sprintf(self::URI_USER_FOLLOWS_CHANNEL, $user) . $queryString);
+    }
+
+    /**
+     * Returns 404 Not Found if :user is not following :target. Returns a follow object otherwise
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/follows.md#get-usersuserfollowschannelstarget
+     * @param string $user
+     * @param string $channel
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function userIsFollowingChannel($user, $channel)
+    {
+        return $this->request->request(sprintf(self::URI_USER_FOLLOW_RELATION, $user, $channel));
     }
 }
