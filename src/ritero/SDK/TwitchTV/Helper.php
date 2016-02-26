@@ -13,5 +13,26 @@ namespace ritero\SDK\TwitchTV;
  */
 class Helper
 {
+    /**
+     * Build query string
+     * @param $params
+     * @return null|string
+     */
+    public function buildQueryString($params)
+    {
+        $param = array();
+        $queryString = null;
 
+        foreach ($params as $key => $value) {
+            if (!empty($value)) {
+                $param[$key] = $value;
+            }
+        }
+
+        if (count($param) > 0) {
+            $queryString = '?' . http_build_query($param);
+        }
+
+        return $queryString;
+    }
 }
