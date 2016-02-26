@@ -1,6 +1,7 @@
 {
     "name": "ritero/twitch-sdk",
     "type": "library",
+    "version": "2.0.0-dev",
     "description": "TwitchTV API SDK for PHP",
     "keywords": ["twitch", "api", "sdk"],
     "homepage": "https://github.com/jofner/Twitch-SDK",
