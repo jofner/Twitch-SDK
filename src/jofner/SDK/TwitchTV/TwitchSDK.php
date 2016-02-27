@@ -26,11 +26,6 @@ class TwitchSDK
     protected $helper;
 
     /**
-     * TwitchAPI URI's
-     */
-    const URI_STREAMS_SEARCH = 'search/streams/';
-
-    /**
      * TwitchSDK constructor
      * @param array $config
      * @throws TwitchException
@@ -335,22 +330,25 @@ class TwitchSDK
 
     /**
      * Search live streams
-     * @param $query
+     * @param string $query
      * @param null $limit
      * @param null $offset
+     * @param null $hls
      * @return \stdClass
      * @throws TwitchException
-     * @deprecated will be replaced by getStreams() function
      */
-    public function streamSearch($query, $limit = null, $offset = null)
+    public function streamSearch($query, $limit = null, $offset = null, $hls = null)
     {
         $queryString = $this->helper->buildQueryString(array(
             'query' => $query,
             'limit' => $limit,
             'offset' => $offset,
+            'hls' => $hls,
         ));
 
-        return $this->request->request(self::URI_STREAMS_SEARCH . $queryString);
+        $search = new Methods\Search($this->request);
+
+        return $search->streams($queryString);
     }
 
     /**

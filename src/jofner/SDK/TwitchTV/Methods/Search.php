@@ -18,6 +18,7 @@ class Search
     protected $request;
 
     const URI_SEARCH_CHANNELS = 'search/channels';
+    const URI_SEARCH_STREAMS = 'search/streams';
 
     /**
      * Search constructor
@@ -31,12 +32,24 @@ class Search
     /**
      * Search for channel
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/search.md#get-searchchannels
-     * @param $queryString
+     * @param string $queryString
      * @return \stdClass
      * @throws TwitchException
      */
     public function channels($queryString)
     {
         return $this->request->request(self::URI_SEARCH_CHANNELS . $queryString);
+    }
+
+    /**
+     * Search streams
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/search.md#get-searchstreams
+     * @param string $queryString
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function streams($queryString)
+    {
+        return $this->request->request(self::URI_SEARCH_STREAMS . $queryString);
     }
 }
