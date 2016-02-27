@@ -930,21 +930,21 @@ class TwitchSDK
     /**
      * Get streams helper
      * @param null $game
+     * @param string|null $channels
      * @param null $limit
      * @param null $offset
-     * @param string|null $channels
      * @param null $embeddable
      * @param null $hls
      * @return \stdClass
      * @throws TwitchException
      */
-    public function getStreams($game = null, $limit = null, $offset = null, $channels = null, $embeddable = null, $hls = null)
+    public function getStreams($game = null, $channels = null, $limit = null, $offset = null, $embeddable = null, $hls = null)
     {
         $params = array(
             'game' => $game,
+            'channel' => !empty($channels) ? $channels : null,
             'limit' => $limit,
             'offset' => $offset,
-            'channel' => !empty($channels) ? $channels : null,
             'embeddable' => $embeddable,
             'hls' => $hls,
         );
