@@ -190,8 +190,10 @@ class TwitchSDK
      * @return \stdClass
      * @throws TwitchException
      */
-    public function userUnfollowChannel($user, $channel, $userToken)
+    public function authUserUnfollowChannel($user, $channel, $userToken)
     {
+        $this->checkConfig();
+        
         $queryString = $this->helper->buildQueryString(array(
             'oauth_token' => $userToken,
         ));
