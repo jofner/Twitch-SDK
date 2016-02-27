@@ -2,8 +2,7 @@
 
 # TwitchTV SDK for PHP
 
-> This is unofficial [TwitchTV SDK for PHP](https://github.com/jofner/Twitch-SDK).
-SDK is still in development, so functions, readme and/or examples may change.
+> This is unofficial [TwitchTV SDK for PHP](https://github.com/jofner/Twitch-SDK) formerly known as ritero/twitch-sdk
 
 ## WARNING BEFORE UPDATING TO 2.* !!!
 
