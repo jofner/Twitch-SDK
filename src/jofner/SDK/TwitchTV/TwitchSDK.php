@@ -233,6 +233,27 @@ class TwitchSDK
     }
 
     /**
+     * Search channels
+     * @param string $query
+     * @param integer $limit
+     * @param integer $offset
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function channelSearch($query, $limit = null, $offset = null)
+    {
+        $queryString = $this->helper->buildQueryString(array(
+            'query' => $query,
+            'limit' => $limit,
+            'offset' => $offset,
+        ));
+
+        $search = new Methods\Search($this->request);
+
+        return $search->channels($queryString);
+    }
+
+    /**
      * Get the specified team
      * @param $teamName
      * @return \stdClass
