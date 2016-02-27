@@ -84,6 +84,13 @@ $loginURL = $twitch->authLoginURL('user_read');
 
 More examples you can find soon at Wiki pages.
 
+### Error: curl SSL certificate problem: self signed certificate in certificate chain
+
+If you getting this error, you have probably out of date CA root certificates. 
+Be sure you have in your php.ini set path to certificate in curl.cainfo = "..."
+
+You can get cacert.pem from this site https://curl.haxx.se/docs/caextract.html
+
 ## Licenses
 
 Refer to the LICENSE.md file for license information
