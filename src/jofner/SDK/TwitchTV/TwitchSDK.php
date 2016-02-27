@@ -402,40 +402,6 @@ class TwitchSDK
     }
 
     /**
-     * Get streams by channel
-     * @param $channels
-     * @param null $limit
-     * @param null $offset
-     * @param null $embeddable
-     * @param null $hls
-     * @return \stdClass
-     * @throws TwitchException
-     * @deprecated will be replaced by getStreams() function
-     */
-    public function streamsByChannels($channels, $limit = null, $offset = null, $embeddable = null, $hls = null)
-    {
-        $channelsString = implode(',', $channels);
-
-        return $this->getStreams(null, $limit, $offset, $channelsString, $embeddable, $hls);
-    }
-
-    /**
-     * Get streams by game
-     * @param $game
-     * @param null $limit
-     * @param null $offset
-     * @param null $embeddable
-     * @param null $hls
-     * @return \stdClass
-     * @throws TwitchException
-     * @deprecated will be replaced by getStreams() function
-     */
-    public function streamsByGame($game, $limit = null, $offset = null, $embeddable = null, $hls = null)
-    {
-        return $this->getStreams($game, $limit, $offset, null, $embeddable, $hls);
-    }
-
-    /**
      * Get video
      * @param string $videoId
      * @return \stdClass
