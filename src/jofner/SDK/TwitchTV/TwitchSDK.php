@@ -762,7 +762,7 @@ class TwitchSDK
      * @return \stdClass
      * @throws TwitchException
      */
-    public function blockTarget($token, $user, $target)
+    public function authBlockTarget($token, $user, $target)
     {
         $this->checkConfig();
         $queryString = $this->getAuthString($token);
@@ -780,7 +780,7 @@ class TwitchSDK
      * @return \stdClass
      * @throws TwitchException
      */
-    public function removeTarget($token, $user, $target)
+    public function authRemoveTarget($token, $user, $target)
     {
         $this->checkConfig();
         $queryString = $this->getAuthString($token);
