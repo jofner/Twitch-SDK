@@ -714,6 +714,26 @@ class TwitchSDK
     }
 
     /**
+     * Adds $target to $user block list
+     *  - requires scope 'user_blocks_edit'
+     * @param string $token
+     * @param string $user
+     * @param string $target
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function blockTarget($token, $user, $target)
+    {
+        $this->checkConfig();
+
+        $queryString = $this->getAuthString($token);
+
+        $block = new Methods\Block($this->request);
+
+        return $block->blockTarget($user, $target, $queryString);
+    }
+
+    /**
      * Get the authenticated channel
      *  - requires scope 'channel_read'
      * @param string

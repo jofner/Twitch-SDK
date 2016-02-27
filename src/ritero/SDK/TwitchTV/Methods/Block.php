@@ -20,6 +20,7 @@ class Block
     protected $request;
 
     const URI_BLOCK_USER = 'users/%s/blocks';
+    const URI_BLOCK_TARGET = 'users/%s/blocks/%s';
 
     /**
      * Block constructor
@@ -42,5 +43,20 @@ class Block
     public function getBlocks($user, $queryString)
     {
         return $this->request->request(sprintf(self::URI_BLOCK_USER, $user) . $queryString);
+    }
+
+    /**
+     * Adds $target to $user block list
+     *  - requires scope 'user_blocks_edit'
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/blocks.md#put-usersuserblockstarget
+     * @param string $user
+     * @param string $target
+     * @param string $queryString
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function blockTarget($user, $target, $queryString)
+    {
+        return $this->request->request(sprintf(self::URI_BLOCK_TARGET, $user, $target) . $queryString, 'PUT');
     }
 }
