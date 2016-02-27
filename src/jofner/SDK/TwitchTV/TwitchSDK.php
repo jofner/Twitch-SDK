@@ -12,7 +12,6 @@ use jofner\SDK\TwitchTV\Methods;
  * @author Josef Ohnheiser <ritero@ritero.eu>
  * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
  * @homepage https://github.com/jofner/Twitch-SDK
- * @version 2.0.0-dev
  */
 class TwitchSDK
 {
