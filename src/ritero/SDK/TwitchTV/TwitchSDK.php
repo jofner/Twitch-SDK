@@ -127,6 +127,7 @@ class TwitchSDK
     public function userGet($username)
     {
         $user = new Methods\User($this->request);
+
         return $user->getUser($username);
     }
 
@@ -390,6 +391,7 @@ class TwitchSDK
      * @param null $embeddable
      * @param null $hls
      * @return \stdClass
+     * @throws TwitchException
      * @deprecated will be replaced by getStreams() function
      */
     public function streamsByChannels($channels, $limit = null, $offset = null, $embeddable = null, $hls = null)
@@ -407,6 +409,7 @@ class TwitchSDK
      * @param null $embeddable
      * @param null $hls
      * @return \stdClass
+     * @throws TwitchException
      * @deprecated will be replaced by getStreams() function
      */
     public function streamsByGame($game, $limit = null, $offset = null, $embeddable = null, $hls = null)
@@ -555,6 +558,7 @@ class TwitchSDK
      * @param int $height
      * @param int $volume
      * @return string
+     * @deprecated Will be replaced with Embed method
      */
     public function embedStream($channel, $width = 620, $height = 378, $volume = 25)
     {
@@ -585,6 +589,7 @@ class TwitchSDK
      * @param int $height
      * @param int $volume
      * @return string
+     * @deprecated Will be replaced with Embed method
      */
     public function embedVideo($channel, $chapterid, $width = 400, $height = 300, $volume = 25)
     {
@@ -613,6 +618,7 @@ class TwitchSDK
      * @param int $width
      * @param int $height
      * @return string
+     * @deprecated Will be replaced with Embed method
      */
     public function embedChat($channel, $width = 400, $height = 300)
     {
@@ -680,10 +686,9 @@ class TwitchSDK
     public function authUserGet($token)
     {
         $this->checkConfig();
-
         $queryString = $this->getAuthString($token);
-
         $user = new Methods\User($this->request);
+
         return $user->getUserAuth($queryString);
     }
 
@@ -725,9 +730,7 @@ class TwitchSDK
     public function blockTarget($token, $user, $target)
     {
         $this->checkConfig();
-
         $queryString = $this->getAuthString($token);
-
         $block = new Methods\Block($this->request);
 
         return $block->blockTarget($user, $target, $queryString);
@@ -745,9 +748,7 @@ class TwitchSDK
     public function removeTarget($token, $user, $target)
     {
         $this->checkConfig();
-
         $queryString = $this->getAuthString($token);
-
         $block = new Methods\Block($this->request);
 
         return $block->removeTarget($user, $target, $queryString);
@@ -763,9 +764,7 @@ class TwitchSDK
     public function authChannelGet($token)
     {
         $this->checkConfig();
-
         $queryString = $this->getAuthString($token);
-
         $channels = new Methods\Channel($this->request);
 
         return $channels->getChannel($queryString);
@@ -785,7 +784,6 @@ class TwitchSDK
     public function authChannelSet($token, $channelName, $status = null, $game = null, $delay = null)
     {
         $this->checkConfig();
-
         $queryString = $this->getAuthString($token);
 
         $data = $this->helper->buildQueryString(array(
@@ -810,9 +808,7 @@ class TwitchSDK
     public function authChannelResetKey($token, $channelName)
     {
         $this->checkConfig();
-
         $queryString = $this->getAuthString($token);
-
         $channel = new Methods\Channel($this->request);
 
         return $channel->resetStreamKey($channelName, $queryString);
@@ -829,9 +825,7 @@ class TwitchSDK
     public function authChannelEditors($token, $channel)
     {
         $this->checkConfig();
-
         $queryString = $this->getAuthString($token);
-
         $channels = new Methods\Channel($this->request);
 
         return $channels->getEditors($channel, $queryString);
@@ -862,7 +856,7 @@ class TwitchSDK
 
         $subscription = new Methods\Subscription($this->request);
 
-        $subscription->getSubscriptions($channel, $queryString);
+        return $subscription->getSubscriptions($channel, $queryString);
     }
 
     /**
@@ -877,9 +871,7 @@ class TwitchSDK
     public function authSubscribedUser($token, $channel, $user)
     {
         $this->checkConfig();
-
         $queryString = $this->getAuthString($token);
-
         $subscription = new Methods\Subscription($this->request);
 
         return $subscription->getSubscribedUser($channel, $user, $queryString);
@@ -897,9 +889,7 @@ class TwitchSDK
     public function authSubscribedToChannel($token, $user, $channel)
     {
         $this->checkConfig();
-
         $queryString = $this->getAuthString($token);
-
         $subscription = new Methods\Subscription($this->request);
 
         return $subscription->getSubscribedToChannel($user, $channel, $queryString);
@@ -928,6 +918,7 @@ class TwitchSDK
         ));
 
         $user = new Methods\User($this->request);
+
         return $user->getFollowedStreams($queryString);
     }
 
