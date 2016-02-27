@@ -12,6 +12,11 @@ There is [develop](https://github.com/jofner/Twitch-SDK/tree/develop) branch, wh
 Because I need to develop SDK and also have it functional, rewriting functions carried out in phases.
 If you have questions or suggestions regarding the development of the new version, you can use [Issues](https://github.com/jofner/Twitch-SDK/issues)
 
+## WARNING FOR 2.* !!!
+
+Version 2.* changed namespace! I know it's not best practice and i'm really sorry, but i have my reasons for that. Thanks for understanding.
+Version 2.* has BC breaks and lot of changes. Be careful with updating! Before updating thoroughly examine the changes and adjust your application for modified functions.
+
 ## Requirements
 
 TwitchTV SDK for PHP requires PHP 5.3.0 or later with cURL.
