@@ -2,6 +2,7 @@
 
 namespace jofner\SDK\TwitchTV\Methods;
 
+use jofner\SDK\TwitchTV\TwitchException;
 use jofner\SDK\TwitchTV\TwitchRequest;
 
 /**
@@ -16,6 +17,8 @@ class Search
     /** @var TwitchRequest */
     protected $request;
 
+    const URI_SEARCH_CHANNELS = 'search/channels';
+
     /**
      * Search constructor
      * @param TwitchRequest $request
@@ -23,5 +26,17 @@ class Search
     public function __construct(TwitchRequest $request)
     {
         $this->request = $request;
+    }
+
+    /**
+     * Search for channel
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/search.md#get-searchchannels
+     * @param $queryString
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function channels($queryString)
+    {
+        return $this->request->request(self::URI_SEARCH_CHANNELS . $queryString);
     }
 }
