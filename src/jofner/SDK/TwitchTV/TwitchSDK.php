@@ -566,6 +566,27 @@ class TwitchSDK
     }
 
     /**
+     * Search games
+     * @param string $query
+     * @param null $type
+     * @param null $live
+     * @return \stdClass
+     * @throws TwitchException
+     */
+    public function gameSearch($query, $type = null, $live = null)
+    {
+        $queryString = $this->helper->buildQueryString(array(
+            'query' => $query,
+            'type' => $type,
+            'live' => $live,
+        ));
+
+        $search = new Methods\Search($this->request);
+
+        return $search->games($queryString);
+    }
+
+    /**
      * Get HTML code for stream embedding
      * @param $channel
      * @param int $width
