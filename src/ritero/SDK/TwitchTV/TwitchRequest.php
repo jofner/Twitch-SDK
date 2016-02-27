@@ -164,7 +164,7 @@ class TwitchRequest
     /**
      * Get the header info to store
      */
-    private function getHeader($ch, $header)
+    private function getHeader($header)
     {
         $i = strpos($header, ':');
         if (!empty($i)) {
