@@ -77,9 +77,7 @@ class TwitchRequest
      */
     public function request($uri, $method = 'GET', $postfields = null)
     {
-        $params = ['CURLOPT_SSL_VERIFYPEER'];
-
-        return $this->generalRequest($params, self::URL_TWITCH . $uri, $method, $postfields);
+        return $this->generalRequest(self::URL_TWITCH . $uri, $method, $postfields);
     }
 
     /**
@@ -92,7 +90,7 @@ class TwitchRequest
      */
     public function teamRequest($uri, $method = 'GET', $postfields = null)
     {
-        return $this->generalRequest([], self::URL_TWITCH_TEAM . $uri . '.json', $method, $postfields);
+        return $this->generalRequest(self::URL_TWITCH_TEAM . $uri . '.json', $method, $postfields);
     }
 
     /**
@@ -107,7 +105,7 @@ class TwitchRequest
      * @return  \stdClass
      * @throws  \jofner\SDK\TwitchTV\TwitchException
      */
-    private function generalRequest($params, $uri, $method = 'GET', $postfields = null)
+    private function generalRequest($uri, $method = 'GET', $postfields = null)
     {
         $this->httpInfo = array();
 
@@ -117,9 +115,6 @@ class TwitchRequest
         curl_setopt($crl, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($crl, CURLOPT_HTTPHEADER, array('Expect:', 'Accept: ' . sprintf(self::MIME_TYPE, $this->getApiVersion())));
-        if (array_key_exists('CURLOPT_SSL_VERIFYPEER', $params)) {
-            curl_setopt($crl, CURLOPT_SSL_VERIFYPEER, $this->sslVerifypeer);
-        }
         curl_setopt($crl, CURLOPT_HEADERFUNCTION, array($this, 'getHeader'));
         curl_setopt($crl, CURLOPT_HEADER, false);
 
