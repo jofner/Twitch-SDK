@@ -60,6 +60,7 @@ class Subscription
     /**
      * Returns a channel object that user subscribes to
      *  - requires scope 'user_subscriptions' for user
+     * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/subscriptions.md#get-usersusersubscriptionschannel
      * @param string $user
      * @param string $channel
      * @param string $queryString
