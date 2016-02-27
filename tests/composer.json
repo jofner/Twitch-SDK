@@ -1,5 +1,5 @@
 {
     "require": {
-        "ritero/twitch-sdk": "dev-master"
+        "jofner/twitch-sdk": "dev-master"
     }
 }

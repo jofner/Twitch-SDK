@@ -1,6 +1,6 @@
 <?php
 
-namespace ritero\SDK\TwitchTV;
+namespace jofner\SDK\TwitchTV;
 
 /**
  * TwitchRequest for TwitchTV API SDK for PHP
@@ -14,7 +14,7 @@ namespace ritero\SDK\TwitchTV;
 class TwitchRequest
 {
     /** @var string Set the useragnet */
-    private $userAgent = 'ritero TwitchSDK 2.*';
+    private $userAgent = 'jofner TwitchSDK 2.*';
 
     /** @var integer Set connect timeout */
     public $connectTimeout = 30;
@@ -73,7 +73,7 @@ class TwitchRequest
      * @param   string
      * @param   string
      * @return  \stdClass
-     * @throws  \ritero\SDK\TwitchTV\TwitchException
+     * @throws  \jofner\SDK\TwitchTV\TwitchException
      */
     public function request($uri, $method = 'GET', $postfields = null)
     {
@@ -88,7 +88,7 @@ class TwitchRequest
      * @param   string
      * @param   string
      * @return  \stdClass
-     * @throws  \ritero\SDK\TwitchTV\TwitchException
+     * @throws  \jofner\SDK\TwitchTV\TwitchException
      */
     public function teamRequest($uri, $method = 'GET', $postfields = null)
     {
@@ -105,7 +105,7 @@ class TwitchRequest
      * @param   string
      * @param   string
      * @return  \stdClass
-     * @throws  \ritero\SDK\TwitchTV\TwitchException
+     * @throws  \jofner\SDK\TwitchTV\TwitchException
      */
     private function generalRequest($params, $uri, $method = 'GET', $postfields = null)
     {

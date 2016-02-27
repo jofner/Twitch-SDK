@@ -1,5 +1,5 @@
 {
-    "name": "ritero/twitch-sdk",
+    "name": "jofner/twitch-sdk",
     "type": "library",
     "description": "TwitchTV API SDK for PHP",
     "keywords": ["twitch", "api", "sdk"],
@@ -20,10 +20,10 @@
     },
     "autoload": {
         "psr-0": {
-            "ritero\\SDK\\TwitchTV": "src/"
+            "jofner\\SDK\\TwitchTV": "src/"
         },
         "classmap": [
-            "src/ritero/SDK/TwitchTV/TwitchSDK.php"
+            "src/jofner/SDK/TwitchTV/TwitchSDK.php"
         ]
     }
 }

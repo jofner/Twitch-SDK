@@ -1,9 +1,9 @@
 <?php
 
-namespace ritero\SDK\TwitchTV;
+namespace jofner\SDK\TwitchTV;
 
 /**
- * TwitchException for TwitchTV API SDK for PHP
+ * Helper for TwitchTV API SDK for PHP
  *
  * PHP SDK for interacting with the TwitchTV API
  *

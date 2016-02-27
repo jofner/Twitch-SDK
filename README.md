@@ -7,6 +7,7 @@ SDK is still in development, so functions, readme and/or examples may change.
 
 ## WARNING BEFORE UPDATING TO 2.* !!!
 
+Version 2.* changed namespace! I know it's not best practice and i'm really sorry, but i have my reasons for that. Thanks for understanding.
 Version 2.* has BC breaks and lot of changes. Be careful with updating! Before updating thoroughly examine the changes and adjust your application for modified functions.
 
 ## Requirements
@@ -20,7 +21,7 @@ The best way to install TwitchTV SDK is use [Composer](http://getcomposer.org/).
 ### Download the bundle using Composer
 
 ```bash
-$ composer require 'ritero/twitch-sdk:~2.*'
+$ composer require 'jofner/twitch-sdk:~2.*'
 ```
 
 The downloaded package includes the `src` directory. This directory contains 
@@ -38,7 +39,7 @@ like `authUserGet()`.
 #### With autoloader (Frameworks etc.)
 
 ```php
-use \ritero\SDK\TwitchTV\TwitchSDK;
+use \jofner\SDK\TwitchTV\TwitchSDK;
 
 $twitch = new TwitchSDK;
 ...
@@ -47,11 +48,11 @@ $twitch = new TwitchSDK;
 #### Without Autoloader
 
 ```php
-require '/path/to/libs/ritero/SDK/TwitchTV/TwitchSDK.php';
-require '/path/to/libs/ritero/SDK/TwitchTV/TwitchException.php';
+require '/path/to/libs/jofner/SDK/TwitchTV/TwitchSDK.php';
+require '/path/to/libs/jofner/SDK/TwitchTV/TwitchException.php';
 
-use \ritero\SDK\TwitchTV\TwitchSDK;
-use \ritero\SDK\TwitchTV\TwitchException;
+use \jofner\SDK\TwitchTV\TwitchSDK;
+use \jofner\SDK\TwitchTV\TwitchException;
 
 $twitch = new TwitchSDK;
 ...

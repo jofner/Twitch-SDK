@@ -1,8 +1,8 @@
 <?php
 
-namespace ritero\SDK\TwitchTV;
+namespace jofner\SDK\TwitchTV;
 
-use ritero\SDK\TwitchTV\Methods;
+use jofner\SDK\TwitchTV\Methods;
 
 /**
  * TwitchTV API SDK for PHP

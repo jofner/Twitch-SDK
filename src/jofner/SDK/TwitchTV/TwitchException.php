@@ -1,6 +1,6 @@
 <?php
 
-namespace ritero\SDK\TwitchTV;
+namespace jofner\SDK\TwitchTV;
 
 /**
  * TwitchException for TwitchTV API SDK for PHP
@@ -13,7 +13,7 @@ namespace ritero\SDK\TwitchTV;
  */
 class TwitchException extends \Exception
 {
-    /** @var \ritero\SDK\TwitchTV\TwitchException */
+    /** @var TwitchException */
     protected $previous;
 
     public function __construct($message = null, $code = 0, TwitchException $previous = null)

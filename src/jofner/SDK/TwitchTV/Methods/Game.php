@@ -1,14 +1,12 @@
 <?php
 
-namespace ritero\SDK\TwitchTV\Methods;
+namespace jofner\SDK\TwitchTV\Methods;
 
-use ritero\SDK\TwitchTV\TwitchRequest;
-use ritero\SDK\TwitchTV\TwitchException;
+use jofner\SDK\TwitchTV\TwitchRequest;
+use jofner\SDK\TwitchTV\TwitchException;
 
 /**
- * TwitchTV API SDK for PHP
- *
- * Games method class
+ * Games method class for TwitchTV API SDK for PHP
  *
  * @author Josef Ohnheiser <ritero@ritero.eu>
  * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT

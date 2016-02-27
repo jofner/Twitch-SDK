@@ -1,13 +1,13 @@
 <?php
 
-namespace ritero\SDK\TwitchTV\TwitchSDK\Methods\Test;
+namespace jofner\SDK\TwitchTV\TwitchSDK\Methods\Test;
 
-use ritero\SDK\TwitchTV\TwitchSDK;
+use jofner\SDK\TwitchTV\TwitchSDK;
 
 class AuthTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @expectedException ritero\SDK\TwitchTV\TwitchException
+     * @expectedException jofner\SDK\TwitchTV\TwitchException
      */
     public function testAuthLoginURLException()
     {

@@ -1,8 +1,8 @@
 <?php
 
-namespace ritero\SDK\TwitchTV\TwitchSDK\Test;
+namespace jofner\SDK\TwitchTV\TwitchSDK\Test;
 
-use \ritero\SDK\TwitchTV\TwitchSDK;
+use \jofner\SDK\TwitchTV\TwitchSDK;
 
 class TwitchSDKTest extends \PHPUnit_Framework_TestCase
 {
