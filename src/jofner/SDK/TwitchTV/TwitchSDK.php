@@ -35,11 +35,9 @@ class TwitchSDK
             throw new TwitchException('cURL extension is not installed and is required');
         }
 
-        if (count($config) > 0) {
-            $this->setConfig($config);
-        }
+        $this->setConfig($config);
 
-        $this->request = new TwitchRequest;
+        $this->request = new TwitchRequest($config);
         $this->helper = new Helper;
     }
 

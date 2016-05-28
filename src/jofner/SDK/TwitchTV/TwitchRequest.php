@@ -47,6 +47,15 @@ class TwitchRequest
     const MIME_TYPE = 'application/vnd.twitchtv.v%d+json';
 
     /**
+     * TwitchRequest constructor
+     * @param array $config
+     */
+    public function __construct($config)
+    {
+        $this->config = $config;
+    }
+
+    /**
      * Set the API version to use
      * @param integer $version
      * @deprecated will be removed, force to use v3 API, which is current stable Twitch API version
@@ -114,7 +123,7 @@ class TwitchRequest
         curl_setopt($crl, CURLOPT_CONNECTTIMEOUT, $this->connectTimeout);
         curl_setopt($crl, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($crl, CURLOPT_HTTPHEADER, array('Expect:', 'Accept: ' . sprintf(self::MIME_TYPE, $this->getApiVersion())));
+        curl_setopt($crl, CURLOPT_HTTPHEADER, array('Expect:', 'Accept: ' . sprintf(self::MIME_TYPE, $this->getApiVersion()), 'Client-ID: ' . $this->config['client_id']));
         curl_setopt($crl, CURLOPT_HEADERFUNCTION, array($this, 'getHeader'));
         curl_setopt($crl, CURLOPT_HEADER, false);
 
