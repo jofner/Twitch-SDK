@@ -41,6 +41,9 @@ class TwitchSDK
     /** @var string Set the useragnet */
     private $useragent = 'ritero TwitchSDK dev-0.4.*';
 
+    /** @var string */
+    private $clientId;
+
     /**
      * TwitchAPI URI's
      */
@@ -74,9 +77,26 @@ class TwitchSDK
     const URL_TWITCH_TEAM = "http://api.twitch.tv/api/team/";
 
     /**
+     * @return string
+     */
+    public function getClientId()
+    {
+        return $this->clientId;
+    }
+
+    /**
+     * @param string $clientId
+     */
+    public function setClientId($clientId)
+    {
+        $this->clientId = $clientId;
+    }
+
+    /**
      * SDK constructor
      * @param   array
      * @throws  \ritero\SDK\TwitchTV\TwitchException
+     * @throws \InvalidArgumentException
      */
     public function __construct($config = array())
     {
@@ -84,9 +104,15 @@ class TwitchSDK
             throw new TwitchException('cURL extension is not installed and is required');
         }
 
+        if (!array_key_exists('clientId', $config)) {
+            throw new \InvalidArgumentException('Missing required Client-ID parameter in config
+                @see https://blog.twitch.tv/client-id-required-for-kraken-api-calls-afbb8e95f843');
+        }
+
         if (!empty($config)) {
             if ($this->configValidate($config) === true) {
                 $this->auth_config = $config;
+                $this->setClientId($config['clientId']);
             } else {
                 throw new TwitchException('Wrong Twitch API config parameters');
             }
@@ -750,7 +776,7 @@ class TwitchSDK
         curl_setopt($crl, CURLOPT_CONNECTTIMEOUT, $this->connect_timeout);
         curl_setopt($crl, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($crl, CURLOPT_HTTPHEADER, array('Expect:'));
+        curl_setopt($crl, CURLOPT_HTTPHEADER, array('Expect:', 'Client-ID: ' . $this->getClientId()));
         if (isset($params['CURLOPT_SSL_VERIFYPEER'])) {
             curl_setopt($crl, CURLOPT_SSL_VERIFYPEER, $this->ssl_verifypeer);
         }
