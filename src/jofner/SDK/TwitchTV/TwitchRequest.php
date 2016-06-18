@@ -40,6 +40,9 @@ class TwitchRequest
     /** @var int API version to use */
     private $apiVersion = 3;
 
+    /** @var string */
+    private $clientId;
+
     const URL_TWITCH = 'https://api.twitch.tv/kraken/';
     const URL_TWITCH_TEAM = 'http://api.twitch.tv/api/team/';
     const URI_AUTH = 'oauth2/authorize';
@@ -65,6 +68,24 @@ class TwitchRequest
     public function getApiVersion()
     {
         return $this->apiVersion;
+    }
+
+    /**
+     * Get Client ID
+     * @return string
+     */
+    public function getClientId()
+    {
+        return $this->clientId;
+    }
+
+    /**
+     * Set CLient ID
+     * @param string $clientId
+     */
+    public function setClientId($clientId)
+    {
+        $this->clientId = $clientId;
     }
 
     /**
@@ -114,7 +135,11 @@ class TwitchRequest
         curl_setopt($crl, CURLOPT_CONNECTTIMEOUT, $this->connectTimeout);
         curl_setopt($crl, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($crl, CURLOPT_HTTPHEADER, array('Expect:', 'Accept: ' . sprintf(self::MIME_TYPE, $this->getApiVersion())));
+        curl_setopt($crl, CURLOPT_HTTPHEADER, array(
+            'Expect:',
+            'Accept: ' . sprintf(self::MIME_TYPE, $this->getApiVersion()),
+            'Client-ID: ' . $this->getClientId(),
+        ));
         curl_setopt($crl, CURLOPT_HEADERFUNCTION, array($this, 'getHeader'));
         curl_setopt($crl, CURLOPT_HEADER, false);
 
