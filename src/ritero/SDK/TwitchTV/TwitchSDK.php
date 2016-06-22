@@ -104,7 +104,7 @@ class TwitchSDK
             throw new TwitchException('cURL extension is not installed and is required');
         }
 
-        if (!array_key_exists('clientId', $config)) {
+        if (!array_key_exists('client_id', $config)) {
             throw new \InvalidArgumentException('Missing required Client-ID parameter in config
                 @see https://blog.twitch.tv/client-id-required-for-kraken-api-calls-afbb8e95f843');
         }
@@ -112,7 +112,7 @@ class TwitchSDK
         if (!empty($config)) {
             if ($this->configValidate($config) === true) {
                 $this->auth_config = $config;
-                $this->setClientId($config['clientId']);
+                $this->setClientId($config['client_id']);
             } else {
                 throw new TwitchException('Wrong Twitch API config parameters');
             }
