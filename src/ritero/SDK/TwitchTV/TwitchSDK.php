@@ -58,6 +58,7 @@ class TwitchSDK
     const URI_STREAM_SUMMARY = 'streams/summary/';
     const URI_STREAMS_FEATURED = 'streams/featured/';
     const URI_STREAMS_SEARCH = 'search/streams/';
+    const URI_GAMES_SEARCH = 'search/games/';
     const URI_VIDEO = 'videos/';
     const URI_CHAT = 'chat/';
     const URI_CHAT_EMOTICONS = 'chat/emoticons';
@@ -280,6 +281,24 @@ class TwitchSDK
         ));
 
         return $this->request(self::URI_STREAMS_SEARCH . $query_string);
+    }
+
+    /**
+     * Search games
+     * @param   string
+     * @param   integer
+     * @param   integer
+     * @return  stdClass
+     */
+    public function gamesSearch($query, $live = true)
+    {
+        $query_string = $this->buildQueryString(array(
+          'query' => $query,
+          'type' => "suggest",
+          'live' => $live,
+        ));
+
+        return $this->request(self::URI_GAMES_SEARCH . $query_string);
     }
 
     /**
