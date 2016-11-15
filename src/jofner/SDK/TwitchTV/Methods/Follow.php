@@ -18,8 +18,8 @@ class Follow
     protected $request;
 
     const URI_CHANNEL_FOLLOWS = 'channels/%s/follows';
-    const URI_USER_FOLLOWS_CHANNEL = '/users/%s/follows/channels';
-    const URI_USER_FOLLOW_RELATION = '/users/%s/follows/channels/%s';
+    const URI_USER_FOLLOWS_CHANNEL = 'users/%s/follows/channels';
+    const URI_USER_FOLLOW_RELATION = 'users/%s/follows/channels/%s';
 
     /**
      * Follow constructor
