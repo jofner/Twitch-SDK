@@ -8,7 +8,7 @@ use jofner\SDK\TwitchTV\TwitchRequest;
 /**
  * Authenticate method class for TwitchTV API SDK for PHP
  *
- * @author Josef Ohnheiser <ritero@ritero.eu>
+ * @author Josef Ohnheiser <jofnercz@gmail.com>
  * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
  * @homepage https://github.com/jofner/Twitch-SDK
  */
