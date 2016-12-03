@@ -20,7 +20,7 @@ The best way to install TwitchTV SDK is use [Composer](http://getcomposer.org/).
 ### Download the bundle using Composer
 
 ```bash
-$ composer require 'jofner/twitch-sdk:~2.*'
+$ composer require 'jofner/twitch-sdk:2.0.*'
 ```
 
 The downloaded package includes the `src` directory. This directory contains
