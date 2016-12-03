@@ -129,17 +129,17 @@ class TwitchRequest
     private function generalRequest($uri, $method = 'GET', $postfields = null)
     {
         $this->httpInfo = array();
+        $optHttpHeader = array(
+            'Expect:',
+            'Accept: ' . sprintf(self::MIME_TYPE, $this->getApiVersion()),
+            'Client-ID: ' . $this->getClientId(),
+        );
 
         $crl = curl_init();
         curl_setopt($crl, CURLOPT_USERAGENT, $this->userAgent);
         curl_setopt($crl, CURLOPT_CONNECTTIMEOUT, $this->connectTimeout);
         curl_setopt($crl, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($crl, CURLOPT_HTTPHEADER, array(
-            'Expect:',
-            'Accept: ' . sprintf(self::MIME_TYPE, $this->getApiVersion()),
-            'Client-ID: ' . $this->getClientId(),
-        ));
         curl_setopt($crl, CURLOPT_HEADERFUNCTION, array($this, 'getHeader'));
         curl_setopt($crl, CURLOPT_HEADER, false);
 
@@ -149,16 +149,17 @@ class TwitchRequest
                 break;
             case 'PUT':
                 curl_setopt($crl, CURLOPT_CUSTOMREQUEST, 'PUT');
-                curl_setopt($crl, CURLOPT_HTTPHEADER, array('Content-Length: ' . strlen($postfields)));
                 break;
             case 'DELETE':
                 curl_setopt($crl, CURLOPT_CUSTOMREQUEST, 'DELETE');
-                curl_setopt($crl, CURLOPT_HTTPHEADER, array('Content-Length: ' . strlen($postfields)));
         }
 
         if ($postfields !== null) {
             curl_setopt($crl, CURLOPT_POSTFIELDS, ltrim($postfields, '?'));
+            $optHttpHeader[] = 'Content-Length: ' . strlen($postfields);
         }
+
+        curl_setopt($crl, CURLOPT_HTTPHEADER, $optHttpHeader);
 
         curl_setopt($crl, CURLOPT_URL, $uri);
 
