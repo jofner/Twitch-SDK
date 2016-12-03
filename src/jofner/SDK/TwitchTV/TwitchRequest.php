@@ -90,11 +90,11 @@ class TwitchRequest
 
     /**
      * TwitchAPI request
-     * @param   string
-     * @param   string
-     * @param   string
-     * @return  \stdClass
-     * @throws  \jofner\SDK\TwitchTV\TwitchSDKException
+     * @param string $uri
+     * @param string $method
+     * @param string $postfields
+     * @return \stdClass
+     * @throws \jofner\SDK\TwitchTV\TwitchSDKException
      */
     public function request($uri, $method = 'GET', $postfields = null)
     {
@@ -103,11 +103,11 @@ class TwitchRequest
 
     /**
      * Twitch Team API request
-     * @param   string
-     * @param   string
-     * @param   string
-     * @return  \stdClass
-     * @throws  \jofner\SDK\TwitchTV\TwitchSDKException
+     * @param string $uri
+     * @param string $method
+     * @param string $postfields
+     * @return \stdClass
+     * @throws \jofner\SDK\TwitchTV\TwitchSDKException
      */
     public function teamRequest($uri, $method = 'GET', $postfields = null)
     {
@@ -119,12 +119,11 @@ class TwitchRequest
      * method used by teamRequest && request methods
      * because there are two different Twitch APIs
      * don't call it directly
-     * @param   array
-     * @param   string
-     * @param   string
-     * @param   string
-     * @return  \stdClass
-     * @throws  \jofner\SDK\TwitchTV\TwitchSDKException
+     * @param string $uri
+     * @param string $method
+     * @param string $postfields
+     * @return \stdClass
+     * @throws \jofner\SDK\TwitchTV\TwitchSDKException
      */
     private function generalRequest($uri, $method = 'GET', $postfields = null)
     {
@@ -192,6 +191,9 @@ class TwitchRequest
 
     /**
      * Get the header info to store
+     * @param $ch
+     * @param $header
+     * @return int
      */
     private function getHeader($ch, $header)
     {
