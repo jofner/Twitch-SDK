@@ -970,7 +970,7 @@ class TwitchSDK
     {
         $check = array('client_id', 'client_secret', 'redirect_uri');
 
-        foreach ($check AS $val) {
+        foreach ($check as $val) {
             if (!array_key_exists($val, $config) ||
                 (empty($config[$val]) ||
                     !is_string($config[$val]))
