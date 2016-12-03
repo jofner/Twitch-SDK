@@ -3,7 +3,7 @@
 namespace jofner\SDK\TwitchTV\Methods;
 
 use jofner\SDK\TwitchTV\TwitchRequest;
-use jofner\SDK\TwitchTV\TwitchException;
+use jofner\SDK\TwitchTV\TwitchSDKException;
 
 /**
  * Teams method class for TwitchTV API SDK for PHP
@@ -34,7 +34,7 @@ class Team
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/teams.md#get-teamsteam
      * @param string $team
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getTeam($team)
     {
@@ -46,7 +46,7 @@ class Team
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/teams.md#get-teams
      * @param $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getTeams($queryString)
     {

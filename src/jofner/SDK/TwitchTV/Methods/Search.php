@@ -2,7 +2,7 @@
 
 namespace jofner\SDK\TwitchTV\Methods;
 
-use jofner\SDK\TwitchTV\TwitchException;
+use jofner\SDK\TwitchTV\TwitchSDKException;
 use jofner\SDK\TwitchTV\TwitchRequest;
 
 /**
@@ -35,7 +35,7 @@ class Search
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/search.md#get-searchchannels
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function channels($queryString)
     {
@@ -47,7 +47,7 @@ class Search
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/search.md#get-searchstreams
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function streams($queryString)
     {
@@ -59,7 +59,7 @@ class Search
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/search.md#get-searchgames
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function games($queryString)
     {

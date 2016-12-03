@@ -2,7 +2,7 @@
 
 namespace jofner\SDK\TwitchTV\Methods;
 
-use jofner\SDK\TwitchTV\TwitchException;
+use jofner\SDK\TwitchTV\TwitchSDKException;
 use jofner\SDK\TwitchTV\TwitchRequest;
 
 /**
@@ -33,7 +33,7 @@ class Subscription
      * @param string $channel
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getSubscriptions($channel, $queryString)
     {
@@ -48,7 +48,7 @@ class Subscription
      * @param string $user
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getSubscribedUser($channel, $user, $queryString)
     {
@@ -63,7 +63,7 @@ class Subscription
      * @param string $channel
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getSubscribedToChannel($user, $channel, $queryString)
     {

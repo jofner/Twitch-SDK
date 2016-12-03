@@ -2,7 +2,7 @@
 
 namespace jofner\SDK\TwitchTV\Methods;
 
-use jofner\SDK\TwitchTV\TwitchException;
+use jofner\SDK\TwitchTV\TwitchSDKException;
 use jofner\SDK\TwitchTV\TwitchRequest;
 
 /**
@@ -36,7 +36,7 @@ class Channel
      * @param string $queryString
      * @param string $data
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function setChannel($channel, $queryString, $data)
     {
@@ -49,7 +49,7 @@ class Channel
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/channels.md#get-channel
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getChannel($queryString)
     {
@@ -63,7 +63,7 @@ class Channel
      * @param string $channel
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function resetStreamKey($channel, $queryString)
     {
@@ -75,7 +75,7 @@ class Channel
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/channels.md#get-channelschannel
      * @param string $channel
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getChannels($channel)
     {
@@ -89,7 +89,7 @@ class Channel
      * @param string $channel
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getEditors($channel, $queryString)
     {
@@ -101,7 +101,7 @@ class Channel
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/channels.md#get-channelschannelteams
      * @param string $channel
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getTeams($channel)
     {

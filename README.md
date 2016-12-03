@@ -23,14 +23,14 @@ The best way to install TwitchTV SDK is use [Composer](http://getcomposer.org/).
 $ composer require 'jofner/twitch-sdk:~2.*'
 ```
 
-The downloaded package includes the `src` directory. This directory contains 
-the source code of TwitchTV SDK for PHP. This is the only directory 
+The downloaded package includes the `src` directory. This directory contains
+the source code of TwitchTV SDK for PHP. This is the only directory
 that you will need in order to deploy your application.
 
 ## Getting started
 
-Basic functions starts with standard naming policy (user*, channel* etc.) - 
-`userGet()` for example. Authenticated functions have auth* prefixes, 
+Basic functions starts with standard naming policy (user*, channel* etc.) -
+`userGet()` for example. Authenticated functions have auth* prefixes,
 like `authUserGet()`.
 
 ### SDK initialization in your project
@@ -48,10 +48,10 @@ $twitch = new TwitchSDK;
 
 ```php
 require '/path/to/libs/jofner/SDK/TwitchTV/TwitchSDK.php';
-require '/path/to/libs/jofner/SDK/TwitchTV/TwitchException.php';
+require '/path/to/libs/jofner/SDK/TwitchTV/TwitchSDKException.php';
 
 use \jofner\SDK\TwitchTV\TwitchSDK;
-use \jofner\SDK\TwitchTV\TwitchException;
+use \jofner\SDK\TwitchTV\TwitchSDKException;
 
 $twitch = new TwitchSDK;
 ...
@@ -85,7 +85,7 @@ More examples you can find soon at Wiki pages.
 
 ### Error: curl SSL certificate problem: self signed certificate in certificate chain
 
-If you getting this error, you have probably out of date CA root certificates. 
+If you getting this error, you have probably out of date CA root certificates.
 Be sure you have in your php.ini set path to certificate in curl.cainfo = "..."
 
 You can get cacert.pem from this site https://curl.haxx.se/docs/caextract.html
@@ -96,7 +96,7 @@ Refer to the LICENSE.md file for license information
 
 ## Reference
 
-[TwitchTV SDK](https://github.com/jofner/Twitch-SDK), 
-[TwitchTV](http://www.twitch.tv/), 
-[TwitchTV API](https://github.com/justintv/Twitch-API), 
+[TwitchTV SDK](https://github.com/jofner/Twitch-SDK),
+[TwitchTV](http://www.twitch.tv/),
+[TwitchTV API](https://github.com/justintv/Twitch-API),
 [Composer](http://getcomposer.org/)

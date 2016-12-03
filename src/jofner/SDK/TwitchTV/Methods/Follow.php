@@ -3,7 +3,7 @@
 namespace jofner\SDK\TwitchTV\Methods;
 
 use jofner\SDK\TwitchTV\TwitchRequest;
-use jofner\SDK\TwitchTV\TwitchException;
+use jofner\SDK\TwitchTV\TwitchSDKException;
 
 /**
  * Follow method class for TwitchTV API SDK for PHP
@@ -36,7 +36,7 @@ class Follow
      * @param string $channel
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getChannelFollows($channel, $queryString)
     {
@@ -49,7 +49,7 @@ class Follow
      * @param $user
      * @param $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function userFollowChannels($user, $queryString)
     {
@@ -62,7 +62,7 @@ class Follow
      * @param string $user
      * @param string $channel
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function userIsFollowingChannel($user, $channel)
     {
@@ -77,7 +77,7 @@ class Follow
      * @param string $channel
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function followChannel($user, $channel, $queryString)
     {
@@ -92,7 +92,7 @@ class Follow
      * @param string $channel
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function unfollowChannel($user, $channel, $queryString)
     {

@@ -2,7 +2,7 @@
 
 namespace jofner\SDK\TwitchTV\Methods;
 
-use jofner\SDK\TwitchTV\TwitchException;
+use jofner\SDK\TwitchTV\TwitchSDKException;
 use jofner\SDK\TwitchTV\TwitchRequest;
 
 /**
@@ -32,7 +32,7 @@ class User
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-usersuser
      * @param string $username
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getUser($username)
     {
@@ -45,7 +45,7 @@ class User
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-user
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getUserAuth($queryString)
     {
@@ -58,7 +58,7 @@ class User
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-streamsfollowed
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getFollowedStreams($queryString)
     {
@@ -71,7 +71,7 @@ class User
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-videosfollowed
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getFollowedVideos($queryString)
     {

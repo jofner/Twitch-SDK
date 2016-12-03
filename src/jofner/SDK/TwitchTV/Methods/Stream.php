@@ -3,7 +3,7 @@
 namespace jofner\SDK\TwitchTV\Methods;
 
 use jofner\SDK\TwitchTV\TwitchRequest;
-use jofner\SDK\TwitchTV\TwitchException;
+use jofner\SDK\TwitchTV\TwitchSDKException;
 
 /**
  * Streams method class for TwitchTV API SDK for PHP
@@ -36,7 +36,7 @@ class Stream
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/streams.md#get-streamschannel
      * @param string $channel
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getStream($channel)
     {
@@ -48,7 +48,7 @@ class Stream
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/streams.md#get-streams
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getStreams($queryString)
     {
@@ -60,7 +60,7 @@ class Stream
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/streams.md#get-streamsfeatured
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getFeatured($queryString)
     {
@@ -72,7 +72,7 @@ class Stream
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/streams.md#get-streamssummary
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getSummary($queryString)
     {

@@ -94,7 +94,7 @@ class TwitchRequest
      * @param   string
      * @param   string
      * @return  \stdClass
-     * @throws  \jofner\SDK\TwitchTV\TwitchException
+     * @throws  \jofner\SDK\TwitchTV\TwitchSDKException
      */
     public function request($uri, $method = 'GET', $postfields = null)
     {
@@ -107,7 +107,7 @@ class TwitchRequest
      * @param   string
      * @param   string
      * @return  \stdClass
-     * @throws  \jofner\SDK\TwitchTV\TwitchException
+     * @throws  \jofner\SDK\TwitchTV\TwitchSDKException
      */
     public function teamRequest($uri, $method = 'GET', $postfields = null)
     {
@@ -124,7 +124,7 @@ class TwitchRequest
      * @param   string
      * @param   string
      * @return  \stdClass
-     * @throws  \jofner\SDK\TwitchTV\TwitchException
+     * @throws  \jofner\SDK\TwitchTV\TwitchSDKException
      */
     private function generalRequest($uri, $method = 'GET', $postfields = null)
     {
@@ -169,7 +169,7 @@ class TwitchRequest
         $this->httpInfo = array_merge($this->httpInfo, curl_getinfo($crl));
 
         if (curl_errno($crl) && $this->throwCurlErrors === true) {
-            throw new TwitchException(curl_error($crl), curl_errno($crl));
+            throw new TwitchSDKException(curl_error($crl), curl_errno($crl));
         }
 
         curl_close($crl);

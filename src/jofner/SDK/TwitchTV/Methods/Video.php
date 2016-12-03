@@ -3,7 +3,7 @@
 namespace jofner\SDK\TwitchTV\Methods;
 
 use jofner\SDK\TwitchTV\TwitchRequest;
-use jofner\SDK\TwitchTV\TwitchException;
+use jofner\SDK\TwitchTV\TwitchSDKException;
 
 /**
  * Videos method class for TwitchTV API SDK for PHP
@@ -35,7 +35,7 @@ class Video
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/videos.md#get-videosid
      * @param string $id
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getVideo($id)
     {
@@ -47,7 +47,7 @@ class Video
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/videos.md#get-videostop
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getTop($queryString)
     {
@@ -60,7 +60,7 @@ class Video
      * @param string $channel
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getChannelVideos($channel, $queryString)
     {

@@ -3,7 +3,7 @@
 namespace jofner\SDK\TwitchTV\Methods;
 
 use jofner\SDK\TwitchTV\TwitchRequest;
-use jofner\SDK\TwitchTV\TwitchException;
+use jofner\SDK\TwitchTV\TwitchSDKException;
 
 /**
  * Games method class for TwitchTV API SDK for PHP
@@ -33,7 +33,7 @@ class Game
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/games.md#get-gamestop
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getTop($queryString)
     {

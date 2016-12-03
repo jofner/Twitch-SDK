@@ -7,7 +7,7 @@ use jofner\SDK\TwitchTV\TwitchSDK;
 class AuthTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @expectedException jofner\SDK\TwitchTV\TwitchException
+     * @expectedException jofner\SDK\TwitchTV\TwitchSDKException
      */
     public function testAuthLoginURLException()
     {

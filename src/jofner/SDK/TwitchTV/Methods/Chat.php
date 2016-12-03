@@ -3,7 +3,7 @@
 namespace jofner\SDK\TwitchTV\Methods;
 
 use jofner\SDK\TwitchTV\TwitchRequest;
-use jofner\SDK\TwitchTV\TwitchException;
+use jofner\SDK\TwitchTV\TwitchSDKException;
 
 /**
  * Chat method class for TwitchTV API SDK for PHP
@@ -36,7 +36,7 @@ class Chat
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/chat.md#get-chatchannel
      * @param string $channel
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getChat($channel)
     {
@@ -47,7 +47,7 @@ class Chat
      * Get a chat's emoticons
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/chat.md#get-chatemoticons
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getEmoticons()
     {
@@ -59,7 +59,7 @@ class Chat
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/chat.md#get-chatemoticon_images
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getEmoticonImages($queryString)
     {
@@ -71,7 +71,7 @@ class Chat
      * @see https://github.com/justintv/Twitch-API/blob/master/v3_resources/chat.md#get-chatchannelbadges
      * @param string $channel
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getBadges($channel)
     {

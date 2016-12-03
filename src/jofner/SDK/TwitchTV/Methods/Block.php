@@ -2,7 +2,7 @@
 
 namespace jofner\SDK\TwitchTV\Methods;
 
-use jofner\SDK\TwitchTV\TwitchException;
+use jofner\SDK\TwitchTV\TwitchSDKException;
 use jofner\SDK\TwitchTV\TwitchRequest;
 
 /**
@@ -36,7 +36,7 @@ class Block
      * @param string $user
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getBlocks($user, $queryString)
     {
@@ -51,7 +51,7 @@ class Block
      * @param string $target
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function blockTarget($user, $target, $queryString)
     {
@@ -66,7 +66,7 @@ class Block
      * @param string $target
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function removeTarget($user, $target, $queryString)
     {

@@ -2,7 +2,7 @@
 
 namespace jofner\SDK\TwitchTV\Methods;
 
-use jofner\SDK\TwitchTV\TwitchException;
+use jofner\SDK\TwitchTV\TwitchSDKException;
 use jofner\SDK\TwitchTV\TwitchRequest;
 
 /**
@@ -30,7 +30,7 @@ class Auth
      * Get login URL for authentication
      * @param string $queryString
      * @return string
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getLoginURL($queryString)
     {
@@ -41,7 +41,7 @@ class Auth
      * Get authentication access token
      * @param string $queryString
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getAccessToken($queryString)
     {
