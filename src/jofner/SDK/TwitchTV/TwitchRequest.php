@@ -148,7 +148,7 @@ class TwitchRequest
      * Initialize a cURL session
      * @param string $uri
      * @param string $method
-     * @param array|null $postfields
+     * @param string|null $postfields
      * @return resource
      */
     private function initCrl($uri, $method, $postfields)
