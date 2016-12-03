@@ -27,13 +27,13 @@ class TwitchSDK
     /**
      * TwitchSDK constructor
      * @param array $config
-     * @throws TwitchException
+     * @throws TwitchSDKException
      * @throws \InvalidArgumentException
      */
     public function __construct(array $config = array())
     {
         if (!in_array('curl', get_loaded_extensions(), true)) {
-            throw new TwitchException('cURL extension is not installed and is required');
+            throw new TwitchSDKException('cURL extension is not installed and is required');
         }
 
         if (!array_key_exists('client_id', $config)) {
@@ -54,14 +54,14 @@ class TwitchSDK
      * config setter
      * @param array $config
      * @return TwitchSDK
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function setConfig(array $config)
     {
         if ($this->configValidate($config) === true) {
             $this->config = $config;
         } else {
-            throw new TwitchException('Wrong Twitch API config parameters');
+            throw new TwitchSDKException('Wrong Twitch API config parameters');
         }
 
         return $this;
@@ -69,7 +69,7 @@ class TwitchSDK
 
     /**
      * Check if config is set
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     private function checkConfig()
     {
@@ -82,12 +82,12 @@ class TwitchSDK
      * Get value from config
      * @param string $key
      * @return mixed
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     private function getConfigParam($key)
     {
         if (!array_key_exists($key, $this->config)) {
-            throw new TwitchException('Missing configuration parameter');
+            throw new TwitchSDKException('Missing configuration parameter');
         }
 
         return $this->config[$key];
@@ -97,7 +97,7 @@ class TwitchSDK
      * Basic information about the API and authentication status
      * @param null $token
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function status($token = null)
     {
@@ -118,7 +118,7 @@ class TwitchSDK
      * Get the specified user
      * @param $username
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function userGet($username)
     {
@@ -135,7 +135,7 @@ class TwitchSDK
      * @param string $direction
      * @param string $sortby
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function userFollowChannels($user, $limit = null, $offset = null, $direction = null, $sortby = null)
     {
@@ -156,7 +156,7 @@ class TwitchSDK
      * @param string $user
      * @param string $channel
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function userFollowRelationship($user, $channel)
     {
@@ -173,7 +173,7 @@ class TwitchSDK
      * @param string $userToken
      * @param bool $notifications
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function authUserFollowChannel($user, $channel, $userToken, $notifications = false)
     {
@@ -196,7 +196,7 @@ class TwitchSDK
      * @param string $channel
      * @param string $userToken
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function authUserUnfollowChannel($user, $channel, $userToken)
     {
@@ -215,7 +215,7 @@ class TwitchSDK
      * Get the specified channel
      * @param string $channelName
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function channelGet($channelName)
     {
@@ -228,7 +228,7 @@ class TwitchSDK
      * Return team list for specified channel
      * @param string $channelName
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function channelTeamsGet($channelName)
     {
@@ -243,7 +243,7 @@ class TwitchSDK
      * @param integer $limit
      * @param integer $offset
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function channelSearch($query, $limit = null, $offset = null)
     {
@@ -262,7 +262,7 @@ class TwitchSDK
      * Get the specified team
      * @param $teamName
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function teamGet($teamName)
     {
@@ -276,7 +276,7 @@ class TwitchSDK
      * @param integer $limit
      * @param integer $offset
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function teamList($limit = null, $offset = null)
     {
@@ -294,7 +294,7 @@ class TwitchSDK
      * Get all team members
      * @param $teamName
      * @return mixed
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function teamMembersAll($teamName)
     {
@@ -309,7 +309,7 @@ class TwitchSDK
      * @param string $cursor
      * @param string $direction
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function channelFollows($channelName, $limit = null, $offset = null, $cursor = null, $direction = null)
     {
@@ -329,7 +329,7 @@ class TwitchSDK
      * Get the specified channel's stream
      * @param $channel
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function streamGet($channel)
     {
@@ -345,7 +345,7 @@ class TwitchSDK
      * @param null $offset
      * @param null $hls
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function streamSearch($query, $limit = null, $offset = null, $hls = null)
     {
@@ -367,7 +367,7 @@ class TwitchSDK
      * @param array|null $channels
      * @param null $hls
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function streamsSummarize($game = null, array $channels = null, $hls = null)
     {
@@ -392,7 +392,7 @@ class TwitchSDK
      * @param null $offset
      * @param null $hls
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function streamsFeatured($limit = null, $offset = null, $hls = null)
     {
@@ -411,7 +411,7 @@ class TwitchSDK
      * Get video
      * @param string $videoId
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function videoGet($videoId)
     {
@@ -427,7 +427,7 @@ class TwitchSDK
      * @param string $game
      * @param string $period
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function videosTop($limit = null, $offset = null, $game = null, $period = null)
     {
@@ -451,7 +451,7 @@ class TwitchSDK
      * @param bool $broadcasts
      * @param bool $hls
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function videosByChannel($channel, $limit = null, $offset = null, $broadcasts = null, $hls = null)
     {
@@ -471,7 +471,7 @@ class TwitchSDK
      * Returns a links object to all other chat endpoints
      * @param string $channelName
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function chatGet($channelName)
     {
@@ -483,7 +483,7 @@ class TwitchSDK
     /**
      * Get a chat's emoticons
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function chatEmoticons()
     {
@@ -496,7 +496,7 @@ class TwitchSDK
      * Returns a list of emoticons
      * @param string $emoteset
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function chatEmoticonsImages($emoteset = null)
     {
@@ -513,7 +513,7 @@ class TwitchSDK
      * Returns a list of chat badges
      * @param string $channelName
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function chatBadges($channelName)
     {
@@ -527,7 +527,7 @@ class TwitchSDK
      * @param integer $limit
      * @param integer $offset
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function gamesTop($limit = null, $offset = null)
     {
@@ -547,7 +547,7 @@ class TwitchSDK
      * @param null $type
      * @param null $live
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function gameSearch($query, $type = null, $live = null)
     {
@@ -646,7 +646,7 @@ class TwitchSDK
      * Get login URL for authentication
      * @param string $scope Specify which permissions your app requires (space separated list)
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function authLoginURL($scope)
     {
@@ -668,7 +668,7 @@ class TwitchSDK
      * Get authentication access token
      * @param string $code returned after app authorization by user
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function authAccessTokenGet($code)
     {
@@ -692,7 +692,7 @@ class TwitchSDK
      *  - requires scope 'user_read'
      * @param string
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function authUserGet($token)
     {
@@ -711,7 +711,7 @@ class TwitchSDK
      * @param integer $limit
      * @param integer $offset
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function authUserBlocks($token, $user, $limit = null, $offset = null)
     {
@@ -736,7 +736,7 @@ class TwitchSDK
      * @param string $user
      * @param string $target
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function authBlockTarget($token, $user, $target)
     {
@@ -754,7 +754,7 @@ class TwitchSDK
      * @param string $user
      * @param string $target
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function authRemoveTarget($token, $user, $target)
     {
@@ -770,7 +770,7 @@ class TwitchSDK
      *  - requires scope 'channel_read'
      * @param string
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function authChannelGet($token)
     {
@@ -790,7 +790,7 @@ class TwitchSDK
      * @param string $game
      * @param integer $delay
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function authChannelSet($token, $channelName, $status = null, $game = null, $delay = null)
     {
@@ -814,7 +814,7 @@ class TwitchSDK
      * @param string $token
      * @param string $channelName
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function authChannelResetKey($token, $channelName)
     {
@@ -831,7 +831,7 @@ class TwitchSDK
      * @param string
      * @param string
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function authChannelEditors($token, $channel)
     {
@@ -851,7 +851,7 @@ class TwitchSDK
      * @param integer $offset
      * @param string $direction can be DESC|ASC, if DESC - lasts will be showed first
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function authChannelSubscriptions($token, $channel, $limit = 25, $offset = 0, $direction = 'DESC')
     {
@@ -877,7 +877,7 @@ class TwitchSDK
      * @param string $channel
      * @param string $user
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function authSubscribedUser($token, $channel, $user)
     {
@@ -895,7 +895,7 @@ class TwitchSDK
      * @param string $user
      * @param string $channel
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function authSubscribedToChannel($token, $user, $channel)
     {
@@ -914,7 +914,7 @@ class TwitchSDK
      * @param integer $offset
      * @param bool $hls
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function authStreamsFollowed($token, $limit = 25, $offset = 0, $hls = null)
     {
@@ -942,7 +942,7 @@ class TwitchSDK
      * @param null $embeddable
      * @param null $hls
      * @return \stdClass
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     public function getStreams($game = null, $channels = null, $limit = null, $offset = null, $embeddable = null, $hls = null)
     {
@@ -986,7 +986,7 @@ class TwitchSDK
      * Returns string for auth
      * @param string $token
      * @return null|string
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     private function getAuthString($token)
     {
@@ -998,10 +998,10 @@ class TwitchSDK
 
     /**
      * Configuration exception
-     * @throws TwitchException
+     * @throws TwitchSDKException
      */
     private function configException()
     {
-        throw new TwitchException('Cannot call authenticate functions without valid API configuration');
+        throw new TwitchSDKException('Cannot call authenticate functions without valid API configuration');
     }
 }

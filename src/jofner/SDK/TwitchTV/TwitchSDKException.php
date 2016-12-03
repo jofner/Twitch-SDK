@@ -3,7 +3,7 @@
 namespace jofner\SDK\TwitchTV;
 
 /**
- * TwitchException for TwitchTV API SDK for PHP
+ * TwitchSDKException for TwitchTV API SDK for PHP
  *
  * PHP SDK for interacting with the TwitchTV API
  *
@@ -11,12 +11,12 @@ namespace jofner\SDK\TwitchTV;
  * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
  * @homepage https://github.com/jofner/Twitch-SDK
  */
-class TwitchException extends \Exception
+class TwitchSDKException extends \Exception
 {
-    /** @var TwitchException */
+    /** @var TwitchSDKException */
     protected $previous;
 
-    public function __construct($message = null, $code = 0, TwitchException $previous = null)
+    public function __construct($message = null, $code = 0, TwitchSDKException $previous = null)
     {
         $this->code = $code;
         if ($message !== null) {
