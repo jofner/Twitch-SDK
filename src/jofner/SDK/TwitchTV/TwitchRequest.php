@@ -146,23 +146,18 @@ class TwitchRequest
         switch ($method) {
             case 'POST':
                 curl_setopt($crl, CURLOPT_POST, true);
-                if ($postfields !== null) {
-                    curl_setopt($crl, CURLOPT_POSTFIELDS, ltrim($postfields, '?'));
-                }
                 break;
             case 'PUT':
                 curl_setopt($crl, CURLOPT_CUSTOMREQUEST, 'PUT');
                 curl_setopt($crl, CURLOPT_HTTPHEADER, array('Content-Length: ' . strlen($postfields)));
-                if ($postfields !== null) {
-                    curl_setopt($crl, CURLOPT_POSTFIELDS, ltrim($postfields, '?'));
-                }
                 break;
             case 'DELETE':
                 curl_setopt($crl, CURLOPT_CUSTOMREQUEST, 'DELETE');
                 curl_setopt($crl, CURLOPT_HTTPHEADER, array('Content-Length: ' . strlen($postfields)));
-                if ($postfields !== null) {
-                    curl_setopt($crl, CURLOPT_POSTFIELDS, ltrim($postfields, '?'));
-                }
+        }
+
+        if ($postfields !== null) {
+            curl_setopt($crl, CURLOPT_POSTFIELDS, ltrim($postfields, '?'));
         }
 
         curl_setopt($crl, CURLOPT_URL, $uri);
