@@ -129,6 +129,31 @@ class TwitchRequest
     private function generalRequest($uri, $method = 'GET', $postfields = null)
     {
         $this->httpInfo = array();
+
+        $crl = $this->initCrl($uri, $method, $postfields);
+        $response = curl_exec($crl);
+
+        $this->httpCode = curl_getinfo($crl, CURLINFO_HTTP_CODE);
+        $this->httpInfo = array_merge($this->httpInfo, curl_getinfo($crl));
+
+        if (curl_errno($crl) && $this->throwCurlErrors === true) {
+            throw new TwitchSDKException(curl_error($crl), curl_errno($crl));
+        }
+
+        curl_close($crl);
+
+        return json_decode($response);
+    }
+
+    /**
+     * Initialize a cURL session
+     * @param string $uri
+     * @param string $method
+     * @param array|null $postfields
+     * @return resource
+     */
+    private function initCrl($uri, $method, $postfields)
+    {
         $optHttpHeader = array(
             'Expect:',
             'Accept: ' . sprintf(self::MIME_TYPE, $this->getApiVersion()),
@@ -160,21 +185,9 @@ class TwitchRequest
         }
 
         curl_setopt($crl, CURLOPT_HTTPHEADER, $optHttpHeader);
-
         curl_setopt($crl, CURLOPT_URL, $uri);
 
-        $response = curl_exec($crl);
-
-        $this->httpCode = curl_getinfo($crl, CURLINFO_HTTP_CODE);
-        $this->httpInfo = array_merge($this->httpInfo, curl_getinfo($crl));
-
-        if (curl_errno($crl) && $this->throwCurlErrors === true) {
-            throw new TwitchSDKException(curl_error($crl), curl_errno($crl));
-        }
-
-        curl_close($crl);
-
-        return json_decode($response);
+        return $crl;
     }
 
     /**
