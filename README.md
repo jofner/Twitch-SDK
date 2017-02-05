@@ -1,5 +1,7 @@
 # TwitchTV SDK for PHP
 
+> UNMAINTAINED!!! I have no project to build SDK for or test on, so i abandoned this project. I'm sorry for that and i hope someone kind will continue with developing. Maybe another SDK's are around, so try search GitHub for alternative.
+
 > This is unofficial [TwitchTV SDK for PHP](https://github.com/jofner/Twitch-SDK).
 SDK is currently under development, so functions, readme and/or examples will
 change.
@@ -8,9 +10,7 @@ change.
 
 > TwitchTV SDK for v3 API is under development
 
-There is [develop](https://github.com/jofner/Twitch-SDK/tree/develop) branch, which takes place in refactoring existing features.
-Because I need to develop SDK and also have it functional, rewriting functions carried out in phases.
-If you have questions or suggestions regarding the development of the new version, you can use [Issues](https://github.com/jofner/Twitch-SDK/issues)
+There is [master](https://github.com/jofner/Twitch-SDK/tree/master) branch, which contains 2.* version.
 
 ## WARNING FOR 2.* !!!
 
