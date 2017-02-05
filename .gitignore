@@ -3,3 +3,4 @@
 /tests
 /vendor/*
 composer.lock
+doc
