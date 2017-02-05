@@ -1,0 +1,5 @@
+{
+    "require": {
+        "jofner/twitch-sdk": "dev-master"
+    }
+}

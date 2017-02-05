@@ -1,6 +1,6 @@
 Available for use under the [MIT License](http://en.wikipedia.org/wiki/MIT_License)
 
-Copyright (c) 2013 Josef Ohnheiser <ritero@ritero.eu>
+Copyright (c) 2013 Josef Ohnheiser <jofnercz@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

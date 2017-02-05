@@ -1,6 +1,3 @@
-.idea/*
-/docs
-/tests
-/vendor/*
 composer.lock
+vendor
 doc
