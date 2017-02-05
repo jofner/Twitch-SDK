@@ -2,6 +2,8 @@
 
 # TwitchTV SDK for PHP
 
+> UNMAINTAINED!!! I have no project to build SDK for or test on, so i abandoned this project. I'm sorry for that and i hope someone kind will continue with developing. Maybe another SDK's are around, so try search GitHub for alternative.
+
 > This is unofficial [TwitchTV SDK for PHP](https://github.com/jofner/Twitch-SDK) formerly known as ritero/twitch-sdk
 
 ## WARNING BEFORE UPDATING TO 2.* !!!
